@@ -63,7 +63,7 @@ function SuccessContent() {
               Booking Summary
             </h3>
             {[
-              { label: "Event", value: "Telangana Architects Festival 2026" },
+              { label: "Event", value: "Telangana Architecture Festival 2026" },
               { label: "Date", value: "12th June 2026, Friday" },
               { label: "Time", value: "5:00 PM Onwards" },
               { label: "Venue", value: "Hyderabad, Telangana" },

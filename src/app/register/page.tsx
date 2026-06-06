@@ -158,7 +158,7 @@ function RegisterContent() {
 
           <div className="text-center mb-10">
             <p className="uppercase tracking-[0.3em] text-sm mb-2" style={{ color: "#c9a227" }}>
-              Telangana Architects Festival 2026
+              Telangana Architecture Festival 2026
             </p>
             <h1 className="text-3xl md:text-4xl font-bold" style={{ fontFamily: "var(--font-playfair)" }}>
               Event Registration

@@ -43,16 +43,13 @@ export default function Navbar() {
         <Link href="/" style={{ display: "flex", alignItems: "center", gap: "0.875rem", textDecoration: "none" }}>
           <Image
             src="/iia-tc-seal.png"
-            alt="IIA Telangana Chapter"
-            width={40} height={40}
-            style={{ width: 38, height: 38, objectFit: "contain", filter: "drop-shadow(0 0 6px rgba(201,162,39,0.3))" }}
+            alt="The IIA Telangana Chapter"
+            width={52} height={52}
+            style={{ width: 50, height: 50, objectFit: "contain", filter: "drop-shadow(0 0 6px rgba(201,162,39,0.3))" }}
           />
           <div style={{ display: "flex", flexDirection: "column", lineHeight: 1.25 }}>
             <span style={{ fontSize: "0.78rem", fontWeight: 700, color: "#c9a227", letterSpacing: "0.03em" }}>
-              IIA Telangana Chapter
-            </span>
-            <span style={{ fontSize: "0.7rem", color: "rgba(240,237,230,0.45)", letterSpacing: "0.02em" }}>
-              Architects Festival 2026
+              The IIA Telangana Chapter
             </span>
           </div>
         </Link>

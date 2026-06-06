@@ -142,7 +142,7 @@ export default function Home() {
           <motion.p initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.25, duration: 0.55 }}
             style={{ ...S.label, textAlign: "center", marginBottom: "1rem" }}
           >
-            Indian Institute of Architects &nbsp;·&nbsp; Telangana Chapter
+            The Indian Institute of Architects &nbsp;·&nbsp; Telangana Chapter
           </motion.p>
 
           {/* Headline */}
@@ -215,7 +215,7 @@ export default function Home() {
             <span style={S.label}>About The Festival</span>
             <h2 style={S.h2}>A Grand Celebration of <span className="gold-text">Architecture</span></h2>
             <p style={{ ...S.p, maxWidth: 700, margin: "0 auto" }}>
-              The Telangana Architects Festival (TAF) is the flagship annual event by the Indian Institute of Architects, Telangana Chapter — bringing together the architectural fraternity for an unforgettable evening of awards, cultural performances, felicitations, and meaningful connections. This year marks a milestone — our <strong style={{ color: "#c9a227" }}>Decennial Celebrations</strong>, a decade of design excellence.
+              The Telangana Architecture Festival (TAF) is the flagship annual event by the Indian Institute of Architects, Telangana Chapter — bringing together the architectural fraternity for an unforgettable evening of awards, cultural performances, felicitations, and meaningful connections. This year marks a milestone — our <strong style={{ color: "#c9a227" }}>Decennial Celebrations</strong>, a decade of design excellence.
             </p>
           </motion.div>
 

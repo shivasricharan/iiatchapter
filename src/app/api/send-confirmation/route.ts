@@ -42,7 +42,7 @@ export async function POST(req: NextRequest) {
                 <span style="color:#c9a227;font-size:12px;font-weight:700;">IIA</span>
               </div>
               <p style="color:#c9a227;font-size:11px;letter-spacing:3px;text-transform:uppercase;margin:0 0 8px;">IIA Telangana Chapter</p>
-              <h1 style="color:#f5f5f0;font-size:28px;font-weight:700;margin:0;letter-spacing:-0.5px;">Telangana Architects Festival</h1>
+              <h1 style="color:#f5f5f0;font-size:28px;font-weight:700;margin:0;letter-spacing:-0.5px;">Telangana Architecture Festival</h1>
               <p style="color:rgba(245,208,110,0.8);font-size:20px;margin:4px 0 0;font-weight:300;letter-spacing:4px;">2026</p>
             </td>
           </tr>
@@ -59,7 +59,7 @@ export async function POST(req: NextRequest) {
             <td style="padding:40px;">
               <p style="color:#f5f5f0;font-size:16px;margin:0 0 8px;">Dear <strong>${name}</strong>,</p>
               <p style="color:rgba(245,245,240,0.65);font-size:14px;line-height:1.7;margin:0 0 32px;">
-                Thank you for registering for the <strong style="color:#c9a227;">Telangana Architects Festival 2026</strong>.
+                Thank you for registering for the <strong style="color:#c9a227;">Telangana Architecture Festival 2026</strong>.
                 Your payment has been received and your seat is confirmed. We look forward to welcoming you!
               </p>
 
@@ -72,7 +72,7 @@ export async function POST(req: NextRequest) {
                       ["📅 Date", "12th June 2026, Friday"],
                       ["🕔 Time", "5:00 PM Onwards"],
                       ["📍 Venue", "Hyderabad, Telangana"],
-                      ["🎟 Event", "Telangana Architects Festival 2026"],
+                      ["🎟 Event", "Telangana Architecture Festival 2026"],
                     ].map(([label, value]) => `
                     <tr>
                       <td style="color:rgba(245,245,240,0.5);font-size:13px;padding:6px 0;width:120px;">${label}</td>
