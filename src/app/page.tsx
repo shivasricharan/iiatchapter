@@ -29,7 +29,7 @@ const schedule = [
   { time: "06:00 PM", event: "Inauguration Ceremony" },
   { time: "06:30 PM", event: "Awards & Felicitations" },
   { time: "08:00 PM", event: "Cultural Performances" },
-  { time: "09:00 PM", event: "Gala Dinner" },
+  { time: "09:00 PM", event: "Cocktail and Dinner" },
   { time: "10:30 PM", event: "Networking & Valediction" },
 ];
 
@@ -382,7 +382,7 @@ export default function Home() {
                 <span style={{ fontSize: "0.82rem", color: "rgba(240,237,230,0.4)", marginLeft: "0.4rem" }}>per person</span>
               </div>
               <ul style={{ listStyle: "none", padding: 0, margin: "0 0 1.75rem", display: "flex", flexDirection: "column", gap: "0.6rem", textAlign: "left" }}>
-                {["Valid IIA Telangana membership required","Membership number verified instantly","Full event & awards access","Gala Dinner included"].map(f => (
+                {["Valid IIA Telangana membership required","Membership number verified instantly","Full event & awards access","Cocktail and Dinner included"].map(f => (
                   <li key={f} style={{ display: "flex", alignItems: "center", gap: "0.55rem", fontSize: "0.85rem", color: "rgba(240,237,230,0.7)" }}>
                     <CheckCircle size={14} color="#c9a227" style={{ flexShrink: 0 }} />{f}
                   </li>
@@ -399,11 +399,11 @@ export default function Home() {
               <h3 style={{ fontFamily: "var(--font-playfair,Georgia,serif)", fontSize: "1.25rem", fontWeight: 700, marginBottom: "0.4rem" }}>Non-Member / Other Chapter</h3>
               <p style={{ fontSize: "0.85rem", color: "rgba(240,237,230,0.5)", marginBottom: "1.75rem" }}>Open to all architects and design professionals</p>
               <div style={{ marginBottom: "1.75rem" }}>
-                <span style={{ fontFamily: "var(--font-playfair,Georgia,serif)", fontSize: "3.25rem", fontWeight: 700, color: "#f0ede6" }}>₹3,000</span>
+                <span style={{ fontFamily: "var(--font-playfair,Georgia,serif)", fontSize: "3.25rem", fontWeight: 700, color: "#f0ede6" }}>₹5,000</span>
                 <span style={{ fontSize: "0.82rem", color: "rgba(240,237,230,0.4)", marginLeft: "0.4rem" }}>per person</span>
               </div>
               <ul style={{ listStyle: "none", padding: 0, margin: "0 0 1.75rem", display: "flex", flexDirection: "column", gap: "0.6rem", textAlign: "left" }}>
-                {["Other IIA chapter members welcome","Non-IIA architects & professionals","Full event & awards access","Gala Dinner included"].map(f => (
+                {["Other IIA chapter members welcome","Non-IIA architects & professionals","Full event & awards access","Cocktail and Dinner included"].map(f => (
                   <li key={f} style={{ display: "flex", alignItems: "center", gap: "0.55rem", fontSize: "0.85rem", color: "rgba(240,237,230,0.7)" }}>
                     <CheckCircle size={14} color="#c9a227" style={{ flexShrink: 0 }} />{f}
                   </li>
@@ -489,7 +489,7 @@ export default function Home() {
                   {[
                     "Open any UPI / banking app on your phone",
                     "Tap Scan QR or BharatQR option",
-                    "Scan the code and enter amount (₹500 or ₹3,000)",
+                    "Scan the code and enter amount (₹500, ₹5,000)",
                     "Add your name in remarks and confirm payment",
                     "Screenshot and share to iiatchapter@gmail.com",
                   ].map((s, i) => (

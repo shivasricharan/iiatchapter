@@ -45,7 +45,7 @@ function RegisterContent() {
   const [step, setStep] = useState<"form" | "review" | "payment">("form");
 
   const memberPrice = 500;
-  const nonMemberPrice = 3000;
+  const nonMemberPrice = 5000;
 
   const getPrice = () => {
     if (form.memberType === "iia-telangana") {
@@ -213,9 +213,9 @@ function RegisterContent() {
                     </label>
                     <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                       {[
-                        { value: "iia-telangana", label: "IIA Telangana Member", price: "₹500" },
-                        { value: "other-chapter", label: "Other IIA Chapter", price: "₹3,000" },
-                        { value: "non-member", label: "Non-Member", price: "₹3,000" },
+                        { value: "iia-telangana", label: "IIA Telangana Member" },
+                        { value: "other-chapter", label: "Other IIA Chapter" },
+                        { value: "non-member", label: "Non-Member" },
                       ].map((opt) => (
                         <button
                           key={opt.value}
@@ -227,8 +227,7 @@ function RegisterContent() {
                             border: form.memberType === opt.value ? "1px solid rgba(201,162,39,0.6)" : "1px solid rgba(255,255,255,0.08)",
                           }}
                         >
-                          <div className="text-sm font-semibold mb-1">{opt.label}</div>
-                          <div className="text-xs font-bold" style={{ color: "#c9a227" }}>{opt.price}</div>
+                          <div className="text-sm font-semibold">{opt.label}</div>
                         </button>
                       ))}
                     </div>
@@ -376,17 +375,25 @@ function RegisterContent() {
                         Registration Fee
                       </p>
                       <p className="text-sm font-medium">
-                        {form.memberType === "iia-telangana" && verification.status === "valid"
+                        {!form.memberType
+                          ? "Select a category above"
+                          : form.memberType === "iia-telangana" && verification.status === "valid"
                           ? "IIA Telangana Member Rate"
-                          : form.memberType === "iia-telangana" && verification.status !== "valid"
+                          : form.memberType === "iia-telangana"
                           ? "Pending verification"
-                          : "Standard Rate"}
+                          : form.memberType === "other-chapter"
+                          ? "Other IIA Chapter Rate"
+                          : "Non-Member Rate"}
                       </p>
                     </div>
                     <div className="text-right">
-                      <p className="text-3xl font-bold gold-gradient">
-                        ₹{getPrice().toLocaleString("en-IN")}
-                      </p>
+                      {form.memberType ? (
+                        <p className="text-3xl font-bold gold-gradient">
+                          ₹{getPrice().toLocaleString("en-IN")}
+                        </p>
+                      ) : (
+                        <p className="text-3xl font-bold" style={{ color: "rgba(245,245,240,0.2)" }}>—</p>
+                      )}
                     </div>
                   </div>
 
