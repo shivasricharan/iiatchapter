@@ -132,12 +132,12 @@ export default function Home() {
           <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.7 }}
             style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "3rem", marginBottom: "2.5rem" }}
           >
-            <div className="float" style={{ filter: "drop-shadow(0 0 28px rgba(201,162,39,0.65))" }}>
+            <div style={{ filter: "drop-shadow(0 0 28px rgba(201,162,39,0.65))" }}>
               <Image src="/iia-tc-seal.png" alt="IIA Telangana Chapter" width={140} height={140} style={{ width: 128, height: 128, objectFit: "contain" }} />
             </div>
             <div style={{ width: 1, height: 90, background: "linear-gradient(to bottom,transparent,rgba(201,162,39,0.5),transparent)" }} />
-            <div className="float" style={{ animationDelay: "1.5s", filter: "drop-shadow(0 0 28px rgba(201,162,39,0.65))" }}>
-              <Image src="/taf-logo.png" alt="TAF" width={120} height={144} style={{ width: 110, height: 132, objectFit: "contain" }} />
+            <div style={{ filter: "drop-shadow(0 0 28px rgba(201,162,39,0.65))" }}>
+              <Image src="/taf-logo.png" alt="TAF" width={140} height={140} style={{ width: 128, height: 128, objectFit: "contain" }} />
             </div>
           </motion.div>
 
