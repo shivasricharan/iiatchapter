@@ -12,12 +12,12 @@ export default function Footer() {
           <div>
             <div className="flex items-center gap-4 mb-4">
               <Image
-                src="/iia-tc-seal.svg"
+                src="/iia-tc-seal.png"
                 alt="IIA Telangana Chapter"
                 width={48}
                 height={48}
                 className="w-12 h-12 shrink-0"
-                style={{ filter: "invert(68%) sepia(55%) saturate(600%) hue-rotate(5deg) brightness(95%)" }}
+                style={{ filter: "drop-shadow(0 0 10px rgba(201,162,39,0.35))" }}
               />
               <div>
                 <p className="text-sm font-bold" style={{ color: "#c9a227" }}>IIA Telangana Chapter</p>
@@ -33,12 +33,12 @@ export default function Footer() {
           <div>
             <div className="flex items-center gap-3 mb-4">
               <Image
-                src="/taf-logo.svg"
+                src="/taf-logo.png"
                 alt="TAF"
                 width={24}
                 height={30}
                 className="w-6 h-7"
-                style={{ filter: "invert(68%) sepia(55%) saturate(600%) hue-rotate(5deg) brightness(95%)" }}
+                style={{ filter: "drop-shadow(0 0 10px rgba(201,162,39,0.35))" }}
               />
               <h4 className="text-sm font-bold uppercase tracking-wider" style={{ color: "#c9a227" }}>
                 Event Details

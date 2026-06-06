@@ -95,12 +95,12 @@ export default function Home() {
             {/* IIA TC Seal */}
             <div className="float-animation">
               <Image
-                src="/iia-tc-seal.svg"
+                src="/iia-tc-seal.png"
                 alt="IIA Telangana Chapter"
                 width={90}
                 height={90}
                 className="w-20 h-20 md:w-24 md:h-24"
-                style={{ filter: "invert(68%) sepia(55%) saturate(600%) hue-rotate(5deg) brightness(95%)" }}
+                style={{ filter: "drop-shadow(0 0 10px rgba(201,162,39,0.35))" }}
               />
             </div>
 
@@ -109,12 +109,12 @@ export default function Home() {
             {/* TAF Logo */}
             <div className="float-animation" style={{ animationDelay: "1s" }}>
               <Image
-                src="/taf-logo.svg"
+                src="/taf-logo.png"
                 alt="Telangana Architects Festival"
                 width={80}
                 height={100}
                 className="w-16 h-20 md:w-20 md:h-24"
-                style={{ filter: "invert(68%) sepia(55%) saturate(600%) hue-rotate(5deg) brightness(95%)" }}
+                style={{ filter: "drop-shadow(0 0 10px rgba(201,162,39,0.35))" }}
               />
             </div>
           </motion.div>

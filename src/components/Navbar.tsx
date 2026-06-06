@@ -36,12 +36,12 @@ export default function Navbar() {
           {/* IIA TC Seal */}
           <div className="w-10 h-10 shrink-0" style={{ color: "#c9a227" }}>
             <Image
-              src="/iia-tc-seal.svg"
+              src="/iia-tc-seal.png"
               alt="IIA Telangana Chapter"
               width={40}
               height={40}
               className="w-10 h-10"
-              style={{ filter: "invert(68%) sepia(55%) saturate(600%) hue-rotate(5deg) brightness(95%)" }}
+              style={{ filter: "drop-shadow(0 0 10px rgba(201,162,39,0.35))" }}
             />
           </div>
           <div className="hidden sm:block">
@@ -57,12 +57,12 @@ export default function Navbar() {
         {/* TAF logo mark — centre */}
         <div className="absolute left-1/2 -translate-x-1/2 hidden md:block">
           <Image
-            src="/taf-logo.svg"
+            src="/taf-logo.png"
             alt="TAF"
             width={36}
             height={45}
             style={{
-              filter: "invert(68%) sepia(55%) saturate(600%) hue-rotate(5deg) brightness(95%)",
+              filter: "drop-shadow(0 0 10px rgba(201,162,39,0.35))",
               opacity: scrolled ? 0.9 : 0,
               transition: "opacity 0.3s ease",
             }}
