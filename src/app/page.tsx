@@ -3,24 +3,25 @@
 import Link from "next/link";
 import Image from "next/image";
 import { motion, type Transition } from "framer-motion";
-import { Calendar, MapPin, Clock, ArrowRight, Award, Users, Music, Star, CheckCircle } from "lucide-react";
+import { Calendar, MapPin, Clock, ArrowRight, Award, Users, Music, Star, CheckCircle, Phone, Mail, ExternalLink } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import CountdownTimer from "@/components/CountdownTimer";
 
-const easeOut = "easeOut" as Transition["ease"];
-const inView = (delay = 0) => ({
+const ease = "easeOut" as Transition["ease"];
+const iv = (delay = 0) => ({
   initial: { opacity: 0, y: 28 },
   whileInView: { opacity: 1, y: 0 },
   viewport: { once: true },
-  transition: { duration: 0.65, delay, ease: easeOut },
+  transition: { duration: 0.65, delay, ease },
 });
 
+/* ── Data ──────────────────────────────────────────── */
 const highlights = [
-  { icon: Award,  title: "Awards Night",      desc: "Celebrating excellence in architecture and design across Telangana" },
-  { icon: Music,  title: "Cultural Evening",  desc: "A vibrant celebration of art, culture, and architectural heritage" },
-  { icon: Users,  title: "Networking",        desc: "Connect with 1,000+ architects, designers, and industry leaders" },
-  { icon: Star,   title: "Felicitations",     desc: "Honouring distinguished members and lifetime achievers" },
+  { icon: Award, title: "Awards Night",     desc: "Celebrating excellence in architecture and design across Telangana" },
+  { icon: Music, title: "Cultural Evening", desc: "Vibrant performances honouring art, culture and architectural heritage" },
+  { icon: Users, title: "Networking",       desc: "Connect with 1,000+ architects, designers, and industry leaders" },
+  { icon: Star,  title: "Felicitations",    desc: "Honouring distinguished members and lifetime achievers" },
 ];
 
 const schedule = [
@@ -32,163 +33,203 @@ const schedule = [
   { time: "10:30 PM", event: "Networking & Valediction" },
 ];
 
+const guests = [
+  {
+    name: "A. Revanth Reddy Garu",
+    role: "Chief Guest",
+    designation: "Chief Minister of Telangana",
+    highlight: true,
+  },
+  {
+    name: "Ar. Vilas Anavithai Garu",
+    role: "Guest of Honour",
+    designation: "Chairman, FPA · Former President, IIA",
+    highlight: false,
+  },
+  {
+    name: "Ar. N. Padmavathi Reddy Garu",
+    role: "Special Guest",
+    designation: "Hon'ble Member of Legislative Assembly",
+    highlight: false,
+  },
+  {
+    name: "Ar. Naveen Yadav Garu",
+    role: "Special Guest",
+    designation: "Hon'ble Member of Legislative Assembly",
+    highlight: false,
+  },
+];
+
+const officeBearers = [
+  { name: "Ar. Narasimham V V L",  role: "Chairman",           phone: "+91 9848046148" },
+  { name: "Ar. V. RamMohan",       role: "Vice Chairman",      phone: "+91 9848468680" },
+  { name: "Ar. Y. Suresh Babu",    role: "Hon. Jt. Secretary", phone: "+91 9866117788" },
+  { name: "Ar. T. Ashok Raj",      role: "Hon. Treasurer",     phone: "+91 9849015811" },
+  { name: "Ar. Uday Shankar Doni", role: "Imm. Past Chairman", phone: "+91 9246522693" },
+  { name: "Ar. Jyothirmayi Mitta", role: "Hon. Jt. Secretary", phone: "+91 9866660224" },
+];
+
+const executiveMembers = [
+  "Ar. S. Raghu Ram Acharya",
+  "Ar. Shweta Balasubramoni",
+  "Ar. A. A. Sharma",
+  "Ar. Abhishek Ramanujam",
+  "Ar. Chandi Prasanna",
+  "Ar. Ashok Bhairi",
+  "Ar. E. Mukhteshwar",
+  "Ar. Sandeep Naidu Gatti",
+  "Ar. B. Vijay Mohan",
+  "Ar. JM Balachandran",
+  "Ar. Sajjan Kumar Goud",
+  "Ar. Jaipal Reddy",
+];
+
+/* ── Styles ────────────────────────────────────────── */
+const S = {
+  wrap:    { width: "100%", background: "#080808", color: "#f0ede6" } as React.CSSProperties,
+  section: (pt = "7rem", pb = "7rem") => ({ padding: `${pt} 1.75rem ${pb}` } as React.CSSProperties),
+  inner:   (max = 1120) => ({ maxWidth: max, margin: "0 auto" } as React.CSSProperties),
+  label:   { fontSize: "0.68rem", letterSpacing: "0.25em", textTransform: "uppercase" as const, fontWeight: 700, color: "#c9a227", display: "block", marginBottom: "0.875rem" },
+  h2:      { fontFamily: "var(--font-playfair,Georgia,serif)", fontSize: "clamp(1.9rem,4.5vw,3.2rem)", fontWeight: 700, lineHeight: 1.15, margin: "0 0 1.25rem" } as React.CSSProperties,
+  p:       { fontSize: "1rem", lineHeight: 1.8, color: "rgba(240,237,230,0.6)", margin: 0 } as React.CSSProperties,
+  card:    { background: "rgba(255,255,255,0.035)", border: "1px solid rgba(201,162,39,0.18)", borderRadius: "1.125rem" } as React.CSSProperties,
+  goldCard:{ background: "linear-gradient(135deg,rgba(201,162,39,0.13),rgba(201,162,39,0.04))", border: "1px solid rgba(201,162,39,0.38)", borderRadius: "1.125rem" } as React.CSSProperties,
+};
+
+import React from "react";
+
 export default function Home() {
   return (
-    <div style={{ width: "100%", background: "#080808", color: "#f0ede6" }}>
+    <div style={S.wrap}>
       <Navbar />
 
-      {/* ════════════════════════════════════════ HERO */}
-      <section
-        style={{ minHeight: "100vh", position: "relative", display: "flex", alignItems: "center", justifyContent: "center", overflow: "hidden" }}
-      >
-        {/* ambient blobs */}
+      {/* ═══════════════ HERO ═══════════════ */}
+      <section style={{ minHeight: "100vh", position: "relative", display: "flex", alignItems: "center", justifyContent: "center", overflow: "hidden" }}>
+        {/* Bg atmosphere */}
         <div style={{ position: "absolute", inset: 0, pointerEvents: "none" }}>
-          <div style={{ position: "absolute", top: "15%", left: "10%", width: 500, height: 500, borderRadius: "50%", background: "radial-gradient(circle, rgba(201,162,39,0.08) 0%, transparent 70%)", filter: "blur(60px)" }} />
-          <div style={{ position: "absolute", bottom: "15%", right: "10%", width: 400, height: 400, borderRadius: "50%", background: "radial-gradient(circle, rgba(201,162,39,0.06) 0%, transparent 70%)", filter: "blur(60px)" }} />
-          {/* grid */}
+          <div style={{ position: "absolute", top: "12%", left: "8%", width: 560, height: 560, borderRadius: "50%", background: "radial-gradient(circle,rgba(201,162,39,0.07) 0%,transparent 70%)", filter: "blur(70px)" }} />
+          <div style={{ position: "absolute", bottom: "12%", right: "8%", width: 440, height: 440, borderRadius: "50%", background: "radial-gradient(circle,rgba(201,162,39,0.05) 0%,transparent 70%)", filter: "blur(70px)" }} />
           <svg style={{ position: "absolute", inset: 0, width: "100%", height: "100%", opacity: 0.04 }} xmlns="http://www.w3.org/2000/svg">
-            <defs>
-              <pattern id="g" width="72" height="72" patternUnits="userSpaceOnUse">
-                <path d="M 72 0 L 0 0 0 72" fill="none" stroke="#c9a227" strokeWidth="0.6"/>
-              </pattern>
-            </defs>
+            <defs><pattern id="g" width="72" height="72" patternUnits="userSpaceOnUse"><path d="M 72 0 L 0 0 0 72" fill="none" stroke="#c9a227" strokeWidth="0.6"/></pattern></defs>
             <rect width="100%" height="100%" fill="url(#g)"/>
           </svg>
         </div>
 
-        <div style={{ position: "relative", zIndex: 10, width: "100%", maxWidth: 900, margin: "0 auto", padding: "8rem 1.5rem 4rem", textAlign: "center" }}>
+        <div style={{ ...S.inner(860), position: "relative", zIndex: 10, padding: "8rem 1.75rem 4rem", textAlign: "center" }}>
 
           {/* Logos */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.7 }}
-            style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "2.5rem", marginBottom: "3rem" }}
+          <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.7 }}
+            style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "2.5rem", marginBottom: "2.5rem" }}
           >
-            <div className="float" style={{ filter: "drop-shadow(0 0 16px rgba(201,162,39,0.4))" }}>
-              <Image src="/iia-tc-seal.png" alt="IIA Telangana Chapter" width={96} height={96} style={{ width: 88, height: 88, objectFit: "contain" }} />
+            <div className="float" style={{ filter: "drop-shadow(0 0 18px rgba(201,162,39,0.45))" }}>
+              <Image src="/iia-tc-seal.png" alt="IIA Telangana Chapter" width={90} height={90} style={{ width: 80, height: 80, objectFit: "contain" }} />
             </div>
-            <div style={{ width: 1, height: 64, background: "linear-gradient(to bottom, transparent, rgba(201,162,39,0.5), transparent)" }} />
-            <div className="float" style={{ animationDelay: "1.5s", filter: "drop-shadow(0 0 16px rgba(201,162,39,0.4))" }}>
-              <Image src="/taf-logo.png" alt="Telangana Architecture Festival" width={80} height={96} style={{ width: 72, height: 88, objectFit: "contain" }} />
+            <div style={{ width: 1, height: 60, background: "linear-gradient(to bottom,transparent,rgba(201,162,39,0.5),transparent)" }} />
+            <div className="float" style={{ animationDelay: "1.5s", filter: "drop-shadow(0 0 18px rgba(201,162,39,0.45))" }}>
+              <Image src="/taf-logo.png" alt="TAF" width={70} height={84} style={{ width: 64, height: 78, objectFit: "contain" }} />
             </div>
           </motion.div>
 
+          {/* Decennial badge */}
+          <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.15, duration: 0.55 }}
+            style={{ display: "inline-flex", alignItems: "center", gap: "0.6rem", background: "linear-gradient(135deg,rgba(201,162,39,0.18),rgba(201,162,39,0.06))", border: "1px solid rgba(201,162,39,0.45)", borderRadius: 9999, padding: "0.45rem 1.1rem 0.45rem 0.75rem", marginBottom: "1.5rem" }}
+          >
+            <span style={{ fontSize: "1rem" }}>✦</span>
+            <span style={{ fontSize: "0.75rem", fontWeight: 700, letterSpacing: "0.18em", textTransform: "uppercase", color: "#c9a227" }}>Decennial Celebrations</span>
+          </motion.div>
+
           {/* Eyebrow */}
-          <motion.p
-            initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2, duration: 0.6 }}
-            className="label-tag" style={{ marginBottom: "1.25rem" }}
+          <motion.p initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.25, duration: 0.55 }}
+            style={{ ...S.label, textAlign: "center", marginBottom: "1rem" }}
           >
             Indian Institute of Architects &nbsp;·&nbsp; Telangana Chapter
           </motion.p>
 
           {/* Headline */}
-          <motion.h1
-            initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.35, duration: 0.75, ease: "easeOut" }}
-            className="font-display"
-            style={{ fontSize: "clamp(3rem, 8vw, 6.5rem)", fontWeight: 700, lineHeight: 1.08, letterSpacing: "-0.02em", margin: "0 0 1.25rem" }}
+          <motion.h1 initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.38, duration: 0.75, ease: "easeOut" }}
+            style={{ fontFamily: "var(--font-playfair,Georgia,serif)", fontSize: "clamp(2.8rem,7.5vw,6rem)", fontWeight: 700, lineHeight: 1.08, letterSpacing: "-0.02em", margin: "0 0 0.75rem" }}
           >
             Telangana<br />
             <span className="gold-text">Architects</span><br />
             Festival
           </motion.h1>
 
-          {/* Year rule */}
-          <motion.div
-            initial={{ opacity: 0, scaleX: 0 }} animate={{ opacity: 1, scaleX: 1 }}
-            transition={{ delay: 0.5, duration: 0.6 }}
-            style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "1rem", marginBottom: "2.5rem" }}
+          {/* Theme line */}
+          <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.55, duration: 0.6 }}
+            style={{ fontFamily: "var(--font-playfair,Georgia,serif)", fontStyle: "italic", fontSize: "clamp(1rem,2.5vw,1.35rem)", color: "rgba(240,204,90,0.75)", margin: "0 0 2rem", letterSpacing: "0.04em" }}
           >
-            <span style={{ flex: 1, maxWidth: 80, height: 1, background: "rgba(201,162,39,0.45)" }} />
-            <span style={{ fontSize: "1.1rem", letterSpacing: "0.4em", color: "rgba(240,204,90,0.85)", fontWeight: 300 }}>2 0 2 6</span>
-            <span style={{ flex: 1, maxWidth: 80, height: 1, background: "rgba(201,162,39,0.45)" }} />
+            &ldquo;From Stone to Storeys&rdquo;
+          </motion.p>
+
+          {/* Year rule */}
+          <motion.div initial={{ opacity: 0, scaleX: 0 }} animate={{ opacity: 1, scaleX: 1 }} transition={{ delay: 0.5, duration: 0.6 }}
+            style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "1rem", marginBottom: "2.25rem" }}
+          >
+            <span style={{ flex: 1, maxWidth: 72, height: 1, background: "rgba(201,162,39,0.4)" }} />
+            <span style={{ fontSize: "1rem", letterSpacing: "0.45em", color: "rgba(240,204,90,0.8)", fontWeight: 300 }}>2 0 2 6</span>
+            <span style={{ flex: 1, maxWidth: 72, height: 1, background: "rgba(201,162,39,0.4)" }} />
           </motion.div>
 
           {/* Meta pills */}
-          <motion.div
-            initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.6, duration: 0.6 }}
-            style={{ display: "flex", flexWrap: "wrap", alignItems: "center", justifyContent: "center", gap: "0.75rem", marginBottom: "3rem" }}
+          <motion.div initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.62, duration: 0.55 }}
+            style={{ display: "flex", flexWrap: "wrap", justifyContent: "center", gap: "0.6rem", marginBottom: "2.75rem" }}
           >
             {[
               { icon: Calendar, text: "12th June 2026 · Friday" },
               { icon: Clock,    text: "5:00 PM Onwards" },
-              { icon: MapPin,   text: "Hyderabad, Telangana" },
+              { icon: MapPin,   text: "Avasa Hotel, Madhapur, Hyderabad" },
             ].map(({ icon: Icon, text }) => (
-              <span key={text} style={{
-                display: "inline-flex", alignItems: "center", gap: "0.5rem",
-                padding: "0.55rem 1.1rem", borderRadius: 9999,
-                background: "rgba(255,255,255,0.05)", border: "1px solid rgba(201,162,39,0.2)",
-                fontSize: "0.85rem", color: "rgba(240,237,230,0.8)"
-              }}>
-                <Icon size={14} color="#c9a227" />
-                {text}
+              <span key={text} style={{ display: "inline-flex", alignItems: "center", gap: "0.45rem", padding: "0.5rem 1rem", borderRadius: 9999, background: "rgba(255,255,255,0.05)", border: "1px solid rgba(201,162,39,0.2)", fontSize: "0.83rem", color: "rgba(240,237,230,0.8)" }}>
+                <Icon size={13} color="#c9a227" />{text}
               </span>
             ))}
           </motion.div>
 
           {/* CTAs */}
-          <motion.div
-            initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.75, duration: 0.6 }}
-            style={{ display: "flex", flexWrap: "wrap", gap: "1rem", justifyContent: "center", marginBottom: "5rem" }}
+          <motion.div initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.78, duration: 0.55 }}
+            style={{ display: "flex", flexWrap: "wrap", gap: "0.875rem", justifyContent: "center", marginBottom: "4.5rem" }}
           >
-            <Link href="/register">
-              <button className="btn-primary">Register Now <ArrowRight size={16} /></button>
-            </Link>
-            <a href="#about">
-              <button className="btn-outline">Learn More</button>
-            </a>
+            <Link href="/register"><button className="btn-primary">Register Now <ArrowRight size={16} /></button></Link>
+            <a href="#about"><button className="btn-outline">Learn More</button></a>
           </motion.div>
 
           {/* Countdown */}
-          <motion.div
-            initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.9, duration: 0.7 }}
-          >
+          <motion.div initial={{ opacity: 0, y: 22 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.92, duration: 0.65 }}>
             <CountdownTimer targetDate="2026-06-12T17:00:00" />
           </motion.div>
         </div>
 
         {/* Scroll cue */}
-        <div style={{ position: "absolute", bottom: "2rem", left: "50%", transform: "translateX(-50%)", display: "flex", flexDirection: "column", alignItems: "center", gap: "0.5rem", opacity: 0.35 }}>
-          <span style={{ fontSize: "0.6rem", letterSpacing: "0.3em", textTransform: "uppercase" }}>Scroll</span>
-          <div style={{ width: 1, height: 48, background: "linear-gradient(to bottom, rgba(201,162,39,0.7), transparent)" }} />
+        <div style={{ position: "absolute", bottom: "2rem", left: "50%", transform: "translateX(-50%)", display: "flex", flexDirection: "column", alignItems: "center", gap: "0.4rem", opacity: 0.3 }}>
+          <span style={{ fontSize: "0.58rem", letterSpacing: "0.3em", textTransform: "uppercase" }}>Scroll</span>
+          <div style={{ width: 1, height: 44, background: "linear-gradient(to bottom,rgba(201,162,39,0.7),transparent)" }} />
         </div>
       </section>
 
       <div className="divider" />
 
-      {/* ════════════════════════════════════════ ABOUT */}
-      <section id="about" style={{ padding: "7rem 1.5rem" }}>
-        <div style={{ maxWidth: 1120, margin: "0 auto" }}>
-          <motion.div {...inView()} style={{ textAlign: "center", marginBottom: "4.5rem" }}>
-            <span className="label-tag" style={{ marginBottom: "1rem", display: "block" }}>About The Festival</span>
-            <h2 className="font-display" style={{ fontSize: "clamp(2rem, 5vw, 3.5rem)", fontWeight: 700, lineHeight: 1.15, marginBottom: "1.5rem" }}>
-              A Grand Celebration of <span className="gold-text">Architecture</span>
-            </h2>
-            <p style={{ fontSize: "1.05rem", lineHeight: 1.8, color: "rgba(240,237,230,0.65)", maxWidth: 680, margin: "0 auto" }}>
-              The Telangana Architects Festival (TAF) is the flagship annual event by the Indian Institute of Architects,
-              Telangana Chapter — uniting the architectural fraternity for an evening of awards, cultural performances,
-              felicitations, and meaningful networking. A night that celebrates excellence and community.
+      {/* ═══════════════ ABOUT ═══════════════ */}
+      <section id="about" style={S.section()}>
+        <div style={S.inner()}>
+          <motion.div {...iv()} style={{ textAlign: "center", marginBottom: "4rem" }}>
+            <span style={S.label}>About The Festival</span>
+            <h2 style={S.h2}>A Grand Celebration of <span className="gold-text">Architecture</span></h2>
+            <p style={{ ...S.p, maxWidth: 700, margin: "0 auto" }}>
+              The Telangana Architects Festival (TAF) is the flagship annual event by the Indian Institute of Architects, Telangana Chapter — bringing together the architectural fraternity for an unforgettable evening of awards, cultural performances, felicitations, and meaningful connections. This year marks a milestone — our <strong style={{ color: "#c9a227" }}>Decennial Celebrations</strong>, a decade of design excellence.
             </p>
           </motion.div>
 
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: "1.5rem" }}>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(230px,1fr))", gap: "1.25rem" }}>
             {highlights.map(({ icon: Icon, title, desc }, i) => (
-              <motion.div key={title} {...inView(i * 0.1)}
-                className="glass-card"
-                style={{ borderRadius: "1.25rem", padding: "2rem", textAlign: "center", transition: "border-color 0.25s, transform 0.25s" }}
-                onMouseEnter={e => { (e.currentTarget as HTMLElement).style.transform = "translateY(-4px)"; (e.currentTarget as HTMLElement).style.borderColor = "rgba(201,162,39,0.45)"; }}
+              <motion.div key={title} {...iv(i * 0.09)} style={{ ...S.card, padding: "1.75rem", textAlign: "center", transition: "transform 0.25s,border-color 0.25s" }}
+                onMouseEnter={e => { (e.currentTarget as HTMLElement).style.transform = "translateY(-4px)"; (e.currentTarget as HTMLElement).style.borderColor = "rgba(201,162,39,0.42)"; }}
                 onMouseLeave={e => { (e.currentTarget as HTMLElement).style.transform = ""; (e.currentTarget as HTMLElement).style.borderColor = ""; }}
               >
-                <div style={{ width: 56, height: 56, borderRadius: "0.875rem", background: "rgba(201,162,39,0.1)", display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 1.25rem", color: "#c9a227" }}>
-                  <Icon size={26} />
+                <div style={{ width: 52, height: 52, borderRadius: "0.75rem", background: "rgba(201,162,39,0.1)", display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 1.1rem", color: "#c9a227" }}>
+                  <Icon size={24} />
                 </div>
-                <h3 className="font-display" style={{ fontSize: "1.1rem", fontWeight: 700, marginBottom: "0.6rem" }}>{title}</h3>
-                <p style={{ fontSize: "0.875rem", lineHeight: 1.7, color: "rgba(240,237,230,0.55)" }}>{desc}</p>
+                <h3 style={{ fontFamily: "var(--font-playfair,Georgia,serif)", fontSize: "1.05rem", fontWeight: 700, marginBottom: "0.5rem" }}>{title}</h3>
+                <p style={{ fontSize: "0.85rem", lineHeight: 1.65, color: "rgba(240,237,230,0.55)" }}>{desc}</p>
               </motion.div>
             ))}
           </div>
@@ -197,73 +238,130 @@ export default function Home() {
 
       <div className="divider" />
 
-      {/* ════════════════════════════════════════ SCHEDULE */}
-      <section id="schedule" style={{ padding: "7rem 1.5rem" }}>
-        <div style={{ maxWidth: 760, margin: "0 auto" }}>
-          <motion.div {...inView()} style={{ textAlign: "center", marginBottom: "4.5rem" }}>
-            <span className="label-tag" style={{ marginBottom: "1rem", display: "block" }}>Programme</span>
-            <h2 className="font-display" style={{ fontSize: "clamp(2rem, 5vw, 3.5rem)", fontWeight: 700, lineHeight: 1.15 }}>
-              Evening Schedule
-            </h2>
+      {/* ═══════════════ DISTINGUISHED GUESTS ═══════════════ */}
+      <section id="guests" style={S.section()}>
+        <div style={S.inner()}>
+          <motion.div {...iv()} style={{ textAlign: "center", marginBottom: "4rem" }}>
+            <span style={S.label}>In the Presence of Our Esteemed Guests</span>
+            <h2 style={S.h2}>Distinguished <span className="gold-text">Guests</span></h2>
           </motion.div>
 
-          <div style={{ position: "relative", display: "flex", flexDirection: "column", gap: "1rem" }}>
-            {/* timeline line */}
-            <div style={{ position: "absolute", left: 96, top: 0, bottom: 0, width: 1, background: "linear-gradient(to bottom, transparent, rgba(201,162,39,0.25), transparent)" }} />
+          {/* Chief Guest — full width spotlight */}
+          <motion.div {...iv(0.1)} style={{ ...S.goldCard, padding: "2.5rem", textAlign: "center", marginBottom: "1.5rem", position: "relative", overflow: "hidden" }}>
+            <div style={{ position: "absolute", top: -60, right: -60, width: 220, height: 220, borderRadius: "50%", background: "radial-gradient(circle,rgba(201,162,39,0.1) 0%,transparent 70%)" }} />
+            <div style={{ position: "relative", zIndex: 1 }}>
+              <div style={{ display: "inline-block", background: "#c9a227", color: "#080808", fontSize: "0.65rem", fontWeight: 800, letterSpacing: "0.2em", textTransform: "uppercase", padding: "0.35rem 1rem", borderRadius: 9999, marginBottom: "1.25rem" }}>Chief Guest</div>
+              <h3 style={{ fontFamily: "var(--font-playfair,Georgia,serif)", fontSize: "clamp(1.5rem,3.5vw,2.2rem)", fontWeight: 700, margin: "0 0 0.5rem" }}>A. Revanth Reddy Garu</h3>
+              <p style={{ color: "#c9a227", fontSize: "0.95rem", fontWeight: 600, margin: 0 }}>Chief Minister of Telangana</p>
+            </div>
+          </motion.div>
 
+          {/* Other guests */}
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(280px,1fr))", gap: "1.25rem" }}>
+            {guests.slice(1).map((g, i) => (
+              <motion.div key={g.name} {...iv(0.1 + i * 0.1)} style={{ ...S.card, padding: "1.75rem", textAlign: "center" }}>
+                <div style={{ display: "inline-block", background: "rgba(201,162,39,0.12)", color: "#c9a227", fontSize: "0.62rem", fontWeight: 700, letterSpacing: "0.18em", textTransform: "uppercase", padding: "0.3rem 0.9rem", borderRadius: 9999, marginBottom: "1rem", border: "1px solid rgba(201,162,39,0.3)" }}>{g.role}</div>
+                <h3 style={{ fontFamily: "var(--font-playfair,Georgia,serif)", fontSize: "1.15rem", fontWeight: 700, margin: "0 0 0.4rem" }}>{g.name}</h3>
+                <p style={{ fontSize: "0.83rem", color: "rgba(240,237,230,0.55)", margin: 0 }}>{g.designation}</p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <div className="divider" />
+
+      {/* ═══════════════ SCHEDULE ═══════════════ */}
+      <section id="schedule" style={S.section()}>
+        <div style={S.inner(720)}>
+          <motion.div {...iv()} style={{ textAlign: "center", marginBottom: "4rem" }}>
+            <span style={S.label}>Programme</span>
+            <h2 style={S.h2}>Evening Schedule</h2>
+          </motion.div>
+
+          <div style={{ position: "relative", display: "flex", flexDirection: "column", gap: "0.875rem" }}>
+            <div style={{ position: "absolute", left: 84, top: 0, bottom: 0, width: 1, background: "linear-gradient(to bottom,transparent,rgba(201,162,39,0.22),transparent)" }} />
             {schedule.map((item, i) => (
-              <motion.div key={i} {...inView(i * 0.08)}
-                style={{ display: "flex", alignItems: "center", gap: "1.5rem" }}
-              >
-                <span style={{ width: 80, flexShrink: 0, textAlign: "right", fontSize: "0.78rem", fontFamily: "monospace", fontWeight: 600, color: "#c9a227", letterSpacing: "0.03em" }}>
-                  {item.time}
-                </span>
-                <div style={{ position: "relative", flexShrink: 0 }}>
-                  <div style={{ width: 12, height: 12, borderRadius: "50%", border: "2px solid #c9a227", background: "#080808" }} />
-                </div>
-                <div className="glass-card" style={{ flex: 1, borderRadius: "0.875rem", padding: "1rem 1.5rem" }}>
-                  <p style={{ fontSize: "0.95rem", fontWeight: 600, margin: 0 }}>{item.event}</p>
+              <motion.div key={i} {...iv(i * 0.07)} style={{ display: "flex", alignItems: "center", gap: "1.25rem" }}>
+                <span style={{ width: 72, flexShrink: 0, textAlign: "right", fontSize: "0.75rem", fontFamily: "monospace", fontWeight: 600, color: "#c9a227", letterSpacing: "0.02em" }}>{item.time}</span>
+                <div style={{ flexShrink: 0, width: 11, height: 11, borderRadius: "50%", border: "2px solid #c9a227", background: "#080808" }} />
+                <div style={{ ...S.card, flex: 1, padding: "0.9rem 1.35rem" }}>
+                  <p style={{ fontSize: "0.92rem", fontWeight: 600, margin: 0 }}>{item.event}</p>
                 </div>
               </motion.div>
             ))}
           </div>
+
+          <motion.div {...iv(0.5)} style={{ textAlign: "center", marginTop: "2.5rem" }}>
+            <p style={{ fontFamily: "var(--font-playfair,Georgia,serif)", fontStyle: "italic", color: "rgba(240,204,90,0.7)", fontSize: "1.05rem" }}>Dinner Follows…</p>
+          </motion.div>
         </div>
       </section>
 
       <div className="divider" />
 
-      {/* ════════════════════════════════════════ PRICING */}
-      <section id="pricing" style={{ padding: "7rem 1.5rem" }}>
-        <div style={{ maxWidth: 900, margin: "0 auto" }}>
-          <motion.div {...inView()} style={{ textAlign: "center", marginBottom: "4.5rem" }}>
-            <span className="label-tag" style={{ marginBottom: "1rem", display: "block" }}>Registration Fee</span>
-            <h2 className="font-display" style={{ fontSize: "clamp(2rem, 5vw, 3.5rem)", fontWeight: 700, lineHeight: 1.15 }}>
-              Choose Your Pass
-            </h2>
+      {/* ═══════════════ OFFICE BEARERS ═══════════════ */}
+      <section id="team" style={S.section()}>
+        <div style={S.inner()}>
+          <motion.div {...iv()} style={{ textAlign: "center", marginBottom: "4rem" }}>
+            <span style={S.label}>Team IIA Telangana Chapter</span>
+            <h2 style={S.h2}>Office <span className="gold-text">Bearers</span></h2>
           </motion.div>
 
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(340px, 1fr))", gap: "2rem" }}>
-            {/* Member Card */}
-            <motion.div {...inView(0.1)}
-              className="gold-card"
-              style={{ borderRadius: "1.5rem", padding: "2.5rem", position: "relative", overflow: "hidden", textAlign: "center" }}
-            >
-              <div style={{ position: "absolute", top: "1.25rem", right: "1.25rem", background: "#c9a227", color: "#080808", fontSize: "0.7rem", fontWeight: 700, letterSpacing: "0.05em", padding: "0.35rem 0.85rem", borderRadius: 9999 }}>
-                MEMBER BENEFIT
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(280px,1fr))", gap: "1.25rem", marginBottom: "4rem" }}>
+            {officeBearers.map((ob, i) => (
+              <motion.div key={ob.name} {...iv(i * 0.08)} style={{ ...S.goldCard, padding: "1.6rem 1.75rem", display: "flex", flexDirection: "column", gap: "0.35rem" }}>
+                <span style={{ fontSize: "0.65rem", fontWeight: 700, letterSpacing: "0.18em", textTransform: "uppercase", color: "#c9a227" }}>{ob.role}</span>
+                <h3 style={{ fontFamily: "var(--font-playfair,Georgia,serif)", fontSize: "1.1rem", fontWeight: 700, margin: "0.1rem 0 0.5rem" }}>{ob.name}</h3>
+                <a href={`tel:${ob.phone.replace(/\s/g,"")}`} style={{ display: "flex", alignItems: "center", gap: "0.45rem", fontSize: "0.82rem", color: "rgba(240,237,230,0.55)", textDecoration: "none" }}>
+                  <Phone size={12} color="#c9a227" />{ob.phone}
+                </a>
+              </motion.div>
+            ))}
+          </div>
+
+          {/* Executive Committee */}
+          <motion.div {...iv(0.15)}>
+            <div style={{ textAlign: "center", marginBottom: "2.5rem" }}>
+              <span style={S.label}>Executive Committee Members</span>
+            </div>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(210px,1fr))", gap: "0.875rem" }}>
+              {executiveMembers.map((name, i) => (
+                <motion.div key={name} {...iv(i * 0.05)} style={{ ...S.card, padding: "0.9rem 1.2rem", display: "flex", alignItems: "center", gap: "0.6rem" }}>
+                  <span style={{ width: 6, height: 6, borderRadius: "50%", background: "#c9a227", flexShrink: 0 }} />
+                  <span style={{ fontSize: "0.875rem", fontWeight: 500 }}>{name}</span>
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      <div className="divider" />
+
+      {/* ═══════════════ PRICING ═══════════════ */}
+      <section id="pricing" style={S.section()}>
+        <div style={S.inner(900)}>
+          <motion.div {...iv()} style={{ textAlign: "center", marginBottom: "4rem" }}>
+            <span style={S.label}>Registration Fee</span>
+            <h2 style={S.h2}>Choose Your Pass</h2>
+          </motion.div>
+
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(340px,1fr))", gap: "1.75rem" }}>
+            {/* Member */}
+            <motion.div {...iv(0.1)} style={{ ...S.goldCard, padding: "2.5rem", textAlign: "center", position: "relative", overflow: "hidden" }}>
+              <div style={{ position: "absolute", top: "1.1rem", right: "1.1rem", background: "#c9a227", color: "#080808", fontSize: "0.65rem", fontWeight: 800, letterSpacing: "0.08em", padding: "0.3rem 0.8rem", borderRadius: 9999 }}>MEMBER BENEFIT</div>
+              <div style={{ width: 60, height: 60, borderRadius: "0.875rem", background: "rgba(201,162,39,0.15)", display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 1.35rem", color: "#c9a227" }}><Award size={28} /></div>
+              <h3 style={{ fontFamily: "var(--font-playfair,Georgia,serif)", fontSize: "1.25rem", fontWeight: 700, marginBottom: "0.4rem" }}>IIA Telangana Member</h3>
+              <p style={{ fontSize: "0.85rem", color: "rgba(240,237,230,0.5)", marginBottom: "1.75rem" }}>Exclusive rate for verified Telangana Chapter members</p>
+              <div style={{ marginBottom: "1.75rem" }}>
+                <span className="gold-text" style={{ fontFamily: "var(--font-playfair,Georgia,serif)", fontSize: "3.25rem", fontWeight: 700 }}>₹500</span>
+                <span style={{ fontSize: "0.82rem", color: "rgba(240,237,230,0.4)", marginLeft: "0.4rem" }}>per person</span>
               </div>
-              <div style={{ width: 64, height: 64, borderRadius: "1rem", background: "rgba(201,162,39,0.15)", display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 1.5rem", color: "#c9a227" }}>
-                <Award size={30} />
-              </div>
-              <h3 className="font-display" style={{ fontSize: "1.3rem", fontWeight: 700, marginBottom: "0.5rem" }}>IIA Telangana Member</h3>
-              <p style={{ fontSize: "0.875rem", color: "rgba(240,237,230,0.55)", marginBottom: "2rem" }}>Exclusive rate for verified Telangana Chapter members</p>
-              <div style={{ marginBottom: "2rem" }}>
-                <span className="gold-text font-display" style={{ fontSize: "3.5rem", fontWeight: 700 }}>₹500</span>
-                <span style={{ fontSize: "0.85rem", color: "rgba(240,237,230,0.45)", marginLeft: "0.4rem" }}>per person</span>
-              </div>
-              <ul style={{ textAlign: "left", listStyle: "none", padding: 0, margin: "0 0 2rem", display: "flex", flexDirection: "column", gap: "0.65rem" }}>
-                {["Valid IIA Telangana membership required", "Membership number verified instantly", "Full event & awards access", "Gala Dinner included"].map(f => (
-                  <li key={f} style={{ display: "flex", alignItems: "center", gap: "0.6rem", fontSize: "0.875rem", color: "rgba(240,237,230,0.7)" }}>
-                    <CheckCircle size={15} color="#c9a227" style={{ flexShrink: 0 }} /> {f}
+              <ul style={{ listStyle: "none", padding: 0, margin: "0 0 1.75rem", display: "flex", flexDirection: "column", gap: "0.6rem", textAlign: "left" }}>
+                {["Valid IIA Telangana membership required","Membership number verified instantly","Full event & awards access","Gala Dinner included"].map(f => (
+                  <li key={f} style={{ display: "flex", alignItems: "center", gap: "0.55rem", fontSize: "0.85rem", color: "rgba(240,237,230,0.7)" }}>
+                    <CheckCircle size={14} color="#c9a227" style={{ flexShrink: 0 }} />{f}
                   </li>
                 ))}
               </ul>
@@ -272,24 +370,19 @@ export default function Home() {
               </Link>
             </motion.div>
 
-            {/* Non-member Card */}
-            <motion.div {...inView(0.2)}
-              className="glass-card"
-              style={{ borderRadius: "1.5rem", padding: "2.5rem", textAlign: "center" }}
-            >
-              <div style={{ width: 64, height: 64, borderRadius: "1rem", background: "rgba(255,255,255,0.06)", display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 1.5rem", color: "rgba(240,237,230,0.6)" }}>
-                <Users size={30} />
+            {/* Non-member */}
+            <motion.div {...iv(0.2)} style={{ ...S.card, padding: "2.5rem", textAlign: "center" }}>
+              <div style={{ width: 60, height: 60, borderRadius: "0.875rem", background: "rgba(255,255,255,0.06)", display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 1.35rem", color: "rgba(240,237,230,0.6)" }}><Users size={28} /></div>
+              <h3 style={{ fontFamily: "var(--font-playfair,Georgia,serif)", fontSize: "1.25rem", fontWeight: 700, marginBottom: "0.4rem" }}>Non-Member / Other Chapter</h3>
+              <p style={{ fontSize: "0.85rem", color: "rgba(240,237,230,0.5)", marginBottom: "1.75rem" }}>Open to all architects and design professionals</p>
+              <div style={{ marginBottom: "1.75rem" }}>
+                <span style={{ fontFamily: "var(--font-playfair,Georgia,serif)", fontSize: "3.25rem", fontWeight: 700, color: "#f0ede6" }}>₹3,000</span>
+                <span style={{ fontSize: "0.82rem", color: "rgba(240,237,230,0.4)", marginLeft: "0.4rem" }}>per person</span>
               </div>
-              <h3 className="font-display" style={{ fontSize: "1.3rem", fontWeight: 700, marginBottom: "0.5rem" }}>Non-Member / Other Chapter</h3>
-              <p style={{ fontSize: "0.875rem", color: "rgba(240,237,230,0.55)", marginBottom: "2rem" }}>Open to all architects and design professionals</p>
-              <div style={{ marginBottom: "2rem" }}>
-                <span className="font-display" style={{ fontSize: "3.5rem", fontWeight: 700, color: "#f0ede6" }}>₹3,000</span>
-                <span style={{ fontSize: "0.85rem", color: "rgba(240,237,230,0.45)", marginLeft: "0.4rem" }}>per person</span>
-              </div>
-              <ul style={{ textAlign: "left", listStyle: "none", padding: 0, margin: "0 0 2rem", display: "flex", flexDirection: "column", gap: "0.65rem" }}>
-                {["Other IIA chapter members welcome", "Non-IIA architects & professionals", "Full event & awards access", "Gala Dinner included"].map(f => (
-                  <li key={f} style={{ display: "flex", alignItems: "center", gap: "0.6rem", fontSize: "0.875rem", color: "rgba(240,237,230,0.7)" }}>
-                    <CheckCircle size={15} color="#c9a227" style={{ flexShrink: 0 }} /> {f}
+              <ul style={{ listStyle: "none", padding: 0, margin: "0 0 1.75rem", display: "flex", flexDirection: "column", gap: "0.6rem", textAlign: "left" }}>
+                {["Other IIA chapter members welcome","Non-IIA architects & professionals","Full event & awards access","Gala Dinner included"].map(f => (
+                  <li key={f} style={{ display: "flex", alignItems: "center", gap: "0.55rem", fontSize: "0.85rem", color: "rgba(240,237,230,0.7)" }}>
+                    <CheckCircle size={14} color="#c9a227" style={{ flexShrink: 0 }} />{f}
                   </li>
                 ))}
               </ul>
@@ -303,30 +396,26 @@ export default function Home() {
 
       <div className="divider" />
 
-      {/* ════════════════════════════════════════ CTA */}
-      <section style={{ padding: "7rem 1.5rem" }}>
-        <div style={{ maxWidth: 800, margin: "0 auto" }}>
-          <motion.div {...inView()}
-            className="gold-card"
-            style={{ borderRadius: "2rem", padding: "5rem 3rem", textAlign: "center", position: "relative", overflow: "hidden" }}
-          >
-            {/* decorative circle */}
-            <div style={{ position: "absolute", top: -80, right: -80, width: 280, height: 280, borderRadius: "50%", background: "radial-gradient(circle, rgba(201,162,39,0.08) 0%, transparent 70%)" }} />
-            <div style={{ position: "absolute", bottom: -60, left: -60, width: 200, height: 200, borderRadius: "50%", background: "radial-gradient(circle, rgba(201,162,39,0.06) 0%, transparent 70%)" }} />
-
+      {/* ═══════════════ GOOGLE FORM CTA ═══════════════ */}
+      <section style={S.section("5rem","5rem")}>
+        <div style={S.inner(820)}>
+          <motion.div {...iv()} style={{ ...S.goldCard, padding: "3.5rem 2.5rem", textAlign: "center", position: "relative", overflow: "hidden" }}>
+            <div style={{ position: "absolute", top: -80, right: -80, width: 280, height: 280, borderRadius: "50%", background: "radial-gradient(circle,rgba(201,162,39,0.07) 0%,transparent 70%)" }} />
+            <div style={{ position: "absolute", bottom: -60, left: -60, width: 200, height: 200, borderRadius: "50%", background: "radial-gradient(circle,rgba(201,162,39,0.05) 0%,transparent 70%)" }} />
             <div style={{ position: "relative", zIndex: 1 }}>
-              <span className="label-tag" style={{ marginBottom: "1.25rem", display: "block" }}>Don&apos;t Miss Out</span>
-              <h2 className="font-display" style={{ fontSize: "clamp(2rem, 5vw, 3.2rem)", fontWeight: 700, lineHeight: 1.2, marginBottom: "1.25rem" }}>
-                Secure Your Seat Today
-              </h2>
-              <p style={{ fontSize: "1rem", lineHeight: 1.8, color: "rgba(240,237,230,0.6)", marginBottom: "2.5rem", maxWidth: 520, margin: "0 auto 2.5rem" }}>
-                Limited seats available. Register now and be part of this landmark event for the architectural community of Telangana.
+              <span style={S.label}>Don&apos;t Miss Out</span>
+              <h2 style={{ ...S.h2, marginBottom: "1rem" }}>Secure Your Seat Today</h2>
+              <p style={{ ...S.p, maxWidth: 500, margin: "0 auto 2.25rem" }}>
+                Limited seats available at Avasa Hotel, Madhapur. Register now and be part of this landmark decennial celebration.
               </p>
-              <Link href="/register">
-                <button className="btn-primary" style={{ fontSize: "1rem", padding: "1rem 2.75rem" }}>
-                  Register Now <ArrowRight size={18} />
-                </button>
-              </Link>
+              <div style={{ display: "flex", flexWrap: "wrap", gap: "1rem", justifyContent: "center" }}>
+                <Link href="/register">
+                  <button className="btn-primary" style={{ fontSize: "0.95rem", padding: "0.95rem 2.5rem" }}>Register & Pay Online <ArrowRight size={17} /></button>
+                </Link>
+                <a href="https://docs.google.com/forms/d/e/1FAIpQLSfH4v_I0uBb_0jRoPTiue7fpRPuY2dRaVCR-W1j0TDArNR-SQ/viewform?usp=header" target="_blank" rel="noopener noreferrer">
+                  <button className="btn-outline" style={{ fontSize: "0.95rem", padding: "0.95rem 2.5rem" }}>Fill Google Form <ExternalLink size={15} /></button>
+                </a>
+              </div>
             </div>
           </motion.div>
         </div>
