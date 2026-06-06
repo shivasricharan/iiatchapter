@@ -74,9 +74,9 @@ const guests = [
 const officeBearers = [
   { name: "Ar. Narasimham V V L",  role: "Chairman",           phone: "+91 9848046148" },
   { name: "Ar. V. RamMohan",       role: "Vice Chairman",      phone: "+91 9848468680" },
-  { name: "Ar. Y. Suresh Babu",    role: "Hon. Jt. Secretary", phone: "+91 9866117788" },
-  { name: "Ar. T. Ashok Raj",      role: "Hon. Treasurer",     phone: "+91 9849015811" },
   { name: "Ar. Uday Shankar Doni", role: "Imm. Past Chairman", phone: "+91 9246522693" },
+  { name: "Ar. T. Ashok Raj",      role: "Hon. Treasurer",     phone: "+91 9849015811" },
+  { name: "Ar. Y. Suresh Babu",    role: "Hon. Jt. Secretary", phone: "+91 9866117788" },
   { name: "Ar. Jyothirmayi Mitta", role: "Hon. Jt. Secretary", phone: "+91 9866660224" },
 ];
 
