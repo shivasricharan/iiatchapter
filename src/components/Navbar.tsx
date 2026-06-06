@@ -30,7 +30,7 @@ export default function Navbar() {
     right:          0,
     zIndex:         100,
     transition:     "background 0.3s, border-color 0.3s",
-    background:     scrolled ? "rgba(8,8,8,0.92)" : "transparent",
+    background:     scrolled ? "rgba(9,16,31,0.95)" : "transparent",
     backdropFilter: scrolled ? "blur(14px)"        : "none",
     borderBottom:   scrolled ? "1px solid rgba(201,162,39,0.12)" : "1px solid transparent",
   };
@@ -85,7 +85,7 @@ export default function Navbar() {
       {menuOpen && (
         <div style={{
           borderTop: "1px solid rgba(201,162,39,0.12)",
-          background: "rgba(8,8,8,0.98)",
+          background: "rgba(9,16,31,0.98)",
           backdropFilter: "blur(16px)",
           padding: "1.25rem 1.75rem 1.75rem",
           display: "flex", flexDirection: "column", gap: "0.25rem"
