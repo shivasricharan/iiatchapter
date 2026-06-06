@@ -1,4 +1,5 @@
 import { Mail, Phone, MapPin } from "lucide-react";
+import Image from "next/image";
 
 export default function Footer() {
   return (
@@ -9,13 +10,15 @@ export default function Footer() {
       <div className="max-w-6xl mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-10 mb-10">
           <div>
-            <div className="flex items-center gap-3 mb-4">
-              <div
-                className="w-10 h-10 rounded-full flex items-center justify-center shrink-0"
-                style={{ border: "1px solid rgba(201, 162, 39, 0.4)", background: "rgba(201, 162, 39, 0.1)" }}
-              >
-                <span className="text-xs font-bold" style={{ color: "#c9a227" }}>IIA</span>
-              </div>
+            <div className="flex items-center gap-4 mb-4">
+              <Image
+                src="/iia-tc-seal.svg"
+                alt="IIA Telangana Chapter"
+                width={48}
+                height={48}
+                className="w-12 h-12 shrink-0"
+                style={{ filter: "invert(68%) sepia(55%) saturate(600%) hue-rotate(5deg) brightness(95%)" }}
+              />
               <div>
                 <p className="text-sm font-bold" style={{ color: "#c9a227" }}>IIA Telangana Chapter</p>
                 <p className="text-xs" style={{ color: "rgba(245, 245, 240, 0.5)" }}>Indian Institute of Architects</p>
@@ -28,9 +31,19 @@ export default function Footer() {
           </div>
 
           <div>
-            <h4 className="text-sm font-bold mb-4 uppercase tracking-wider" style={{ color: "#c9a227" }}>
-              Event Details
-            </h4>
+            <div className="flex items-center gap-3 mb-4">
+              <Image
+                src="/taf-logo.svg"
+                alt="TAF"
+                width={24}
+                height={30}
+                className="w-6 h-7"
+                style={{ filter: "invert(68%) sepia(55%) saturate(600%) hue-rotate(5deg) brightness(95%)" }}
+              />
+              <h4 className="text-sm font-bold uppercase tracking-wider" style={{ color: "#c9a227" }}>
+                Event Details
+              </h4>
+            </div>
             <div className="space-y-3 text-sm" style={{ color: "rgba(245, 245, 240, 0.6)" }}>
               <p className="flex items-center gap-2">
                 <MapPin className="w-4 h-4 shrink-0" style={{ color: "#c9a227" }} />

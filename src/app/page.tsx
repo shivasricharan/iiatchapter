@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { motion, type Variants, type Easing } from "framer-motion";
 import {
   Calendar,
@@ -84,24 +85,37 @@ export default function Home() {
         </div>
 
         <div className="relative z-10 max-w-6xl mx-auto px-6 text-center">
+          {/* Logos row */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="flex justify-center mb-8"
+            className="flex items-center justify-center gap-8 mb-10"
           >
-            <div
-              className="w-28 h-28 rounded-full flex items-center justify-center glow-animation"
-              style={{
-                background: "rgba(201, 162, 39, 0.1)",
-                border: "2px solid rgba(201, 162, 39, 0.5)",
-              }}
-            >
-              <div className="text-center">
-                <div className="text-xs font-bold leading-tight" style={{ color: "#c9a227" }}>
-                  IIA<br/>TELANGANA<br/>CHAPTER
-                </div>
-              </div>
+            {/* IIA TC Seal */}
+            <div className="float-animation">
+              <Image
+                src="/iia-tc-seal.svg"
+                alt="IIA Telangana Chapter"
+                width={90}
+                height={90}
+                className="w-20 h-20 md:w-24 md:h-24"
+                style={{ filter: "invert(68%) sepia(55%) saturate(600%) hue-rotate(5deg) brightness(95%)" }}
+              />
+            </div>
+
+            <div className="h-16 w-px" style={{ background: "rgba(201,162,39,0.3)" }} />
+
+            {/* TAF Logo */}
+            <div className="float-animation" style={{ animationDelay: "1s" }}>
+              <Image
+                src="/taf-logo.svg"
+                alt="Telangana Architects Festival"
+                width={80}
+                height={100}
+                className="w-16 h-20 md:w-20 md:h-24"
+                style={{ filter: "invert(68%) sepia(55%) saturate(600%) hue-rotate(5deg) brightness(95%)" }}
+              />
             </div>
           </motion.div>
 

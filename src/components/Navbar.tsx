@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { Menu, X } from "lucide-react";
 
 const navLinks = [
@@ -32,21 +33,41 @@ export default function Navbar() {
     >
       <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
         <Link href="/" className="flex items-center gap-3">
-          <div
-            className="w-10 h-10 rounded-full flex items-center justify-center shrink-0"
-            style={{ border: "1px solid rgba(201, 162, 39, 0.5)", background: "rgba(201, 162, 39, 0.1)" }}
-          >
-            <span className="text-xs font-bold" style={{ color: "#c9a227" }}>IIA</span>
+          {/* IIA TC Seal */}
+          <div className="w-10 h-10 shrink-0" style={{ color: "#c9a227" }}>
+            <Image
+              src="/iia-tc-seal.svg"
+              alt="IIA Telangana Chapter"
+              width={40}
+              height={40}
+              className="w-10 h-10"
+              style={{ filter: "invert(68%) sepia(55%) saturate(600%) hue-rotate(5deg) brightness(95%)" }}
+            />
           </div>
           <div className="hidden sm:block">
             <p className="text-xs font-semibold leading-tight" style={{ color: "#c9a227" }}>
               IIA Telangana Chapter
             </p>
             <p className="text-xs leading-tight" style={{ color: "rgba(245, 245, 240, 0.5)" }}>
-              Telangana Architects Festival
+              Telangana Architects Festival 2026
             </p>
           </div>
         </Link>
+
+        {/* TAF logo mark — centre */}
+        <div className="absolute left-1/2 -translate-x-1/2 hidden md:block">
+          <Image
+            src="/taf-logo.svg"
+            alt="TAF"
+            width={36}
+            height={45}
+            style={{
+              filter: "invert(68%) sepia(55%) saturate(600%) hue-rotate(5deg) brightness(95%)",
+              opacity: scrolled ? 0.9 : 0,
+              transition: "opacity 0.3s ease",
+            }}
+          />
+        </div>
 
         {/* Desktop nav */}
         <div className="hidden md:flex items-center gap-8">

@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 500" fill="none">
+  <!-- TAF Architectural Icon -->
+  <!-- Left tall building -->
+  <rect x="60" y="80" width="28" height="160" stroke="currentColor" stroke-width="2.5" fill="none"/>
+  <rect x="65" y="88" width="8" height="12" stroke="currentColor" stroke-width="1.5" fill="none"/>
+  <rect x="65" y="108" width="8" height="12" stroke="currentColor" stroke-width="1.5" fill="none"/>
+  <rect x="65" y="128" width="8" height="12" stroke="currentColor" stroke-width="1.5" fill="none"/>
+  <rect x="78" y="88" width="4" height="12" stroke="currentColor" stroke-width="1.5" fill="none"/>
+  <rect x="78" y="108" width="4" height="12" stroke="currentColor" stroke-width="1.5" fill="none"/>
+
+  <!-- Right tall building -->
+  <rect x="312" y="80" width="28" height="160" stroke="currentColor" stroke-width="2.5" fill="none"/>
+  <rect x="317" y="88" width="8" height="12" stroke="currentColor" stroke-width="1.5" fill="none"/>
+  <rect x="317" y="108" width="8" height="12" stroke="currentColor" stroke-width="1.5" fill="none"/>
+  <rect x="317" y="128" width="8" height="12" stroke="currentColor" stroke-width="1.5" fill="none"/>
+  <rect x="330" y="88" width="4" height="12" stroke="currentColor" stroke-width="1.5" fill="none"/>
+  <rect x="330" y="108" width="4" height="12" stroke="currentColor" stroke-width="1.5" fill="none"/>
+
+  <!-- Centre A-frame / arch building -->
+  <path d="M200 60 L148 200 L252 200 Z" stroke="currentColor" stroke-width="2.5" fill="none"/>
+  <!-- Inner arch lines -->
+  <path d="M200 90 L168 180 L232 180" stroke="currentColor" stroke-width="1.5" fill="none"/>
+  <!-- Door/arch at base of A -->
+  <path d="M188 200 L188 175 Q200 162 212 175 L212 200" stroke="currentColor" stroke-width="2" fill="none"/>
+
+  <!-- Horizontal connector bar -->
+  <line x1="60" y1="200" x2="340" y2="200" stroke="currentColor" stroke-width="2.5"/>
+
+  <!-- Short buildings flanking centre -->
+  <rect x="100" y="140" width="40" height="60" stroke="currentColor" stroke-width="2" fill="none"/>
+  <rect x="108" y="148" width="10" height="14" stroke="currentColor" stroke-width="1.5" fill="none"/>
+  <rect x="122" y="148" width="10" height="14" stroke="currentColor" stroke-width="1.5" fill="none"/>
+
+  <rect x="260" y="140" width="40" height="60" stroke="currentColor" stroke-width="2" fill="none"/>
+  <rect x="268" y="148" width="10" height="14" stroke="currentColor" stroke-width="1.5" fill="none"/>
+  <rect x="282" y="148" width="10" height="14" stroke="currentColor" stroke-width="1.5" fill="none"/>
+
+  <!-- TAF text -->
+  <text x="200" y="270" font-family="serif" font-size="52" font-weight="700" fill="currentColor" text-anchor="middle" letter-spacing="8">TAF</text>
+
+  <!-- Telangana Architecture Festival -->
+  <text x="200" y="320" font-family="serif" font-size="22" font-weight="400" fill="currentColor" text-anchor="middle" letter-spacing="2">Telangana</text>
+  <text x="200" y="352" font-family="serif" font-size="22" font-weight="400" fill="currentColor" text-anchor="middle" letter-spacing="2">Architecture</text>
+  <text x="200" y="384" font-family="serif" font-size="22" font-weight="400" fill="currentColor" text-anchor="middle" letter-spacing="2">Festival</text>
+</svg>

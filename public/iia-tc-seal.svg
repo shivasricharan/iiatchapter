@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" fill="none">
+  <!-- Outer ring -->
+  <circle cx="100" cy="100" r="94" stroke="currentColor" stroke-width="1.5" fill="none"/>
+  <!-- Inner ring -->
+  <circle cx="100" cy="100" r="84" stroke="currentColor" stroke-width="0.8" fill="none"/>
+
+  <!-- Circular text: top arc "THE INDIAN INSTITUTE OF ARCHITECTS" -->
+  <path id="topArc" d="M 14 100 A 86 86 0 0 1 186 100" fill="none"/>
+  <text font-family="sans-serif" font-size="10" font-weight="600" fill="currentColor" letter-spacing="2">
+    <textPath href="#topArc" startOffset="5%">THE INDIAN INSTITUTE OF ARCHITECTS</textPath>
+  </text>
+
+  <!-- Circular text: bottom arc "TELANGANA CHAPTER" -->
+  <path id="bottomArc" d="M 20 108 A 80 80 0 0 0 180 108" fill="none"/>
+  <text font-family="sans-serif" font-size="10" font-weight="600" fill="currentColor" letter-spacing="3">
+    <textPath href="#bottomArc" startOffset="12%">TELANGANA CHAPTER</textPath>
+  </text>
+
+  <!-- Building / Temple illustration in centre -->
+  <!-- Base platform -->
+  <rect x="65" y="132" width="70" height="5" fill="currentColor" rx="1"/>
+  <!-- Steps -->
+  <rect x="72" y="127" width="56" height="5" fill="currentColor" rx="1"/>
+
+  <!-- Main columns -->
+  <rect x="74" y="82" width="6" height="45" fill="currentColor"/>
+  <rect x="86" y="82" width="6" height="45" fill="currentColor"/>
+  <rect x="108" y="82" width="6" height="45" fill="currentColor"/>
+  <rect x="120" y="82" width="6" height="45" fill="currentColor"/>
+
+  <!-- Centre dome / arch feature -->
+  <path d="M92 82 Q100 68 108 82 Z" fill="currentColor"/>
+  <rect x="94" y="82" width="12" height="30" fill="currentColor" rx="1"/>
+  <!-- Arch door -->
+  <path d="M96 112 L96 100 Q100 95 104 100 L104 112 Z" fill="none" stroke="#0d0d0d" stroke-width="1.5"/>
+
+  <!-- Entablature / header beam -->
+  <rect x="70" y="78" width="60" height="6" fill="currentColor" rx="1"/>
+
+  <!-- Roof / pediment triangle -->
+  <path d="M68 78 L100 58 L132 78 Z" fill="none" stroke="currentColor" stroke-width="1.5"/>
+
+  <!-- Decorative dots at 3, 9 o'clock -->
+  <circle cx="14" cy="100" r="2" fill="currentColor"/>
+  <circle cx="186" cy="100" r="2" fill="currentColor"/>
+
+  <!-- Year / est mark -->
+  <text x="100" y="160" font-family="serif" font-size="8" fill="currentColor" text-anchor="middle" letter-spacing="2">EST. 1929</text>
+</svg>
