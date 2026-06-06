@@ -42,8 +42,8 @@ const guests = [
     highlight: true,
   },
   {
-    name: "Shri M. Venkataramana Reddy Garu",
-    role: "Guest of Honour",
+    name: "Shri. Vem. Narender Reddy Garu",
+    role: "Chief Guest",
     designation: "Hon'ble Member of Parliament",
     photo: "/venkataramana.png",
     highlight: true,
