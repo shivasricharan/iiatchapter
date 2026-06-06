@@ -38,24 +38,35 @@ const guests = [
     name: "A. Revanth Reddy Garu",
     role: "Chief Guest",
     designation: "Chief Minister of Telangana",
+    photo: "/revanth.png",
+    highlight: true,
+  },
+  {
+    name: "Shri M. Venkataramana Reddy Garu",
+    role: "Guest of Honour",
+    designation: "Hon'ble Member of Parliament",
+    photo: "/venkataramana.png",
     highlight: true,
   },
   {
     name: "Ar. Vilas Anavithai Garu",
     role: "Guest of Honour",
     designation: "Chairman, FPA · Former President, IIA",
+    photo: "/vilas.png",
     highlight: false,
   },
   {
     name: "Ar. N. Padmavathi Reddy Garu",
     role: "Special Guest",
     designation: "Hon'ble Member of Legislative Assembly",
+    photo: "/padmavathi.png",
     highlight: false,
   },
   {
     name: "Ar. Naveen Yadav Garu",
     role: "Special Guest",
     designation: "Hon'ble Member of Legislative Assembly",
+    photo: "/naveen.png",
     highlight: false,
   },
 ];
@@ -150,7 +161,7 @@ export default function Home() {
             style={{ fontFamily: "var(--font-playfair,Georgia,serif)", fontSize: "clamp(2.8rem,7.5vw,6rem)", fontWeight: 700, lineHeight: 1.08, letterSpacing: "-0.02em", margin: "0 0 0.75rem" }}
           >
             Telangana<br />
-            <span className="gold-text">Architects</span><br />
+            <span className="gold-text">Architecture</span><br />
             Festival
           </motion.h1>
 
@@ -246,23 +257,35 @@ export default function Home() {
             <h2 style={S.h2}>Distinguished <span className="gold-text">Guests</span></h2>
           </motion.div>
 
-          {/* Chief Guest — full width spotlight */}
-          <motion.div {...iv(0.1)} style={{ ...S.goldCard, padding: "2.5rem", textAlign: "center", marginBottom: "1.5rem", position: "relative", overflow: "hidden" }}>
-            <div style={{ position: "absolute", top: -60, right: -60, width: 220, height: 220, borderRadius: "50%", background: "radial-gradient(circle,rgba(201,162,39,0.1) 0%,transparent 70%)" }} />
-            <div style={{ position: "relative", zIndex: 1 }}>
-              <div style={{ display: "inline-block", background: "#c9a227", color: "#080808", fontSize: "0.65rem", fontWeight: 800, letterSpacing: "0.2em", textTransform: "uppercase", padding: "0.35rem 1rem", borderRadius: 9999, marginBottom: "1.25rem" }}>Chief Guest</div>
-              <h3 style={{ fontFamily: "var(--font-playfair,Georgia,serif)", fontSize: "clamp(1.5rem,3.5vw,2.2rem)", fontWeight: 700, margin: "0 0 0.5rem" }}>A. Revanth Reddy Garu</h3>
-              <p style={{ color: "#c9a227", fontSize: "0.95rem", fontWeight: 600, margin: 0 }}>Chief Minister of Telangana</p>
-            </div>
-          </motion.div>
+          {/* Chief Guest + MP — side by side spotlight row */}
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(300px,1fr))", gap: "1.5rem", marginBottom: "1.5rem" }}>
+            {guests.slice(0, 2).map((g, i) => (
+              <motion.div key={g.name} {...iv(0.1 + i * 0.1)} style={{ ...S.goldCard, padding: "2.5rem 2rem", textAlign: "center", position: "relative", overflow: "hidden" }}>
+                <div style={{ position: "absolute", top: -50, right: -50, width: 180, height: 180, borderRadius: "50%", background: "radial-gradient(circle,rgba(201,162,39,0.1) 0%,transparent 70%)" }} />
+                <div style={{ position: "relative", zIndex: 1 }}>
+                  {/* Photo */}
+                  <div style={{ width: 130, height: 130, borderRadius: "50%", overflow: "hidden", margin: "0 auto 1.5rem", border: "3px solid rgba(201,162,39,0.55)", boxShadow: "0 0 32px rgba(201,162,39,0.2)" }}>
+                    <Image src={g.photo} alt={g.name} width={130} height={130} style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "top" }} />
+                  </div>
+                  <div style={{ display: "inline-block", background: i === 0 ? "#c9a227" : "rgba(201,162,39,0.12)", color: i === 0 ? "#080808" : "#c9a227", fontSize: "0.63rem", fontWeight: 800, letterSpacing: "0.2em", textTransform: "uppercase", padding: "0.35rem 1rem", borderRadius: 9999, marginBottom: "1rem", border: i === 0 ? "none" : "1px solid rgba(201,162,39,0.4)" }}>{g.role}</div>
+                  <h3 style={{ fontFamily: "var(--font-playfair,Georgia,serif)", fontSize: "clamp(1.2rem,2.5vw,1.65rem)", fontWeight: 700, margin: "0 0 0.5rem" }}>{g.name}</h3>
+                  <p style={{ color: "#c9a227", fontSize: "0.9rem", fontWeight: 600, margin: 0 }}>{g.designation}</p>
+                </div>
+              </motion.div>
+            ))}
+          </div>
 
           {/* Other guests */}
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(280px,1fr))", gap: "1.25rem" }}>
-            {guests.slice(1).map((g, i) => (
-              <motion.div key={g.name} {...iv(0.1 + i * 0.1)} style={{ ...S.card, padding: "1.75rem", textAlign: "center" }}>
-                <div style={{ display: "inline-block", background: "rgba(201,162,39,0.12)", color: "#c9a227", fontSize: "0.62rem", fontWeight: 700, letterSpacing: "0.18em", textTransform: "uppercase", padding: "0.3rem 0.9rem", borderRadius: 9999, marginBottom: "1rem", border: "1px solid rgba(201,162,39,0.3)" }}>{g.role}</div>
-                <h3 style={{ fontFamily: "var(--font-playfair,Georgia,serif)", fontSize: "1.15rem", fontWeight: 700, margin: "0 0 0.4rem" }}>{g.name}</h3>
-                <p style={{ fontSize: "0.83rem", color: "rgba(240,237,230,0.55)", margin: 0 }}>{g.designation}</p>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(260px,1fr))", gap: "1.25rem" }}>
+            {guests.slice(2).map((g, i) => (
+              <motion.div key={g.name} {...iv(0.2 + i * 0.1)} style={{ ...S.card, padding: "1.75rem", textAlign: "center" }}>
+                {/* Photo */}
+                <div style={{ width: 100, height: 100, borderRadius: "50%", overflow: "hidden", margin: "0 auto 1.1rem", border: "2px solid rgba(201,162,39,0.4)", boxShadow: "0 0 20px rgba(201,162,39,0.12)" }}>
+                  <Image src={g.photo} alt={g.name} width={100} height={100} style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "top" }} />
+                </div>
+                <div style={{ display: "inline-block", background: "rgba(201,162,39,0.12)", color: "#c9a227", fontSize: "0.62rem", fontWeight: 700, letterSpacing: "0.18em", textTransform: "uppercase", padding: "0.3rem 0.9rem", borderRadius: 9999, marginBottom: "0.9rem", border: "1px solid rgba(201,162,39,0.3)" }}>{g.role}</div>
+                <h3 style={{ fontFamily: "var(--font-playfair,Georgia,serif)", fontSize: "1.1rem", fontWeight: 700, margin: "0 0 0.4rem" }}>{g.name}</h3>
+                <p style={{ fontSize: "0.82rem", color: "rgba(240,237,230,0.55)", margin: 0 }}>{g.designation}</p>
               </motion.div>
             ))}
           </div>
