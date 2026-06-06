@@ -48,7 +48,7 @@ function RegisterContent() {
   const nonMemberPrice = 3000;
 
   const getPrice = () => {
-    if (form.memberType === "iia-telangana" && verification.status === "valid") {
+    if (form.memberType === "iia-telangana") {
       return memberPrice;
     }
     return nonMemberPrice;
