@@ -396,6 +396,98 @@ export default function Home() {
 
       <div className="divider" />
 
+      {/* ═══════════════ QR PAYMENT ═══════════════ */}
+      <section id="pay-qr" style={S.section("6rem","6rem")}>
+        <div style={S.inner(1060)}>
+          <motion.div {...iv()} style={{ textAlign: "center", marginBottom: "3.5rem" }}>
+            <span style={S.label}>Instant Payment</span>
+            <h2 style={S.h2}>Pay via <span className="gold-text">BharatQR</span></h2>
+            <p style={{ ...S.p, maxWidth: 560, margin: "0 auto" }}>
+              Scan the QR code with any UPI, Masterpass, RuPay or Visa app to pay instantly. Accepted by all major banking apps.
+            </p>
+          </motion.div>
+
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(300px,1fr))", gap: "2rem", alignItems: "center" }}>
+
+            {/* QR Code card */}
+            <motion.div {...iv(0.1)} style={{ ...S.goldCard, padding: "2.5rem", textAlign: "center" }}>
+              {/* BharatQR badge */}
+              <div style={{ display: "inline-flex", alignItems: "center", gap: "0.5rem", marginBottom: "1.5rem" }}>
+                <span style={{ fontSize: "1rem", fontWeight: 900, letterSpacing: "-0.02em" }}>
+                  <span style={{ color: "#f97316" }}>BHARAT</span><span style={{ color: "#16a34a" }}>QR</span>
+                </span>
+              </div>
+
+              {/* QR image */}
+              <div style={{ background: "#ffffff", borderRadius: "1rem", padding: "1.25rem", display: "inline-block", marginBottom: "1.5rem", boxShadow: "0 0 40px rgba(201,162,39,0.2)" }}>
+                <Image
+                  src="/bharatqr.png"
+                  alt="BharatQR — Scan to Pay IIA Telangana Chapter"
+                  width={220}
+                  height={220}
+                  style={{ width: 200, height: 200, objectFit: "contain", display: "block" }}
+                />
+              </div>
+
+              <p style={{ fontSize: "0.8rem", fontWeight: 600, color: "rgba(240,237,230,0.5)", letterSpacing: "0.08em", textTransform: "uppercase", margin: 0 }}>
+                Scan here to pay
+              </p>
+            </motion.div>
+
+            {/* Payment details */}
+            <motion.div {...iv(0.2)} style={{ display: "flex", flexDirection: "column", gap: "1.25rem" }}>
+
+              {/* Payee name */}
+              <div style={{ ...S.card, padding: "1.4rem 1.6rem" }}>
+                <p style={{ fontSize: "0.65rem", fontWeight: 700, letterSpacing: "0.2em", textTransform: "uppercase", color: "#c9a227", margin: "0 0 0.35rem" }}>Payee</p>
+                <p style={{ fontSize: "1rem", fontWeight: 700, margin: 0 }}>The Indian Institute of, Hyderabad</p>
+                <p style={{ fontSize: "0.8rem", color: "rgba(240,237,230,0.45)", margin: "0.25rem 0 0" }}>MID: 037349031750025 &nbsp;·&nbsp; TID: 96978080</p>
+              </div>
+
+              {/* Accepted via */}
+              <div style={{ ...S.card, padding: "1.4rem 1.6rem" }}>
+                <p style={{ fontSize: "0.65rem", fontWeight: 700, letterSpacing: "0.2em", textTransform: "uppercase", color: "#c9a227", margin: "0 0 0.9rem" }}>Accepted Via</p>
+                <div style={{ display: "flex", flexDirection: "column", gap: "0.65rem" }}>
+                  {[
+                    { label: "Masterpass", number: "5122600083129​17",    color: "#eb001b" },
+                    { label: "RuPay",      number: "6100020083129191",   color: "#f97316" },
+                    { label: "mVisa",      number: "4604901083129180",   color: "#1a56db" },
+                  ].map(p => (
+                    <div key={p.label} style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: "0.75rem" }}>
+                      <span style={{ fontSize: "0.85rem", fontWeight: 700, color: p.color, minWidth: 76 }}>{p.label}</span>
+                      <span style={{ fontSize: "0.78rem", fontFamily: "monospace", color: "rgba(240,237,230,0.5)", letterSpacing: "0.04em" }}>{p.number}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* How to pay steps */}
+              <div style={{ ...S.card, padding: "1.4rem 1.6rem" }}>
+                <p style={{ fontSize: "0.65rem", fontWeight: 700, letterSpacing: "0.2em", textTransform: "uppercase", color: "#c9a227", margin: "0 0 0.9rem" }}>How to Pay</p>
+                <ol style={{ margin: 0, padding: "0 0 0 1.1rem", display: "flex", flexDirection: "column", gap: "0.5rem" }}>
+                  {[
+                    "Open any UPI / banking app on your phone",
+                    "Tap Scan QR or BharatQR option",
+                    "Scan the code and enter amount (₹500 or ₹3,000)",
+                    "Add your name in remarks and confirm payment",
+                    "Screenshot and share to iiatchapter@gmail.com",
+                  ].map((s, i) => (
+                    <li key={i} style={{ fontSize: "0.83rem", color: "rgba(240,237,230,0.6)", lineHeight: 1.55 }}>{s}</li>
+                  ))}
+                </ol>
+              </div>
+
+              {/* Helpdesk */}
+              <p style={{ fontSize: "0.78rem", color: "rgba(240,237,230,0.35)", textAlign: "center", margin: 0 }}>
+                ME Helpdesk: 1860 233 2332 &nbsp;/&nbsp; 022 4042 6060
+              </p>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      <div className="divider" />
+
       {/* ═══════════════ GOOGLE FORM CTA ═══════════════ */}
       <section style={S.section("5rem","5rem")}>
         <div style={S.inner(820)}>
