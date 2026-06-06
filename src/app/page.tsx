@@ -448,15 +448,8 @@ export default function Home() {
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(300px,1fr))", gap: "2rem", alignItems: "center" }}>
 
             {/* QR Code card */}
-            <motion.div {...iv(0.1)} style={{ ...S.goldCard, padding: "2.5rem", textAlign: "center" }}>
-              {/* BharatQR badge */}
-              <div style={{ display: "inline-flex", alignItems: "center", gap: "0.5rem", marginBottom: "1.5rem" }}>
-                <span style={{ fontSize: "1rem", fontWeight: 900, letterSpacing: "-0.02em" }}>
-                  <span style={{ color: "#f97316" }}>BHARAT</span><span style={{ color: "#16a34a" }}>QR</span>
-                </span>
-              </div>
-
-              <div style={{ background: "#ffffff", borderRadius: "1rem", padding: "1.5rem", display: "inline-block", marginBottom: "1.5rem", boxShadow: "0 0 48px rgba(201,162,39,0.25)" }}>
+            <motion.div {...iv(0.1)} style={{ ...S.goldCard, padding: "2.5rem", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", textAlign: "center" }}>
+              <div style={{ background: "#ffffff", borderRadius: "1rem", padding: "1.5rem", marginBottom: "1.25rem", boxShadow: "0 0 48px rgba(201,162,39,0.25)" }}>
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src="/bharatqr.png"
@@ -464,6 +457,10 @@ export default function Home() {
                   style={{ width: 220, height: 220, objectFit: "contain", display: "block", imageRendering: "crisp-edges" }}
                 />
               </div>
+
+              <span style={{ fontSize: "1.1rem", fontWeight: 900, letterSpacing: "-0.02em", marginBottom: "0.5rem" }}>
+                <span style={{ color: "#f97316" }}>BHARAT</span><span style={{ color: "#16a34a" }}>QR</span>
+              </span>
 
               <p style={{ fontSize: "0.8rem", fontWeight: 600, color: "rgba(240,237,230,0.5)", letterSpacing: "0.08em", textTransform: "uppercase", margin: 0 }}>
                 Scan here to pay
