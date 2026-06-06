@@ -74,9 +74,9 @@ const guests = [
 const officeBearers = [
   { name: "Ar. Narasimham V V L",  role: "Chairman",           phone: "+91 9848046148" },
   { name: "Ar. V. RamMohan",       role: "Vice Chairman",      phone: "+91 9848468680" },
-  { name: "Ar. Uday Shankar Doni", role: "Imm. Past Chairman", phone: "+91 9246522693" },
-  { name: "Ar. T. Ashok Raj",      role: "Hon. Treasurer",     phone: "+91 9849015811" },
   { name: "Ar. Y. Suresh Babu",    role: "Hon. Jt. Secretary", phone: "+91 9866117788" },
+  { name: "Ar. T. Ashok Raj",      role: "Hon. Treasurer",     phone: "+91 9849015811" },
+  { name: "Ar. Uday Shankar Doni", role: "Imm. Past Chairman", phone: "+91 9246522693" },
   { name: "Ar. Jyothirmayi Mitta", role: "Hon. Jt. Secretary", phone: "+91 9866660224" },
 ];
 
@@ -257,7 +257,7 @@ export default function Home() {
             <h2 style={S.h2}>Distinguished <span className="gold-text">Guests</span></h2>
           </motion.div>
 
-          {/* Chief Guest 1 — A. Revanth Reddy, full-width solo */}
+          {/* Chief Guest — A. Revanth Reddy, full-width solo spotlight */}
           <motion.div {...iv(0.1)} style={{ ...S.goldCard, padding: "2.5rem 2rem", textAlign: "center", position: "relative", overflow: "hidden", marginBottom: "1.5rem" }}>
             <div style={{ position: "absolute", top: -50, right: -50, width: 220, height: 220, borderRadius: "50%", background: "radial-gradient(circle,rgba(201,162,39,0.1) 0%,transparent 70%)" }} />
             <div style={{ position: "relative", zIndex: 1 }}>
@@ -270,24 +270,10 @@ export default function Home() {
             </div>
           </motion.div>
 
-          {/* Chief Guest 2 — Vem. Narender Reddy, full-width solo */}
-          <motion.div {...iv(0.2)} style={{ ...S.goldCard, padding: "2.5rem 2rem", textAlign: "center", position: "relative", overflow: "hidden", marginBottom: "1.5rem" }}>
-            <div style={{ position: "absolute", top: -50, left: -50, width: 220, height: 220, borderRadius: "50%", background: "radial-gradient(circle,rgba(201,162,39,0.1) 0%,transparent 70%)" }} />
-            <div style={{ position: "relative", zIndex: 1 }}>
-              <div style={{ width: 140, height: 140, borderRadius: "50%", overflow: "hidden", margin: "0 auto 1.5rem", border: "3px solid rgba(201,162,39,0.55)", boxShadow: "0 0 36px rgba(201,162,39,0.25)" }}>
-                <Image src={guests[1].photo} alt={guests[1].name} width={140} height={140} style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "top" }} />
-              </div>
-              <div style={{ display: "inline-block", background: "#c9a227", color: "#080808", fontSize: "0.65rem", fontWeight: 800, letterSpacing: "0.2em", textTransform: "uppercase", padding: "0.35rem 1.1rem", borderRadius: 9999, marginBottom: "1rem" }}>Chief Guest</div>
-              <h3 style={{ fontFamily: "var(--font-playfair,Georgia,serif)", fontSize: "clamp(1.4rem,3vw,2rem)", fontWeight: 700, margin: "0 0 0.5rem" }}>{guests[1].name}</h3>
-              <p style={{ color: "#c9a227", fontSize: "0.95rem", fontWeight: 600, margin: 0 }}>{guests[1].designation}</p>
-            </div>
-          </motion.div>
-
-          {/* Other guests */}
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(260px,1fr))", gap: "1.25rem" }}>
-            {guests.slice(2).map((g, i) => (
+          {/* All other guests including Narender Reddy — grid */}
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(240px,1fr))", gap: "1.25rem" }}>
+            {guests.slice(1).map((g, i) => (
               <motion.div key={g.name} {...iv(0.2 + i * 0.1)} style={{ ...S.card, padding: "1.75rem", textAlign: "center" }}>
-                {/* Photo */}
                 <div style={{ width: 100, height: 100, borderRadius: "50%", overflow: "hidden", margin: "0 auto 1.1rem", border: "2px solid rgba(201,162,39,0.4)", boxShadow: "0 0 20px rgba(201,162,39,0.12)" }}>
                   <Image src={g.photo} alt={g.name} width={100} height={100} style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "top" }} />
                 </div>
