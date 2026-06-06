@@ -45,12 +45,12 @@ function RegisterContent() {
   const [step, setStep] = useState<"form" | "review" | "payment">("form");
 
   const memberPrice = 500;
+  const iiaOtherPrice = 3000;
   const nonMemberPrice = 5000;
 
   const getPrice = () => {
-    if (form.memberType === "iia-telangana") {
-      return memberPrice;
-    }
+    if (form.memberType === "iia-telangana") return memberPrice;
+    if (form.memberType === "other-chapter") return iiaOtherPrice;
     return nonMemberPrice;
   };
 
@@ -214,7 +214,7 @@ function RegisterContent() {
                     <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                       {[
                         { value: "iia-telangana", label: "IIA Telangana Member" },
-                        { value: "other-chapter", label: "Other IIA Chapter" },
+                        { value: "other-chapter", label: "IIA Member" },
                         { value: "non-member", label: "Non-Member" },
                       ].map((opt) => (
                         <button
@@ -382,7 +382,7 @@ function RegisterContent() {
                           : form.memberType === "iia-telangana"
                           ? "Pending verification"
                           : form.memberType === "other-chapter"
-                          ? "Other IIA Chapter Rate"
+                          ? "IIA Member Rate"
                           : "Non-Member Rate"}
                       </p>
                     </div>

@@ -370,21 +370,21 @@ export default function Home() {
             <h2 style={S.h2}>Choose Your Pass</h2>
           </motion.div>
 
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(340px,1fr))", gap: "1.75rem" }}>
-            {/* Member */}
-            <motion.div {...iv(0.1)} style={{ ...S.goldCard, padding: "2.5rem", textAlign: "center", position: "relative", overflow: "hidden" }}>
-              <div style={{ position: "absolute", top: "1.1rem", right: "1.1rem", background: "#c9a227", color: "#080808", fontSize: "0.65rem", fontWeight: 800, letterSpacing: "0.08em", padding: "0.3rem 0.8rem", borderRadius: 9999 }}>MEMBER BENEFIT</div>
-              <div style={{ width: 60, height: 60, borderRadius: "0.875rem", background: "rgba(201,162,39,0.15)", display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 1.35rem", color: "#c9a227" }}><Award size={28} /></div>
-              <h3 style={{ fontFamily: "var(--font-playfair,Georgia,serif)", fontSize: "1.25rem", fontWeight: 700, marginBottom: "0.4rem" }}>IIA Telangana Member</h3>
-              <p style={{ fontSize: "0.85rem", color: "rgba(240,237,230,0.5)", marginBottom: "1.75rem" }}>Exclusive rate for verified Telangana Chapter members</p>
-              <div style={{ marginBottom: "1.75rem" }}>
-                <span className="gold-text" style={{ fontFamily: "var(--font-playfair,Georgia,serif)", fontSize: "3.25rem", fontWeight: 700 }}>₹500</span>
-                <span style={{ fontSize: "0.82rem", color: "rgba(240,237,230,0.4)", marginLeft: "0.4rem" }}>per person</span>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(270px,1fr))", gap: "1.5rem" }}>
+            {/* IIA Telangana Member */}
+            <motion.div {...iv(0.1)} style={{ ...S.goldCard, padding: "2.25rem", textAlign: "center", position: "relative", overflow: "hidden" }}>
+              <div style={{ position: "absolute", top: "1rem", right: "1rem", background: "#c9a227", color: "#080808", fontSize: "0.6rem", fontWeight: 800, letterSpacing: "0.08em", padding: "0.3rem 0.75rem", borderRadius: 9999 }}>BEST RATE</div>
+              <div style={{ width: 56, height: 56, borderRadius: "0.875rem", background: "rgba(201,162,39,0.15)", display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 1.25rem", color: "#c9a227" }}><Award size={26} /></div>
+              <h3 style={{ fontFamily: "var(--font-playfair,Georgia,serif)", fontSize: "1.15rem", fontWeight: 700, marginBottom: "0.35rem" }}>IIA Telangana Member</h3>
+              <p style={{ fontSize: "0.82rem", color: "rgba(240,237,230,0.5)", marginBottom: "1.5rem" }}>Exclusive rate for verified Telangana Chapter members</p>
+              <div style={{ marginBottom: "1.5rem" }}>
+                <span className="gold-text" style={{ fontFamily: "var(--font-playfair,Georgia,serif)", fontSize: "3rem", fontWeight: 700 }}>₹500</span>
+                <span style={{ fontSize: "0.8rem", color: "rgba(240,237,230,0.4)", marginLeft: "0.4rem" }}>per person</span>
               </div>
-              <ul style={{ listStyle: "none", padding: 0, margin: "0 0 1.75rem", display: "flex", flexDirection: "column", gap: "0.6rem", textAlign: "left" }}>
+              <ul style={{ listStyle: "none", padding: 0, margin: "0 0 1.5rem", display: "flex", flexDirection: "column", gap: "0.55rem", textAlign: "left" }}>
                 {["Valid IIA Telangana membership required","Membership number verified instantly","Full event & awards access","Cocktail and Dinner included"].map(f => (
-                  <li key={f} style={{ display: "flex", alignItems: "center", gap: "0.55rem", fontSize: "0.85rem", color: "rgba(240,237,230,0.7)" }}>
-                    <CheckCircle size={14} color="#c9a227" style={{ flexShrink: 0 }} />{f}
+                  <li key={f} style={{ display: "flex", alignItems: "center", gap: "0.5rem", fontSize: "0.82rem", color: "rgba(240,237,230,0.7)" }}>
+                    <CheckCircle size={13} color="#c9a227" style={{ flexShrink: 0 }} />{f}
                   </li>
                 ))}
               </ul>
@@ -393,19 +393,40 @@ export default function Home() {
               </Link>
             </motion.div>
 
-            {/* Non-member */}
-            <motion.div {...iv(0.2)} style={{ ...S.card, padding: "2.5rem", textAlign: "center" }}>
-              <div style={{ width: 60, height: 60, borderRadius: "0.875rem", background: "rgba(255,255,255,0.06)", display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 1.35rem", color: "rgba(240,237,230,0.6)" }}><Users size={28} /></div>
-              <h3 style={{ fontFamily: "var(--font-playfair,Georgia,serif)", fontSize: "1.25rem", fontWeight: 700, marginBottom: "0.4rem" }}>Non-Member / Other Chapter</h3>
-              <p style={{ fontSize: "0.85rem", color: "rgba(240,237,230,0.5)", marginBottom: "1.75rem" }}>Open to all architects and design professionals</p>
-              <div style={{ marginBottom: "1.75rem" }}>
-                <span style={{ fontFamily: "var(--font-playfair,Georgia,serif)", fontSize: "3.25rem", fontWeight: 700, color: "#f0ede6" }}>₹5,000</span>
-                <span style={{ fontSize: "0.82rem", color: "rgba(240,237,230,0.4)", marginLeft: "0.4rem" }}>per person</span>
+            {/* IIA Member – Other Chapter */}
+            <motion.div {...iv(0.2)} style={{ ...S.card, padding: "2.25rem", textAlign: "center" }}>
+              <div style={{ width: 56, height: 56, borderRadius: "0.875rem", background: "rgba(255,255,255,0.06)", display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 1.25rem", color: "rgba(240,237,230,0.6)" }}><Users size={26} /></div>
+              <h3 style={{ fontFamily: "var(--font-playfair,Georgia,serif)", fontSize: "1.15rem", fontWeight: 700, marginBottom: "0.35rem" }}>IIA Member</h3>
+              <p style={{ fontSize: "0.82rem", color: "rgba(240,237,230,0.5)", marginBottom: "1.5rem" }}>Members of other IIA chapters across India</p>
+              <div style={{ marginBottom: "1.5rem" }}>
+                <span style={{ fontFamily: "var(--font-playfair,Georgia,serif)", fontSize: "3rem", fontWeight: 700, color: "#f0ede6" }}>₹3,000</span>
+                <span style={{ fontSize: "0.8rem", color: "rgba(240,237,230,0.4)", marginLeft: "0.4rem" }}>per person</span>
               </div>
-              <ul style={{ listStyle: "none", padding: 0, margin: "0 0 1.75rem", display: "flex", flexDirection: "column", gap: "0.6rem", textAlign: "left" }}>
-                {["Other IIA chapter members welcome","Non-IIA architects & professionals","Full event & awards access","Cocktail and Dinner included"].map(f => (
-                  <li key={f} style={{ display: "flex", alignItems: "center", gap: "0.55rem", fontSize: "0.85rem", color: "rgba(240,237,230,0.7)" }}>
-                    <CheckCircle size={14} color="#c9a227" style={{ flexShrink: 0 }} />{f}
+              <ul style={{ listStyle: "none", padding: 0, margin: "0 0 1.5rem", display: "flex", flexDirection: "column", gap: "0.55rem", textAlign: "left" }}>
+                {["Valid IIA membership from any chapter","Full event & awards access","Cocktail and Dinner included","All India IIA members welcome"].map(f => (
+                  <li key={f} style={{ display: "flex", alignItems: "center", gap: "0.5rem", fontSize: "0.82rem", color: "rgba(240,237,230,0.7)" }}>
+                    <CheckCircle size={13} color="#c9a227" style={{ flexShrink: 0 }} />{f}
+                  </li>
+                ))}
+              </ul>
+              <Link href="/register?type=other-chapter" style={{ display: "block" }}>
+                <button className="btn-outline" style={{ width: "100%", justifyContent: "center" }}>Register as IIA Member</button>
+              </Link>
+            </motion.div>
+
+            {/* Non-Member */}
+            <motion.div {...iv(0.3)} style={{ ...S.card, padding: "2.25rem", textAlign: "center" }}>
+              <div style={{ width: 56, height: 56, borderRadius: "0.875rem", background: "rgba(255,255,255,0.06)", display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 1.25rem", color: "rgba(240,237,230,0.6)" }}><Users size={26} /></div>
+              <h3 style={{ fontFamily: "var(--font-playfair,Georgia,serif)", fontSize: "1.15rem", fontWeight: 700, marginBottom: "0.35rem" }}>Non-Member</h3>
+              <p style={{ fontSize: "0.82rem", color: "rgba(240,237,230,0.5)", marginBottom: "1.5rem" }}>Open to all architects and design professionals</p>
+              <div style={{ marginBottom: "1.5rem" }}>
+                <span style={{ fontFamily: "var(--font-playfair,Georgia,serif)", fontSize: "3rem", fontWeight: 700, color: "#f0ede6" }}>₹5,000</span>
+                <span style={{ fontSize: "0.8rem", color: "rgba(240,237,230,0.4)", marginLeft: "0.4rem" }}>per person</span>
+              </div>
+              <ul style={{ listStyle: "none", padding: 0, margin: "0 0 1.5rem", display: "flex", flexDirection: "column", gap: "0.55rem", textAlign: "left" }}>
+                {["Non-IIA architects & professionals","Full event & awards access","Cocktail and Dinner included","Open to all design professionals"].map(f => (
+                  <li key={f} style={{ display: "flex", alignItems: "center", gap: "0.5rem", fontSize: "0.82rem", color: "rgba(240,237,230,0.7)" }}>
+                    <CheckCircle size={13} color="#c9a227" style={{ flexShrink: 0 }} />{f}
                   </li>
                 ))}
               </ul>
@@ -489,7 +510,7 @@ export default function Home() {
                   {[
                     "Open any UPI / banking app on your phone",
                     "Tap Scan QR or BharatQR option",
-                    "Scan the code and enter amount (₹500, ₹5,000)",
+                    "Scan the code and enter amount (₹500 / ₹3,000 / ₹5,000)",
                     "Add your name in remarks and confirm payment",
                     "Screenshot and share to iiatchapter@gmail.com",
                   ].map((s, i) => (
