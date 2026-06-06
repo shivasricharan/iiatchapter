@@ -27,7 +27,7 @@ function SuccessContent() {
   }, [searchParams]);
 
   return (
-    <main className="min-h-screen pt-24 pb-16 px-6" style={{ background: "#0d0d0d", color: "#f5f5f0" }}>
+    <main className="min-h-screen pt-24 pb-16 px-6" style={{ background: "#0f2060", color: "#f5f5f0" }}>
       <Navbar />
       <div className="max-w-xl mx-auto text-center">
         <motion.div
@@ -110,7 +110,7 @@ function SuccessContent() {
 export default function SuccessPage() {
   return (
     <Suspense fallback={
-      <div className="min-h-screen flex items-center justify-center" style={{ background: "#0d0d0d" }}>
+      <div className="min-h-screen flex items-center justify-center" style={{ background: "#0f2060" }}>
         <div style={{ color: "#c9a227" }}>Loading...</div>
       </div>
     }>

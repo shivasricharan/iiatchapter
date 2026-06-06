@@ -144,7 +144,7 @@ function RegisterContent() {
   const inputFocusStyle = { boxShadow: "0 0 0 1px rgba(201,162,39,0.5)" };
 
   return (
-    <main className="min-h-screen pt-24 pb-16 px-6" style={{ background: "#0d0d0d", color: "#f5f5f0" }}>
+    <main className="min-h-screen pt-24 pb-16 px-6" style={{ background: "#0f2060", color: "#f5f5f0" }}>
       <Navbar />
       <div className="max-w-2xl mx-auto">
         <motion.div
@@ -181,7 +181,7 @@ function RegisterContent() {
                       style={{
                         background: isDone ? "#c9a227" : isActive ? "rgba(201,162,39,0.2)" : "rgba(255,255,255,0.05)",
                         border: isActive || isDone ? "1px solid #c9a227" : "1px solid rgba(255,255,255,0.1)",
-                        color: isDone ? "#0d0d0d" : isActive ? "#c9a227" : "rgba(245,245,240,0.4)",
+                        color: isDone ? "#0f2060" : isActive ? "#c9a227" : "rgba(245,245,240,0.4)",
                       }}
                     >
                       {isDone ? "✓" : i + 1}
@@ -488,7 +488,7 @@ function RegisterContent() {
 export default function RegisterPage() {
   return (
     <Suspense fallback={
-      <div className="min-h-screen flex items-center justify-center" style={{ background: "#0d0d0d" }}>
+      <div className="min-h-screen flex items-center justify-center" style={{ background: "#0f2060" }}>
         <Loader2 className="w-8 h-8 animate-spin" style={{ color: "#c9a227" }} />
       </div>
     }>
