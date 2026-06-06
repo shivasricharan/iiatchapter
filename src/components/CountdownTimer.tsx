@@ -2,60 +2,61 @@
 
 import { useEffect, useState } from "react";
 
-interface TimeLeft {
-  days: number;
-  hours: number;
-  minutes: number;
-  seconds: number;
-}
+interface T { days: number; hours: number; minutes: number; seconds: number; }
 
 export default function CountdownTimer({ targetDate }: { targetDate: string }) {
-  const [timeLeft, setTimeLeft] = useState<TimeLeft>({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+  const [t, setT] = useState<T>({ days: 0, hours: 0, minutes: 0, seconds: 0 });
 
   useEffect(() => {
-    const calculate = () => {
+    const calc = () => {
       const diff = new Date(targetDate).getTime() - Date.now();
-      if (diff <= 0) {
-        setTimeLeft({ days: 0, hours: 0, minutes: 0, seconds: 0 });
-        return;
-      }
-      setTimeLeft({
-        days: Math.floor(diff / 86400000),
-        hours: Math.floor((diff % 86400000) / 3600000),
+      if (diff <= 0) { setT({ days: 0, hours: 0, minutes: 0, seconds: 0 }); return; }
+      setT({
+        days:    Math.floor(diff / 86400000),
+        hours:   Math.floor((diff % 86400000) / 3600000),
         minutes: Math.floor((diff % 3600000) / 60000),
         seconds: Math.floor((diff % 60000) / 1000),
       });
     };
-    calculate();
-    const id = setInterval(calculate, 1000);
+    calc();
+    const id = setInterval(calc, 1000);
     return () => clearInterval(id);
   }, [targetDate]);
 
   const units = [
-    { label: "Days", value: timeLeft.days },
-    { label: "Hours", value: timeLeft.hours },
-    { label: "Minutes", value: timeLeft.minutes },
-    { label: "Seconds", value: timeLeft.seconds },
+    { label: "Days",    v: t.days },
+    { label: "Hours",   v: t.hours },
+    { label: "Minutes", v: t.minutes },
+    { label: "Seconds", v: t.seconds },
   ];
 
   return (
-    <div>
-      <p className="text-xs uppercase tracking-[0.3em] mb-4 opacity-50">Event begins in</p>
-      <div className="flex items-center justify-center gap-3 md:gap-6">
+    <div style={{ textAlign: "center" }}>
+      <p style={{ fontSize: "0.65rem", letterSpacing: "0.3em", textTransform: "uppercase", color: "rgba(240,237,230,0.35)", marginBottom: "1.25rem" }}>
+        Event begins in
+      </p>
+      <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "0.75rem" }}>
         {units.map((u, i) => (
-          <div key={u.label} className="flex items-center gap-3 md:gap-6">
-            <div className="text-center">
-              <div
-                className="w-16 h-16 md:w-20 md:h-20 rounded-2xl flex items-center justify-center glass gold-border"
-              >
-                <span className="text-2xl md:text-3xl font-bold tabular-nums" style={{ color: "#c9a227" }}>
-                  {String(u.value).padStart(2, "0")}
+          <div key={u.label} style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
+            <div style={{ textAlign: "center" }}>
+              <div style={{
+                width: 72, height: 72,
+                borderRadius: "0.875rem",
+                background: "rgba(255,255,255,0.04)",
+                border: "1px solid rgba(201,162,39,0.22)",
+                display: "flex", alignItems: "center", justifyContent: "center",
+                backdropFilter: "blur(8px)",
+              }}>
+                <span style={{ fontSize: "1.75rem", fontWeight: 700, fontVariantNumeric: "tabular-nums", color: "#c9a227" }}>
+                  {String(u.v).padStart(2, "0")}
                 </span>
               </div>
-              <p className="text-xs mt-2 uppercase tracking-widest opacity-50">{u.label}</p>
+              <p style={{ fontSize: "0.6rem", letterSpacing: "0.15em", textTransform: "uppercase", color: "rgba(240,237,230,0.35)", marginTop: "0.5rem" }}>
+                {u.label}
+              </p>
             </div>
-            {i < units.length - 1 && (
-              <span className="text-2xl font-bold pb-6 opacity-30" style={{ color: "#c9a227" }}>:</span>
+            {i < 3 && (
+              <span style={{ fontSize: "1.5rem", fontWeight: 300, color: "rgba(201,162,39,0.35)", paddingBottom: "1.5rem" }}>:</span>
             )}
           </div>
         ))}

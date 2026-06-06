@@ -5,129 +5,117 @@ import Link from "next/link";
 import Image from "next/image";
 import { Menu, X } from "lucide-react";
 
-const navLinks = [
-  { href: "#about", label: "About" },
+const links = [
+  { href: "#about",    label: "About" },
   { href: "#schedule", label: "Schedule" },
-  { href: "#pricing", label: "Pricing" },
-  { href: "/register", label: "Register", cta: true },
+  { href: "#pricing",  label: "Pricing" },
 ];
 
 export default function Navbar() {
-  const [scrolled, setScrolled] = useState(false);
-  const [menuOpen, setMenuOpen] = useState(false);
+  const [scrolled,  setScrolled]  = useState(false);
+  const [menuOpen,  setMenuOpen]  = useState(false);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 40);
-    window.addEventListener("scroll", onScroll);
-    return () => window.removeEventListener("scroll", onScroll);
+    const fn = () => setScrolled(window.scrollY > 48);
+    window.addEventListener("scroll", fn, { passive: true });
+    return () => window.removeEventListener("scroll", fn);
   }, []);
 
+  const navStyle: React.CSSProperties = {
+    position:       "fixed",
+    top:            0,
+    left:           0,
+    right:          0,
+    zIndex:         100,
+    transition:     "background 0.3s, border-color 0.3s",
+    background:     scrolled ? "rgba(8,8,8,0.92)" : "transparent",
+    backdropFilter: scrolled ? "blur(14px)"        : "none",
+    borderBottom:   scrolled ? "1px solid rgba(201,162,39,0.12)" : "1px solid transparent",
+  };
+
   return (
-    <nav
-      className="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
-      style={{
-        background: scrolled ? "rgba(13, 13, 13, 0.95)" : "transparent",
-        backdropFilter: scrolled ? "blur(12px)" : "none",
-        borderBottom: scrolled ? "1px solid rgba(201, 162, 39, 0.1)" : "none",
-      }}
-    >
-      <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-        <Link href="/" className="flex items-center gap-3">
-          {/* IIA TC Seal */}
-          <div className="w-10 h-10 shrink-0" style={{ color: "#c9a227" }}>
-            <Image
-              src="/iia-tc-seal.png"
-              alt="IIA Telangana Chapter"
-              width={40}
-              height={40}
-              className="w-10 h-10"
-              style={{ filter: "drop-shadow(0 0 10px rgba(201,162,39,0.35))" }}
-            />
-          </div>
-          <div className="hidden sm:block">
-            <p className="text-xs font-semibold leading-tight" style={{ color: "#c9a227" }}>
+    <nav style={navStyle}>
+      <div style={{ maxWidth: 1280, margin: "0 auto", padding: "0 1.75rem", height: 72, display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+
+        {/* Brand */}
+        <Link href="/" style={{ display: "flex", alignItems: "center", gap: "0.875rem", textDecoration: "none" }}>
+          <Image
+            src="/iia-tc-seal.png"
+            alt="IIA Telangana Chapter"
+            width={40} height={40}
+            style={{ width: 38, height: 38, objectFit: "contain", filter: "drop-shadow(0 0 6px rgba(201,162,39,0.3))" }}
+          />
+          <div style={{ display: "flex", flexDirection: "column", lineHeight: 1.25 }}>
+            <span style={{ fontSize: "0.78rem", fontWeight: 700, color: "#c9a227", letterSpacing: "0.03em" }}>
               IIA Telangana Chapter
-            </p>
-            <p className="text-xs leading-tight" style={{ color: "rgba(245, 245, 240, 0.5)" }}>
-              Telangana Architects Festival 2026
-            </p>
+            </span>
+            <span style={{ fontSize: "0.7rem", color: "rgba(240,237,230,0.45)", letterSpacing: "0.02em" }}>
+              Architects Festival 2026
+            </span>
           </div>
         </Link>
 
-        {/* TAF logo mark — centre */}
-        <div className="absolute left-1/2 -translate-x-1/2 hidden md:block">
-          <Image
-            src="/taf-logo.png"
-            alt="TAF"
-            width={36}
-            height={45}
-            style={{
-              filter: "drop-shadow(0 0 10px rgba(201,162,39,0.35))",
-              opacity: scrolled ? 0.9 : 0,
-              transition: "opacity 0.3s ease",
-            }}
-          />
+        {/* Desktop links */}
+        <div style={{ display: "flex", alignItems: "center", gap: "2.25rem" }} className="hide-mobile">
+          {links.map(l => (
+            <a key={l.href} href={l.href} style={{ fontSize: "0.875rem", fontWeight: 500, color: "rgba(240,237,230,0.65)", textDecoration: "none", transition: "color 0.2s" }}
+              onMouseEnter={e => (e.currentTarget.style.color = "#c9a227")}
+              onMouseLeave={e => (e.currentTarget.style.color = "rgba(240,237,230,0.65)")}
+            >
+              {l.label}
+            </a>
+          ))}
+          <Link href="/register">
+            <button className="btn-primary" style={{ padding: "0.6rem 1.4rem", fontSize: "0.83rem" }}>
+              Register
+            </button>
+          </Link>
         </div>
 
-        {/* Desktop nav */}
-        <div className="hidden md:flex items-center gap-8">
-          {navLinks.map((link) =>
-            link.cta ? (
-              <Link key={link.href} href={link.href}>
-                <button className="btn-gold px-5 py-2 rounded-full text-sm font-bold">
-                  {link.label}
-                </button>
-              </Link>
-            ) : (
-              <a
-                key={link.href}
-                href={link.href}
-                className="text-sm font-medium transition-colors hover:text-yellow-400"
-                style={{ color: "rgba(245, 245, 240, 0.7)" }}
-              >
-                {link.label}
-              </a>
-            )
-          )}
-        </div>
-
-        {/* Mobile menu button */}
+        {/* Mobile toggle */}
         <button
-          className="md:hidden p-2"
-          onClick={() => setMenuOpen(!menuOpen)}
-          style={{ color: "#c9a227" }}
+          className="show-mobile"
+          onClick={() => setMenuOpen(v => !v)}
+          style={{ background: "none", border: "none", cursor: "pointer", color: "#c9a227", padding: "0.5rem" }}
         >
-          {menuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+          {menuOpen ? <X size={22} /> : <Menu size={22} />}
         </button>
       </div>
 
-      {/* Mobile menu */}
+      {/* Mobile drawer */}
       {menuOpen && (
-        <div
-          className="md:hidden px-6 pb-6 space-y-4"
-          style={{ background: "rgba(13, 13, 13, 0.98)", borderTop: "1px solid rgba(201, 162, 39, 0.1)" }}
-        >
-          {navLinks.map((link) =>
-            link.cta ? (
-              <Link key={link.href} href={link.href} onClick={() => setMenuOpen(false)}>
-                <button className="btn-gold w-full py-3 rounded-xl text-sm font-bold mt-2">
-                  {link.label}
-                </button>
-              </Link>
-            ) : (
-              <a
-                key={link.href}
-                href={link.href}
-                className="block text-sm font-medium py-2"
-                style={{ color: "rgba(245, 245, 240, 0.7)" }}
-                onClick={() => setMenuOpen(false)}
-              >
-                {link.label}
-              </a>
-            )
-          )}
+        <div style={{
+          borderTop: "1px solid rgba(201,162,39,0.12)",
+          background: "rgba(8,8,8,0.98)",
+          backdropFilter: "blur(16px)",
+          padding: "1.25rem 1.75rem 1.75rem",
+          display: "flex", flexDirection: "column", gap: "0.25rem"
+        }}>
+          {links.map(l => (
+            <a key={l.href} href={l.href} onClick={() => setMenuOpen(false)}
+              style={{ padding: "0.875rem 0", fontSize: "1rem", fontWeight: 500, color: "rgba(240,237,230,0.7)", textDecoration: "none", borderBottom: "1px solid rgba(255,255,255,0.05)" }}
+            >
+              {l.label}
+            </a>
+          ))}
+          <Link href="/register" onClick={() => setMenuOpen(false)} style={{ marginTop: "1rem" }}>
+            <button className="btn-primary" style={{ width: "100%", justifyContent: "center", fontSize: "0.95rem" }}>
+              Register Now
+            </button>
+          </Link>
         </div>
       )}
+
+      <style>{`
+        @media (max-width: 767px) {
+          .hide-mobile { display: none !important; }
+          .show-mobile { display: block !important; }
+        }
+        @media (min-width: 768px) {
+          .hide-mobile { display: flex !important; }
+          .show-mobile { display: none !important; }
+        }
+      `}</style>
     </nav>
   );
 }
