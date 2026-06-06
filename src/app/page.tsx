@@ -97,7 +97,7 @@ const executiveMembers = [
 
 /* ── Styles ────────────────────────────────────────── */
 const S = {
-  wrap:    { width: "100%", background: "#09101f", color: "#f0ede6" } as React.CSSProperties,
+  wrap:    { width: "100%", background: "#0f2060", color: "#f0ede6" } as React.CSSProperties,
   section: (pt = "7rem", pb = "7rem") => ({ padding: `${pt} 1.75rem ${pb}` } as React.CSSProperties),
   inner:   (max = 1120) => ({ maxWidth: max, margin: "0 auto" } as React.CSSProperties),
   label:   { fontSize: "0.68rem", letterSpacing: "0.25em", textTransform: "uppercase" as const, fontWeight: 700, color: "#c9a227", display: "block", marginBottom: "0.875rem" },
@@ -307,7 +307,7 @@ export default function Home() {
             {schedule.map((item, i) => (
               <motion.div key={i} {...iv(i * 0.07)} style={{ display: "flex", alignItems: "center", gap: "1.25rem" }}>
                 <span style={{ width: 72, flexShrink: 0, textAlign: "right", fontSize: "0.75rem", fontFamily: "monospace", fontWeight: 600, color: "#c9a227", letterSpacing: "0.02em" }}>{item.time}</span>
-                <div style={{ flexShrink: 0, width: 11, height: 11, borderRadius: "50%", border: "2px solid #c9a227", background: "#09101f" }} />
+                <div style={{ flexShrink: 0, width: 11, height: 11, borderRadius: "50%", border: "2px solid #c9a227", background: "#0f2060" }} />
                 <div style={{ ...S.card, flex: 1, padding: "0.9rem 1.35rem" }}>
                   <p style={{ fontSize: "0.92rem", fontWeight: 600, margin: 0 }}>{item.event}</p>
                 </div>
