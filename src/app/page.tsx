@@ -418,14 +418,26 @@ export default function Home() {
                 </span>
               </div>
 
-              {/* QR image */}
-              <div style={{ background: "#ffffff", borderRadius: "1rem", padding: "1.25rem", display: "inline-block", marginBottom: "1.5rem", boxShadow: "0 0 40px rgba(201,162,39,0.2)" }}>
-                <Image
+              {/* QR image — unoptimized so QR data is never resampled */}
+              <div style={{ background: "#ffffff", borderRadius: "1rem", padding: "1.5rem", display: "inline-block", marginBottom: "1.5rem", boxShadow: "0 0 48px rgba(201,162,39,0.25)" }}>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
                   src="/bharatqr.png"
                   alt="BharatQR — Scan to Pay IIA Telangana Chapter"
                   width={220}
                   height={220}
-                  style={{ width: 200, height: 200, objectFit: "contain", display: "block" }}
+                  style={{ width: 220, height: 220, objectFit: "contain", display: "block", imageRendering: "crisp-edges" }}
+                  onError={(e) => {
+                    const el = e.currentTarget;
+                    el.style.display = "none";
+                    const parent = el.parentElement;
+                    if (parent) {
+                      parent.innerHTML = `<div style="width:220px;height:220px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0.75rem;border:2px dashed rgba(201,162,39,0.4);border-radius:0.5rem;padding:1rem">
+                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#c9a227" stroke-width="1.5"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><path d="M14 14h.01M14 17h.01M17 14h.01M17 17h.01M17 20h.01M20 14h.01M20 17h.01M20 20h.01"/></svg>
+                        <span style="font-size:0.75rem;color:#c9a227;text-align:center;font-weight:600">Upload bharatqr.png<br/>to public/ folder</span>
+                      </div>`;
+                    }
+                  }}
                 />
               </div>
 
