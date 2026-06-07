@@ -71,11 +71,12 @@ function RegisterContent() {
   const [submitted, setSubmitted] = useState(false);
   const [step, setStep] = useState<"form" | "review" | "payment">("form");
   const [screenshot, setScreenshot] = useState<ScreenshotState>({ file: null, url: "", uploading: false, error: "" });
+  const [isIiaMember, setIsIiaMember] = useState<boolean | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const memberPrice = 500;
-  const iiaOtherPrice = 3000;
-  const nonMemberPrice = 5000;
+  const iiaOtherPrice = 1500;
+  const nonMemberPrice = 3000;
 
   const getPrice = () => {
     if (form.memberType === "iia-telangana") return memberPrice;
@@ -112,12 +113,18 @@ function RegisterContent() {
   }, [form.membershipNumber, form.memberType, verifyMember]);
 
   const handleChange = (field: keyof FormData, value: string) => {
+    if (field === "memberType") {
+      setIsIiaMember(null);
+      setForm((prev) => ({ ...prev, memberType: value as MemberType, membershipNumber: "" }));
+      return;
+    }
     setForm((prev) => ({ ...prev, [field]: value }));
   };
 
   const isFormValid = () => {
     if (!form.name || !form.email || !form.phone || !form.state || !form.designation) return false;
     if (form.memberType === "iia-telangana") return verification.status === "valid";
+    if (form.memberType === "other-chapter") return isIiaMember !== null;
     return true;
   };
 
@@ -238,8 +245,8 @@ function RegisterContent() {
                     <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                       {[
                         { value: "iia-telangana", label: "IIA Telangana Member" },
-                        { value: "other-chapter", label: "IIA Member" },
-                        { value: "non-member", label: "Non-Member" },
+                        { value: "other-chapter", label: "IIA Member / Architect" },
+                        { value: "non-member", label: "Others" },
                       ].map((opt) => (
                         <button key={opt.value} type="button" onClick={() => handleChange("memberType", opt.value)}
                           className="p-4 rounded-xl text-left transition-all duration-200"
@@ -278,6 +285,36 @@ function RegisterContent() {
                             <motion.div initial={{ opacity: 0, y: -5 }} animate={{ opacity: 1, y: 0 }} className="mt-3 p-3 rounded-xl text-sm"
                               style={{ background: "rgba(239,68,68,0.1)", border: "1px solid rgba(239,68,68,0.3)", color: "#ef4444" }}>
                               ✗ {verification.message || "Membership number not found"}
+                            </motion.div>
+                          )}
+                        </AnimatePresence>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+
+                  {/* IIA Member / Architect: membership question */}
+                  <AnimatePresence>
+                    {form.memberType === "other-chapter" && (
+                      <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: "auto" }} exit={{ opacity: 0, height: 0 }} className="glass gold-border rounded-2xl p-6 overflow-hidden space-y-4">
+                        <label className="text-xs uppercase tracking-widest block" style={{ color: "#c9a227" }}>Are you an IIA Member?</label>
+                        <div className="flex gap-3">
+                          {[{ label: "Yes", val: true }, { label: "No", val: false }].map(({ label, val }) => (
+                            <button key={label} type="button" onClick={() => { setIsIiaMember(val); if (!val) setForm(p => ({ ...p, membershipNumber: "" })); }}
+                              className="flex-1 py-3 rounded-xl font-semibold text-sm transition-all"
+                              style={{ background: isIiaMember === val ? "rgba(201,162,39,0.2)" : "rgba(255,255,255,0.04)", border: isIiaMember === val ? "1px solid rgba(201,162,39,0.7)" : "1px solid rgba(255,255,255,0.1)", color: isIiaMember === val ? "#c9a227" : "rgba(245,245,240,0.6)" }}>
+                              {label}
+                            </button>
+                          ))}
+                        </div>
+                        <AnimatePresence>
+                          {isIiaMember === true && (
+                            <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: "auto" }} exit={{ opacity: 0, height: 0 }} className="overflow-hidden">
+                              <label className="text-xs uppercase tracking-widest mb-2 block" style={{ color: "rgba(245,245,240,0.5)" }}>IIA Membership Number</label>
+                              <input type="text" placeholder="e.g. CA/2018/100680" value={form.membershipNumber}
+                                onChange={(e) => handleChange("membershipNumber", e.target.value.toUpperCase())}
+                                className={inputClass} style={inputStyle}
+                                onFocus={(e) => Object.assign(e.target.style, { ...inputStyle, ...inputFocusStyle })}
+                                onBlur={(e) => Object.assign(e.target.style, { ...inputStyle, boxShadow: "none" })} />
                             </motion.div>
                           )}
                         </AnimatePresence>
@@ -329,15 +366,20 @@ function RegisterContent() {
                     <div>
                       <p className="text-xs uppercase tracking-widest mb-1" style={{ color: "rgba(245,245,240,0.5)" }}>Registration Fee</p>
                       <p className="text-sm font-medium">
-                        {form.memberType === "iia-telangana" && verification.status === "valid" ? "IIA Telangana Member Rate" : form.memberType === "iia-telangana" ? "Pending verification" : form.memberType === "other-chapter" ? "IIA Member Rate" : "Non-Member Rate"}
+                        {form.memberType === "iia-telangana" && verification.status === "valid" ? "IIA Telangana Member Rate" : form.memberType === "iia-telangana" ? "Pending verification" : form.memberType === "other-chapter" ? "IIA Member / Architect Rate" : "Others Rate"}
                       </p>
                     </div>
                     <p className="text-3xl font-bold gold-gradient">₹{getPrice().toLocaleString("en-IN")}</p>
                   </div>
 
                   <button type="submit" disabled={!isFormValid()}
-                    className="btn-gold w-full py-4 rounded-xl font-bold text-base disabled:opacity-40 disabled:cursor-not-allowed flex items-center justify-center gap-2"
-                    style={!isFormValid() ? { background: "rgba(201,162,39,0.3)", color: "rgba(0,0,0,0.5)" } : {}}>
+                    className="w-full py-4 rounded-xl font-bold text-base disabled:opacity-40 disabled:cursor-not-allowed flex items-center justify-center gap-2 transition-all"
+                    style={{
+                      background: isFormValid() ? "linear-gradient(135deg,#c9a227,#e8c547)" : "rgba(201,162,39,0.25)",
+                      color: isFormValid() ? "#0f2060" : "rgba(255,255,255,0.3)",
+                      boxShadow: isFormValid() ? "0 4px 24px rgba(201,162,39,0.4)" : "none",
+                      fontSize: "1rem", letterSpacing: "0.02em",
+                    }}>
                     Proceed to Review
                   </button>
                 </form>
@@ -357,8 +399,9 @@ function RegisterContent() {
                     { label: "Organization", value: form.organization || "—" },
                     { label: "City", value: form.city },
                     { label: "State", value: form.state },
-                    { label: "Category", value: form.memberType === "iia-telangana" ? "IIA Telangana Chapter Member" : form.memberType === "other-chapter" ? "Other IIA Chapter Member" : "Non-Member" },
+                    { label: "Category", value: form.memberType === "iia-telangana" ? "IIA Telangana Chapter Member" : form.memberType === "other-chapter" ? "IIA Member / Architect" : "Others" },
                     ...(form.memberType === "iia-telangana" ? [{ label: "Membership No.", value: form.membershipNumber }, { label: "Verified Name", value: verification.memberName || "—" }] : []),
+                    ...(form.memberType === "other-chapter" && isIiaMember && form.membershipNumber ? [{ label: "Membership No.", value: form.membershipNumber }] : []),
                   ].map((item) => (
                     <div key={item.label} className="flex justify-between py-2" style={{ borderBottom: "1px solid rgba(255,255,255,0.06)" }}>
                       <span className="text-sm" style={{ color: "rgba(245,245,240,0.5)" }}>{item.label}</span>
@@ -545,7 +588,7 @@ function RegisterContent() {
 
               <button
                 onClick={() => { window.location.href = `/register/success?name=${encodeURIComponent(form.name)}&email=${encodeURIComponent(form.email)}&amount=${getPrice()}`; }}
-                className="btn-gold w-full py-3 rounded-xl font-bold text-sm"
+                style={{ width: "100%", padding: "0.875rem", borderRadius: "0.75rem", background: "linear-gradient(135deg,#c9a227,#e8c547)", color: "#0f2060", fontWeight: 700, fontSize: "0.95rem", border: "none", cursor: "pointer", boxShadow: "0 4px 24px rgba(201,162,39,0.4)", letterSpacing: "0.02em" }}
               >
                 Done
               </button>

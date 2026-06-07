@@ -69,6 +69,11 @@ export default function Navbar() {
               Register
             </button>
           </Link>
+          <div style={{ display: "flex", flexDirection: "column", lineHeight: 1.45, paddingLeft: "0.75rem", borderLeft: "1px solid rgba(201,162,39,0.25)" }}>
+            <span style={{ fontSize: "0.65rem", color: "rgba(240,237,230,0.4)", letterSpacing: "0.08em", textTransform: "uppercase", marginBottom: "0.1rem" }}>Contact</span>
+            <a href="tel:+919550345867" style={{ fontSize: "0.75rem", color: "#c9a227", textDecoration: "none", fontWeight: 600, lineHeight: 1.4 }}>95503 45867</a>
+            <a href="tel:+919849015811" style={{ fontSize: "0.75rem", color: "#c9a227", textDecoration: "none", fontWeight: 600, lineHeight: 1.4 }}>98490 15811</a>
+          </div>
         </div>
 
         {/* Mobile toggle */}
@@ -102,6 +107,11 @@ export default function Navbar() {
               Register Now
             </button>
           </Link>
+          <div style={{ marginTop: "0.75rem", paddingTop: "0.75rem", borderTop: "1px solid rgba(201,162,39,0.15)" }}>
+            <p style={{ fontSize: "0.65rem", color: "rgba(240,237,230,0.4)", letterSpacing: "0.08em", textTransform: "uppercase", marginBottom: "0.4rem" }}>Contact</p>
+            <a href="tel:+919550345867" style={{ display: "block", fontSize: "0.9rem", color: "#c9a227", textDecoration: "none", fontWeight: 600, marginBottom: "0.2rem" }}>+91 95503 45867</a>
+            <a href="tel:+919849015811" style={{ display: "block", fontSize: "0.9rem", color: "#c9a227", textDecoration: "none", fontWeight: 600 }}>+91 98490 15811</a>
+          </div>
         </div>
       )}
 

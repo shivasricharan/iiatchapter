@@ -8,7 +8,7 @@ export async function POST(req: NextRequest) {
 
     const categoryLabel =
       memberType === "iia-telangana" ? "IIA Telangana Member" :
-      memberType === "other-chapter" ? "IIA Member" : "Non-Member";
+      memberType === "other-chapter" ? "IIA Member / Architect" : "Others";
 
     // 1. Write to Google Sheet via Apps Script (primary data capture)
     const appsScriptUrl = process.env.APPS_SCRIPT_URL;
