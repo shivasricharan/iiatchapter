@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import { Mail, MapPin, Calendar, Phone } from "lucide-react";
 
 export default function Footer() {
@@ -84,7 +85,23 @@ export default function Footer() {
         {/* Bottom */}
         <div style={{ borderTop: "1px solid rgba(201,162,39,0.1)", paddingTop: "1.5rem", display: "flex", flexWrap: "wrap", alignItems: "center", justifyContent: "space-between", gap: "0.75rem" }}>
           <p style={{ fontSize: "0.75rem", color: "rgba(240,237,230,0.28)", margin: 0 }}>© 2026 Indian Institute of Architects, Telangana Chapter. All rights reserved.</p>
-          <p style={{ fontSize: "0.75rem", color: "rgba(240,237,230,0.28)", margin: 0 }}>iiatchapter.org</p>
+          <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: "1.25rem" }}>
+            {[
+              { label: "Terms & Conditions", href: "/terms-and-conditions" },
+              { label: "Privacy Policy",     href: "/privacy-policy" },
+              { label: "Refund Policy",      href: "/refund-policy" },
+            ].map(({ label, href }) => (
+              <Link
+                key={href}
+                href={href}
+                style={{ fontSize: "0.75rem", color: "rgba(240,237,230,0.38)", textDecoration: "none", transition: "color 0.2s" }}
+                onMouseEnter={e => ((e.currentTarget as HTMLElement).style.color = "#c9a227")}
+                onMouseLeave={e => ((e.currentTarget as HTMLElement).style.color = "rgba(240,237,230,0.38)")}
+              >
+                {label}
+              </Link>
+            ))}
+          </div>
         </div>
       </div>
     </footer>
