@@ -3,7 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { motion, type Transition } from "framer-motion";
-import { Calendar, MapPin, Clock, ArrowRight, Award, Users, Music, Star, CheckCircle, Phone, Mail, ExternalLink } from "lucide-react";
+import { Calendar, MapPin, Clock, ArrowRight, Award, Users, Music, Star, CheckCircle, Phone, Mail } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import CountdownTimer from "@/components/CountdownTimer";
@@ -537,9 +537,6 @@ export default function Home() {
                 <Link href="/register">
                   <button className="btn-primary" style={{ fontSize: "0.95rem", padding: "0.95rem 2.5rem" }}>Register & Pay Online <ArrowRight size={17} /></button>
                 </Link>
-                <a href="https://docs.google.com/forms/d/e/1FAIpQLSfH4v_I0uBb_0jRoPTiue7fpRPuY2dRaVCR-W1j0TDArNR-SQ/viewform?usp=header" target="_blank" rel="noopener noreferrer">
-                  <button className="btn-outline" style={{ fontSize: "0.95rem", padding: "0.95rem 2.5rem" }}>Fill Google Form <ExternalLink size={15} /></button>
-                </a>
               </div>
             </div>
           </motion.div>
