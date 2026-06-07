@@ -4,7 +4,7 @@ import nodemailer from "nodemailer";
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
-    const { name, email, phone, organization, city, memberType, membershipNumber, memberName, amount, screenshotUrl } = body;
+    const { name, email, phone, designation, organization, city, state, memberType, membershipNumber, memberName, amount, screenshotUrl } = body;
 
     const categoryLabel =
       memberType === "iia-telangana" ? "IIA Telangana Member" :
@@ -46,8 +46,10 @@ export async function POST(req: NextRequest) {
               ${tableRow("Name", name)}
               ${tableRow("Email", email)}
               ${tableRow("Phone", phone)}
+              ${designation ? tableRow("Designation", designation) : ""}
               ${tableRow("Organization", organization || "—")}
               ${tableRow("City", city || "—")}
+              ${state ? tableRow("State", state) : ""}
               ${tableRow("Category", categoryLabel)}
               ${membershipNumber ? tableRow("Membership No.", membershipNumber) : ""}
               ${memberName ? tableRow("Verified Name", memberName) : ""}
@@ -81,7 +83,7 @@ export async function POST(req: NextRequest) {
             </p>
             <div style="background:#fffbf0;border:1px solid #c9a227;border-radius:10px;padding:20px;margin:24px 0;">
               <table style="width:100%;border-collapse:collapse;">
-                ${[["Event", "Telangana Architecture Festival 2026"], ["Date", "12th June 2026, Friday"], ["Venue", "Avasa Hotel, Madhapur, Hyderabad"], ["Time", "5:00 PM Onwards"], ["Amount Paid", `₹${Number(amount).toLocaleString("en-IN")}`], ["Category", categoryLabel]]
+                ${[["Event", "Telangana Architecture Festival 2026"], ["Date", "12th June 2026, Friday"], ["Venue", "Avasa Hotel, Madhapur, Hyderabad"], ["Time", "5:00 PM Onwards"], ["Amount Paid", `₹${Number(amount).toLocaleString("en-IN")}`], ["Category", categoryLabel], ...(designation ? [["Designation", designation]] : [])]
                   .map(([l, v]) => `<tr><td style="padding:6px 0;color:#888;font-size:13px;width:130px;">${l}</td><td style="padding:6px 0;color:#333;font-size:13px;font-weight:600;">${v}</td></tr>`).join("")}
               </table>
             </div>

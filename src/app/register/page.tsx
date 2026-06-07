@@ -10,6 +10,18 @@ import Footer from "@/components/Footer";
 
 type MemberType = "iia-telangana" | "other-chapter" | "non-member";
 
+const DESIGNATIONS = [
+  "Architect",
+  "Interior Designer",
+  "Student",
+  "Builder / Developer",
+  "Engineer",
+  "Consultant",
+  "Government Official",
+  "Vendor / Supplier",
+  "Other",
+];
+
 interface FormData {
   name: string;
   email: string;
@@ -18,6 +30,8 @@ interface FormData {
   memberType: MemberType;
   membershipNumber: string;
   city: string;
+  state: string;
+  designation: string;
 }
 
 interface MemberVerification {
@@ -48,6 +62,8 @@ function RegisterContent() {
     memberType: initialType,
     membershipNumber: "",
     city: "",
+    state: "",
+    designation: "",
   });
 
   const [verification, setVerification] = useState<MemberVerification>({ status: "idle" });
@@ -99,7 +115,7 @@ function RegisterContent() {
   };
 
   const isFormValid = () => {
-    if (!form.name || !form.email || !form.phone) return false;
+    if (!form.name || !form.email || !form.phone || !form.state || !form.designation) return false;
     if (form.memberType === "iia-telangana") return verification.status === "valid";
     return true;
   };
@@ -146,8 +162,10 @@ function RegisterContent() {
           name: form.name,
           email: form.email,
           phone: form.phone,
+          designation: form.designation,
           organization: form.organization,
           city: form.city,
+          state: form.state,
           memberType: form.memberType,
           membershipNumber: form.membershipNumber,
           memberName: verification.memberName,
@@ -285,7 +303,24 @@ function RegisterContent() {
                       <Building2 className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4" style={{ color: "rgba(201,162,39,0.5)" }} />
                       <input type="text" placeholder="Firm / Organization" value={form.organization} onChange={(e) => handleChange("organization", e.target.value)} className={inputClass} style={{ ...inputStyle, paddingLeft: "2.75rem" }} onFocus={(e) => Object.assign(e.target.style, { ...inputStyle, paddingLeft: "2.75rem", ...inputFocusStyle })} onBlur={(e) => Object.assign(e.target.style, { ...inputStyle, paddingLeft: "2.75rem", boxShadow: "none" })} />
                     </div>
-                    <input type="text" placeholder="City" value={form.city} onChange={(e) => handleChange("city", e.target.value)} className={inputClass} style={inputStyle} onFocus={(e) => Object.assign(e.target.style, { ...inputStyle, ...inputFocusStyle })} onBlur={(e) => Object.assign(e.target.style, { ...inputStyle, boxShadow: "none" })} />
+                    <div className="grid grid-cols-2 gap-3">
+                      <input type="text" placeholder="City *" value={form.city} onChange={(e) => handleChange("city", e.target.value)} required className={inputClass} style={inputStyle} onFocus={(e) => Object.assign(e.target.style, { ...inputStyle, ...inputFocusStyle })} onBlur={(e) => Object.assign(e.target.style, { ...inputStyle, boxShadow: "none" })} />
+                      <input type="text" placeholder="State *" value={form.state} onChange={(e) => handleChange("state", e.target.value)} required className={inputClass} style={inputStyle} onFocus={(e) => Object.assign(e.target.style, { ...inputStyle, ...inputFocusStyle })} onBlur={(e) => Object.assign(e.target.style, { ...inputStyle, boxShadow: "none" })} />
+                    </div>
+                    <select
+                      value={form.designation}
+                      onChange={(e) => handleChange("designation", e.target.value)}
+                      required
+                      className={inputClass}
+                      style={{ ...inputStyle, appearance: "none", cursor: "pointer", color: form.designation ? "#f5f5f0" : "rgba(245,245,240,0.35)" }}
+                      onFocus={(e) => Object.assign(e.target.style, { ...inputStyle, appearance: "none", cursor: "pointer", color: form.designation ? "#f5f5f0" : "rgba(245,245,240,0.35)", ...inputFocusStyle })}
+                      onBlur={(e) => Object.assign(e.target.style, { ...inputStyle, appearance: "none", cursor: "pointer", color: form.designation ? "#f5f5f0" : "rgba(245,245,240,0.35)", boxShadow: "none" })}
+                    >
+                      <option value="" disabled style={{ background: "#0f2060" }}>Designation *</option>
+                      {DESIGNATIONS.map((d) => (
+                        <option key={d} value={d} style={{ background: "#0f2060", color: "#f5f5f0" }}>{d}</option>
+                      ))}
+                    </select>
                   </div>
 
                   {/* Price Summary */}
@@ -317,8 +352,10 @@ function RegisterContent() {
                     { label: "Name", value: form.name },
                     { label: "Email", value: form.email },
                     { label: "Phone", value: form.phone },
+                    { label: "Designation", value: form.designation },
                     { label: "Organization", value: form.organization || "—" },
-                    { label: "City", value: form.city || "—" },
+                    { label: "City", value: form.city },
+                    { label: "State", value: form.state },
                     { label: "Category", value: form.memberType === "iia-telangana" ? "IIA Telangana Chapter Member" : form.memberType === "other-chapter" ? "Other IIA Chapter Member" : "Non-Member" },
                     ...(form.memberType === "iia-telangana" ? [{ label: "Membership No.", value: form.membershipNumber }, { label: "Verified Name", value: verification.memberName || "—" }] : []),
                   ].map((item) => (
