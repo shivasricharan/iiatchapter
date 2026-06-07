@@ -20,10 +20,6 @@ export const metadata: Metadata = {
     "Join us for the Telangana Architecture Festival — a grand celebration of architecture, design, and professional excellence by the Indian Institute of Architects, Telangana Chapter. June 12, 2026.",
   keywords:
     "Telangana Architecture Festival, IIA, Indian Institute of Architects, TAF 2026, Architecture, Hyderabad",
-  icons: {
-    icon: "/iiat-favicon.png",
-    apple: "/iiat-favicon.png",
-  },
   openGraph: {
     title: "Telangana Architecture Festival 2026",
     description:
