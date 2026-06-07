@@ -311,6 +311,16 @@ function RegisterContent() {
                           {isIiaMember === true && (
                             <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: "auto" }} exit={{ opacity: 0, height: 0 }} className="overflow-hidden">
                               <label className="text-xs uppercase tracking-widest mb-2 block" style={{ color: "rgba(245,245,240,0.5)" }}>IIA Membership Number</label>
+                              <input type="text" placeholder="e.g. A30656 or F30492" value={form.membershipNumber}
+                                onChange={(e) => handleChange("membershipNumber", e.target.value.toUpperCase())}
+                                className={inputClass} style={inputStyle}
+                                onFocus={(e) => Object.assign(e.target.style, { ...inputStyle, ...inputFocusStyle })}
+                                onBlur={(e) => Object.assign(e.target.style, { ...inputStyle, boxShadow: "none" })} />
+                            </motion.div>
+                          )}
+                          {isIiaMember === false && (
+                            <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: "auto" }} exit={{ opacity: 0, height: 0 }} className="overflow-hidden">
+                              <label className="text-xs uppercase tracking-widest mb-2 block" style={{ color: "rgba(245,245,240,0.5)" }}>COA Registration Number</label>
                               <input type="text" placeholder="e.g. CA/2018/100680" value={form.membershipNumber}
                                 onChange={(e) => handleChange("membershipNumber", e.target.value.toUpperCase())}
                                 className={inputClass} style={inputStyle}
