@@ -15,11 +15,15 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Telangana Architecture Festival 2026 | IIA Telangana Chapter",
+  title: "The Indian Institute of Architects, Telangana Chapter & TAF",
   description:
     "Join us for the Telangana Architecture Festival — a grand celebration of architecture, design, and professional excellence by the Indian Institute of Architects, Telangana Chapter. June 12, 2026.",
   keywords:
     "Telangana Architecture Festival, IIA, Indian Institute of Architects, TAF 2026, Architecture, Hyderabad",
+  icons: {
+    icon: "/iia-tc-seal.png",
+    apple: "/iia-tc-seal.png",
+  },
   openGraph: {
     title: "Telangana Architecture Festival 2026",
     description:
