@@ -366,7 +366,7 @@ export default function Home() {
             <motion.div {...iv(0.1)} style={{ ...S.goldCard, padding: "2.25rem", textAlign: "center", position: "relative", overflow: "hidden" }}>
               <div style={{ position: "absolute", top: "1rem", right: "1rem", background: "#c9a227", color: "#080808", fontSize: "0.6rem", fontWeight: 800, letterSpacing: "0.08em", padding: "0.3rem 0.75rem", borderRadius: 9999 }}>BEST RATE</div>
               <div style={{ width: 56, height: 56, borderRadius: "0.875rem", background: "rgba(201,162,39,0.15)", display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 1.25rem", color: "#c9a227" }}><Award size={26} /></div>
-              <h3 style={{ fontFamily: "var(--font-playfair,Georgia,serif)", fontSize: "1.15rem", fontWeight: 700, marginBottom: "0.35rem" }}>IIA Active Telangana Member</h3>
+              <h3 style={{ fontFamily: "var(--font-playfair,Georgia,serif)", fontSize: "1.15rem", fontWeight: 700, marginBottom: "0.35rem" }}>IIA Active Telangana Chapter Member</h3>
               <p style={{ fontSize: "0.82rem", color: "rgba(240,237,230,0.5)", marginBottom: "1.5rem" }}>Active members of IIA Telangana Chapter</p>
               <div style={{ marginBottom: "1.5rem" }}>
                 <span className="gold-text" style={{ fontFamily: "var(--font-playfair,Georgia,serif)", fontSize: "3rem", fontWeight: 700 }}>₹500</span>
@@ -387,7 +387,7 @@ export default function Home() {
             {/* IIA Member / Architect */}
             <motion.div {...iv(0.2)} style={{ ...S.card, padding: "2.25rem", textAlign: "center" }}>
               <div style={{ width: 56, height: 56, borderRadius: "0.875rem", background: "rgba(255,255,255,0.06)", display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 1.25rem", color: "rgba(240,237,230,0.6)" }}><Users size={26} /></div>
-              <h3 style={{ fontFamily: "var(--font-playfair,Georgia,serif)", fontSize: "1.15rem", fontWeight: 700, marginBottom: "0.35rem" }}>IIA Inactive Member / Architect</h3>
+              <h3 style={{ fontFamily: "var(--font-playfair,Georgia,serif)", fontSize: "1.15rem", fontWeight: 700, marginBottom: "0.35rem" }}>IIA Inactive Telangana Chapter Member / Architect</h3>
               <p style={{ fontSize: "0.82rem", color: "rgba(240,237,230,0.5)", marginBottom: "1.5rem" }}>Inactive IIA members & architects from any chapter</p>
               <div style={{ marginBottom: "1.5rem" }}>
                 <span style={{ fontFamily: "var(--font-playfair,Georgia,serif)", fontSize: "3rem", fontWeight: 700, color: "#f0ede6" }}>₹1,500</span>
