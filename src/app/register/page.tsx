@@ -482,8 +482,11 @@ function RegisterContent() {
                   )}
                 </button>
 
-                <p className="text-xs text-center" style={{ color: "rgba(245,245,240,0.3)" }}>
-                  Your screenshot is stored securely. Our team will verify payment within 24 hours.
+                <p className="text-xs text-center" style={{ color: "rgba(245,245,240,0.4)" }}>
+                  In case of any queries, please reach us at{" "}
+                  <a href="tel:+919849015811" style={{ color: "#c9a227", textDecoration: "none" }}>+91 98490 15811</a>
+                  {" "}or{" "}
+                  <a href="mailto:iiatchapter@gmail.com" style={{ color: "#c9a227", textDecoration: "none" }}>iiatchapter@gmail.com</a>
                 </p>
               </motion.div>
             )}

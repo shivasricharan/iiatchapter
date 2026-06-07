@@ -70,10 +70,10 @@ export default function Footer() {
               >
                 <Mail size={13} color="#c9a227" />iiatchapter@gmail.com
               </a>
-              <a href="tel:+919848046148"
+              <a href="tel:+919849015811"
                 style={{ display: "flex", alignItems: "center", gap: "0.55rem", fontSize: "0.84rem", color: "rgba(240,237,230,0.58)", textDecoration: "none" }}
               >
-                <Phone size={13} color="#c9a227" />+91 9848046148 (Chairman)
+                <Phone size={13} color="#c9a227" />+91 9849015811
               </a>
               <p style={{ display: "flex", alignItems: "flex-start", gap: "0.55rem", fontSize: "0.82rem", color: "rgba(240,237,230,0.38)", margin: 0, lineHeight: 1.6 }}>
                 <MapPin size={13} color="#c9a227" style={{ flexShrink: 0, marginTop: 2 }} />
