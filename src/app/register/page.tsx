@@ -459,15 +459,28 @@ function RegisterContent() {
                   <button onClick={() => setStep("review")} className="py-3 rounded-xl font-semibold text-sm border transition-all hover:bg-white/5 px-6" style={{ border: "1px solid rgba(201,162,39,0.3)", color: "#c9a227" }}>
                     Back
                   </button>
-                  <button
-                    onClick={handleFinalSubmit}
-                    disabled={!screenshot.url || submitting || submitted}
-                    className="btn-gold flex-1 py-3 rounded-xl font-bold text-sm flex items-center justify-center gap-2 disabled:opacity-40 disabled:cursor-not-allowed"
-                  >
-                    {submitting ? <Loader2 className="w-4 h-4 animate-spin" /> : <CheckCircle className="w-4 h-4" />}
-                    {submitting ? "Submitting…" : "Submit to Complete Registration"}
-                  </button>
                 </div>
+
+                <button
+                  onClick={handleFinalSubmit}
+                  disabled={!screenshot.url || submitting || submitted}
+                  className="w-full py-4 rounded-xl font-bold text-base flex items-center justify-center gap-3 disabled:opacity-40 disabled:cursor-not-allowed transition-all"
+                  style={{
+                    background: screenshot.url && !submitting && !submitted ? "linear-gradient(135deg,#c9a227,#e8c547)" : "rgba(201,162,39,0.3)",
+                    color: screenshot.url && !submitting && !submitted ? "#0f2060" : "rgba(0,0,0,0.4)",
+                    fontSize: "1rem",
+                    letterSpacing: "0.02em",
+                    boxShadow: screenshot.url && !submitting && !submitted ? "0 4px 24px rgba(201,162,39,0.35)" : "none",
+                  }}
+                >
+                  {submitting ? (
+                    <><Loader2 className="w-5 h-5 animate-spin" /> Submitting…</>
+                  ) : submitted ? (
+                    <><CheckCircle className="w-5 h-5" /> Registration Submitted</>
+                  ) : (
+                    <><CheckCircle className="w-5 h-5" /> Submit to Complete Registration</>
+                  )}
+                </button>
 
                 <p className="text-xs text-center" style={{ color: "rgba(245,245,240,0.3)" }}>
                   Your screenshot is stored securely. Our team will verify payment within 24 hours.
