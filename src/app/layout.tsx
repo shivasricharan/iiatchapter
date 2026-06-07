@@ -21,8 +21,8 @@ export const metadata: Metadata = {
   keywords:
     "Telangana Architecture Festival, IIA, Indian Institute of Architects, TAF 2026, Architecture, Hyderabad",
   icons: {
-    icon: "/iia-tc-seal.png",
-    apple: "/iia-tc-seal.png",
+    icon: "/iiat-favicon.png",
+    apple: "/iiat-favicon.png",
   },
   openGraph: {
     title: "Telangana Architecture Festival 2026",
