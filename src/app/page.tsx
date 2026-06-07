@@ -44,7 +44,7 @@ const guests = [
   {
     name: "Shri. Vem. Narender Reddy Garu",
     role: "Special Guest",
-    designation: "Hon'ble Member of Parliament",
+    designation: "Hon'ble Member of Parliament, Rajya Sabha",
     photo: "/venkataramana.png",
     highlight: true,
   },
@@ -82,7 +82,6 @@ const officeBearers = [
 
 const executiveMembers = [
   "Ar. S. Raghu Ram Acharya",
-  "Ar. Shweta Balasubramoni",
   "Ar. A. A. Sharma",
   "Ar. Abhishek Ramanujam",
   "Ar. Chandi Prasanna",
@@ -90,6 +89,7 @@ const executiveMembers = [
   "Ar. E. Mukhteshwar",
   "Ar. Sandeep Naidu Gatti",
   "Ar. B. Vijay Mohan",
+  "Ar. Shweta Balasubramoni",
   "Ar. JM Balachandran",
   "Ar. Sajjan Kumar Goud",
   "Ar. Jaipal Reddy",
@@ -366,8 +366,8 @@ export default function Home() {
             <motion.div {...iv(0.1)} style={{ ...S.goldCard, padding: "2.25rem", textAlign: "center", position: "relative", overflow: "hidden" }}>
               <div style={{ position: "absolute", top: "1rem", right: "1rem", background: "#c9a227", color: "#080808", fontSize: "0.6rem", fontWeight: 800, letterSpacing: "0.08em", padding: "0.3rem 0.75rem", borderRadius: 9999 }}>BEST RATE</div>
               <div style={{ width: 56, height: 56, borderRadius: "0.875rem", background: "rgba(201,162,39,0.15)", display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 1.25rem", color: "#c9a227" }}><Award size={26} /></div>
-              <h3 style={{ fontFamily: "var(--font-playfair,Georgia,serif)", fontSize: "1.15rem", fontWeight: 700, marginBottom: "0.35rem" }}>IIA Telangana Member</h3>
-              <p style={{ fontSize: "0.82rem", color: "rgba(240,237,230,0.5)", marginBottom: "1.5rem" }}>Exclusive rate for verified Telangana Chapter members</p>
+              <h3 style={{ fontFamily: "var(--font-playfair,Georgia,serif)", fontSize: "1.15rem", fontWeight: 700, marginBottom: "0.35rem" }}>IIA Active Telangana Member</h3>
+              <p style={{ fontSize: "0.82rem", color: "rgba(240,237,230,0.5)", marginBottom: "1.5rem" }}>Active members of IIA Telangana Chapter</p>
               <div style={{ marginBottom: "1.5rem" }}>
                 <span className="gold-text" style={{ fontFamily: "var(--font-playfair,Georgia,serif)", fontSize: "3rem", fontWeight: 700 }}>₹500</span>
                 <span style={{ fontSize: "0.8rem", color: "rgba(240,237,230,0.4)", marginLeft: "0.4rem" }}>per person</span>
@@ -387,8 +387,8 @@ export default function Home() {
             {/* IIA Member / Architect */}
             <motion.div {...iv(0.2)} style={{ ...S.card, padding: "2.25rem", textAlign: "center" }}>
               <div style={{ width: 56, height: 56, borderRadius: "0.875rem", background: "rgba(255,255,255,0.06)", display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 1.25rem", color: "rgba(240,237,230,0.6)" }}><Users size={26} /></div>
-              <h3 style={{ fontFamily: "var(--font-playfair,Georgia,serif)", fontSize: "1.15rem", fontWeight: 700, marginBottom: "0.35rem" }}>IIA Member / Architect</h3>
-              <p style={{ fontSize: "0.82rem", color: "rgba(240,237,230,0.5)", marginBottom: "1.5rem" }}>IIA members & architects from any chapter across India</p>
+              <h3 style={{ fontFamily: "var(--font-playfair,Georgia,serif)", fontSize: "1.15rem", fontWeight: 700, marginBottom: "0.35rem" }}>IIA Inactive Member / Architect</h3>
+              <p style={{ fontSize: "0.82rem", color: "rgba(240,237,230,0.5)", marginBottom: "1.5rem" }}>Inactive IIA members & architects from any chapter</p>
               <div style={{ marginBottom: "1.5rem" }}>
                 <span style={{ fontFamily: "var(--font-playfair,Georgia,serif)", fontSize: "3rem", fontWeight: 700, color: "#f0ede6" }}>₹1,500</span>
                 <span style={{ fontSize: "0.8rem", color: "rgba(240,237,230,0.4)", marginLeft: "0.4rem" }}>per person</span>
@@ -408,7 +408,7 @@ export default function Home() {
             {/* Others */}
             <motion.div {...iv(0.3)} style={{ ...S.card, padding: "2.25rem", textAlign: "center" }}>
               <div style={{ width: 56, height: 56, borderRadius: "0.875rem", background: "rgba(255,255,255,0.06)", display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 1.25rem", color: "rgba(240,237,230,0.6)" }}><Users size={26} /></div>
-              <h3 style={{ fontFamily: "var(--font-playfair,Georgia,serif)", fontSize: "1.15rem", fontWeight: 700, marginBottom: "0.35rem" }}>Others</h3>
+              <h3 style={{ fontFamily: "var(--font-playfair,Georgia,serif)", fontSize: "1.15rem", fontWeight: 700, marginBottom: "0.35rem" }}>Open to All</h3>
               <p style={{ fontSize: "0.82rem", color: "rgba(240,237,230,0.5)", marginBottom: "1.5rem" }}>Open to all professionals, industry partners & guests</p>
               <div style={{ marginBottom: "1.5rem" }}>
                 <span style={{ fontFamily: "var(--font-playfair,Georgia,serif)", fontSize: "3rem", fontWeight: 700, color: "#f0ede6" }}>₹3,000</span>
