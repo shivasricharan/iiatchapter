@@ -47,9 +47,12 @@ export default function Navbar() {
             width={52} height={52}
             style={{ width: 50, height: 50, objectFit: "contain", filter: "drop-shadow(0 0 6px rgba(201,162,39,0.3))" }}
           />
-          <div style={{ display: "flex", flexDirection: "column", lineHeight: 1.25 }}>
-            <span style={{ fontSize: "0.78rem", fontWeight: 700, color: "#c9a227", letterSpacing: "0.03em" }}>
-              The IIA Telangana Chapter
+          <div style={{ display: "flex", flexDirection: "column", lineHeight: 1.3 }}>
+            <span style={{ fontSize: "0.58rem", fontWeight: 700, color: "#c9a227", letterSpacing: "0.06em", textTransform: "uppercase" }}>
+              The Indian Institute of Architects,
+            </span>
+            <span style={{ fontSize: "0.58rem", fontWeight: 700, color: "#c9a227", letterSpacing: "0.06em", textTransform: "uppercase" }}>
+              Telangana Chapter
             </span>
           </div>
         </Link>

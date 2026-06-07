@@ -37,7 +37,7 @@ const guests = [
   {
     name: "A. Revanth Reddy Garu",
     role: "Chief Guest",
-    designation: "Chief Minister of Telangana",
+    designation: "Hon'ble Chief Minister of Telangana",
     photo: "/revanth.png",
     highlight: true,
   },
@@ -271,14 +271,14 @@ export default function Home() {
           </motion.div>
 
           {/* All other guests including Narender Reddy — grid */}
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(240px,1fr))", gap: "1.25rem" }}>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(260px,1fr))", gap: "1.25rem" }}>
             {guests.slice(1).map((g, i) => (
               <motion.div key={g.name} {...iv(0.2 + i * 0.1)} style={{ ...S.card, padding: "1.75rem", textAlign: "center" }}>
                 <div style={{ width: 100, height: 100, borderRadius: "50%", overflow: "hidden", margin: "0 auto 1.1rem", border: "2px solid rgba(201,162,39,0.4)", boxShadow: "0 0 20px rgba(201,162,39,0.12)" }}>
                   <Image src={g.photo} alt={g.name} width={100} height={100} style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "top" }} />
                 </div>
                 <div style={{ display: "inline-block", background: "rgba(201,162,39,0.12)", color: "#c9a227", fontSize: "0.62rem", fontWeight: 700, letterSpacing: "0.18em", textTransform: "uppercase", padding: "0.3rem 0.9rem", borderRadius: 9999, marginBottom: "0.9rem", border: "1px solid rgba(201,162,39,0.3)" }}>{g.role}</div>
-                <h3 style={{ fontFamily: "var(--font-playfair,Georgia,serif)", fontSize: "1.1rem", fontWeight: 700, margin: "0 0 0.4rem" }}>{g.name}</h3>
+                <h3 style={{ fontFamily: "var(--font-playfair,Georgia,serif)", fontSize: "0.92rem", fontWeight: 700, margin: "0 0 0.4rem", whiteSpace: "nowrap" }}>{g.name}</h3>
                 <p style={{ fontSize: "0.82rem", color: "rgba(240,237,230,0.55)", margin: 0 }}>{g.designation}</p>
               </motion.div>
             ))}

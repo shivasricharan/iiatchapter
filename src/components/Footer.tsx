@@ -88,14 +88,10 @@ export default function Footer() {
         </div>
 
         {/* Bottom */}
-        <div style={{ borderTop: "1px solid rgba(201,162,39,0.1)", paddingTop: "1.5rem", display: "flex", flexWrap: "wrap", alignItems: "center", justifyContent: "space-between", gap: "0.75rem" }}>
-          <p style={{ fontSize: "0.75rem", color: "rgba(240,237,230,0.28)", margin: 0 }}>© 2026 Indian Institute of Architects, Telangana Chapter. All rights reserved.</p>
-          <div style={{ display: "flex", alignItems: "center", gap: "1.25rem", flexWrap: "wrap" }}>
-            <Link href="/terms" style={{ fontSize: "0.75rem", color: "rgba(240,237,230,0.38)", textDecoration: "none" }}>Terms &amp; Conditions</Link>
-            <Link href="/privacy" style={{ fontSize: "0.75rem", color: "rgba(240,237,230,0.38)", textDecoration: "none" }}>Privacy Policy</Link>
-            <Link href="/refund" style={{ fontSize: "0.75rem", color: "rgba(240,237,230,0.38)", textDecoration: "none" }}>Refund Policy</Link>
-            <p style={{ fontSize: "0.75rem", color: "rgba(240,237,230,0.28)", margin: 0 }}>iiatchapter.org</p>
-          </div>
+        <div style={{ borderTop: "1px solid rgba(201,162,39,0.1)", paddingTop: "1.5rem", textAlign: "center" }}>
+          <p style={{ fontSize: "0.68rem", color: "rgba(240,237,230,0.3)", margin: 0, letterSpacing: "0.1em", textTransform: "uppercase" }}>
+            Copyright &copy; 2026 The Indian Institute of Architects, Telangana Chapter. All Rights Reserved.
+          </p>
         </div>
       </div>
     </footer>
