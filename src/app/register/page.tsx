@@ -52,7 +52,8 @@ const CLOUDINARY_PRESET = "iiatchapter";
 
 function RegisterContent() {
   const searchParams = useSearchParams();
-  const initialType = searchParams.get("type") === "member" ? "iia-telangana" : "non-member";
+  const t = searchParams.get("type");
+  const initialType: MemberType = t === "member" ? "iia-telangana" : t === "other-chapter" ? "other-chapter" : "non-member";
 
   const [form, setForm] = useState<FormData>({
     name: "",
