@@ -68,6 +68,7 @@ function RegisterContent() {
 
   const [verification, setVerification] = useState<MemberVerification>({ status: "idle" });
   const [submitting, setSubmitting] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
   const [step, setStep] = useState<"form" | "review" | "payment">("form");
   const [screenshot, setScreenshot] = useState<ScreenshotState>({ file: null, url: "", uploading: false, error: "" });
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -152,7 +153,7 @@ function RegisterContent() {
   };
 
   const handleFinalSubmit = async () => {
-    if (!screenshot.url) return;
+    if (!screenshot.url || submitting || submitted) return;
     setSubmitting(true);
     try {
       const res = await fetch("/api/register", {
@@ -175,8 +176,8 @@ function RegisterContent() {
       });
       const data = await res.json();
       if (data.success) {
-        const params = new URLSearchParams({ name: form.name, email: form.email, amount: String(getPrice()) });
-        window.location.href = `/register/success?${params.toString()}`;
+        setSubmitted(true);
+        setSubmitting(false);
       } else {
         alert("Submission failed. Please try again.");
         setSubmitting(false);
@@ -460,11 +461,11 @@ function RegisterContent() {
                   </button>
                   <button
                     onClick={handleFinalSubmit}
-                    disabled={!screenshot.url || submitting}
+                    disabled={!screenshot.url || submitting || submitted}
                     className="btn-gold flex-1 py-3 rounded-xl font-bold text-sm flex items-center justify-center gap-2 disabled:opacity-40 disabled:cursor-not-allowed"
                   >
                     {submitting ? <Loader2 className="w-4 h-4 animate-spin" /> : <CheckCircle className="w-4 h-4" />}
-                    {submitting ? "Submitting…" : "Confirm Registration"}
+                    {submitting ? "Submitting…" : "Submit to Complete Registration"}
                   </button>
                 </div>
 
@@ -476,6 +477,67 @@ function RegisterContent() {
           </AnimatePresence>
         </motion.div>
       </div>
+
+      {/* ── Thank You Overlay ── */}
+      <AnimatePresence>
+        {submitted && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            style={{ position: "fixed", inset: 0, background: "rgba(0,0,0,0.85)", zIndex: 100, display: "flex", alignItems: "center", justifyContent: "center", padding: "1.5rem" }}
+          >
+            <motion.div
+              initial={{ scale: 0.85, opacity: 0, y: 20 }}
+              animate={{ scale: 1, opacity: 1, y: 0 }}
+              transition={{ type: "spring", duration: 0.5 }}
+              style={{ background: "#0f2060", border: "1px solid rgba(201,162,39,0.4)", borderRadius: "1.5rem", padding: "3rem 2.5rem", maxWidth: 500, width: "100%", textAlign: "center" }}
+            >
+              <motion.div
+                initial={{ scale: 0 }}
+                animate={{ scale: 1 }}
+                transition={{ delay: 0.2, type: "spring" }}
+                style={{ width: 80, height: 80, borderRadius: "50%", background: "rgba(34,197,94,0.12)", border: "2px solid rgba(34,197,94,0.4)", display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 1.5rem" }}
+              >
+                <CheckCircle style={{ width: 40, height: 40, color: "#22c55e" }} />
+              </motion.div>
+
+              <p style={{ fontSize: "0.7rem", letterSpacing: "0.25em", textTransform: "uppercase", color: "#c9a227", marginBottom: "0.75rem" }}>Registration Complete</p>
+              <h2 style={{ fontFamily: "var(--font-playfair,Georgia,serif)", fontSize: "1.75rem", fontWeight: 700, marginBottom: "1rem" }}>
+                Thank You, {form.name.split(" ")[0]}!
+              </h2>
+              <p style={{ color: "rgba(245,245,240,0.7)", fontSize: "0.95rem", lineHeight: 1.75, marginBottom: "0.75rem" }}>
+                Your registration for <strong style={{ color: "#c9a227" }}>Telangana Architecture Festival 2026</strong> is received.
+              </p>
+              <p style={{ color: "rgba(245,245,240,0.55)", fontSize: "0.875rem", lineHeight: 1.7, marginBottom: "2rem" }}>
+                A confirmation email has been sent to <strong>{form.email}</strong>.<br />
+                Our team will verify your payment within 24 hours.
+              </p>
+
+              <div style={{ background: "rgba(201,162,39,0.08)", border: "1px solid rgba(201,162,39,0.2)", borderRadius: "0.875rem", padding: "1rem 1.25rem", marginBottom: "2rem", textAlign: "left" }}>
+                {[
+                  ["Event", "Telangana Architecture Festival 2026"],
+                  ["Date", "12th June 2026, Friday"],
+                  ["Venue", "Avasa Hotel, Madhapur, Hyderabad"],
+                  ["Amount", `₹${getPrice().toLocaleString("en-IN")}`],
+                ].map(([l, v]) => (
+                  <div key={l} style={{ display: "flex", justifyContent: "space-between", padding: "0.4rem 0", borderBottom: "1px solid rgba(255,255,255,0.05)", fontSize: "0.85rem" }}>
+                    <span style={{ color: "rgba(245,245,240,0.5)" }}>{l}</span>
+                    <span style={{ fontWeight: 600 }}>{v}</span>
+                  </div>
+                ))}
+              </div>
+
+              <button
+                onClick={() => { window.location.href = `/register/success?name=${encodeURIComponent(form.name)}&email=${encodeURIComponent(form.email)}&amount=${getPrice()}`; }}
+                className="btn-gold w-full py-3 rounded-xl font-bold text-sm"
+              >
+                Done
+              </button>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       <Footer />
     </main>
   );
