@@ -418,7 +418,8 @@ function RegisterContent() {
                   <button onClick={() => setStep("form")} className="flex-1 py-3 rounded-xl font-semibold text-sm border transition-all hover:bg-white/5" style={{ border: "1px solid rgba(201,162,39,0.3)", color: "#c9a227" }}>
                     Edit Details
                   </button>
-                  <button onClick={() => setStep("payment")} className="btn-gold flex-1 py-3 rounded-xl font-bold text-sm">
+                  <button onClick={() => setStep("payment")} className="flex-1 py-3 rounded-xl font-bold text-sm transition-all"
+                    style={{ background: "linear-gradient(135deg,#c9a227,#e8c547)", color: "#0f2060", boxShadow: "0 4px 24px rgba(201,162,39,0.4)", fontSize: "0.9rem", letterSpacing: "0.02em" }}>
                     Proceed to Pay
                   </button>
                 </div>
