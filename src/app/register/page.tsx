@@ -245,9 +245,9 @@ function RegisterContent() {
                     <label className="text-xs uppercase tracking-widest mb-4 block" style={{ color: "#c9a227" }}>Membership Category</label>
                     <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                       {[
-                        { value: "iia-telangana", label: "IIA Telangana Member" },
-                        { value: "other-chapter", label: "IIA Member / Architect" },
-                        { value: "non-member", label: "Others" },
+                        { value: "iia-telangana", label: "IIA Active Telangana Members" },
+                        { value: "other-chapter", label: "IIA Inactive Telangana Members" },
+                        { value: "non-member", label: "Open to All" },
                       ].map((opt) => (
                         <button key={opt.value} type="button" onClick={() => handleChange("memberType", opt.value)}
                           className="p-4 rounded-xl text-left transition-all duration-200"
@@ -377,7 +377,7 @@ function RegisterContent() {
                     <div>
                       <p className="text-xs uppercase tracking-widest mb-1" style={{ color: "rgba(245,245,240,0.5)" }}>Registration Fee</p>
                       <p className="text-sm font-medium">
-                        {form.memberType === "iia-telangana" && verification.status === "valid" ? "IIA Telangana Member Rate" : form.memberType === "iia-telangana" ? "Pending verification" : form.memberType === "other-chapter" ? "IIA Member / Architect Rate" : "Others Rate"}
+                        {form.memberType === "iia-telangana" && verification.status === "valid" ? "IIA Active Telangana Members Rate" : form.memberType === "iia-telangana" ? "Pending verification" : form.memberType === "other-chapter" ? "IIA Inactive Telangana Members Rate" : "Open to All Rate"}
                       </p>
                     </div>
                     <p className="text-3xl font-bold gold-gradient">₹{getPrice().toLocaleString("en-IN")}</p>
@@ -410,7 +410,7 @@ function RegisterContent() {
                     { label: "Organization", value: form.organization || "—" },
                     { label: "City", value: form.city },
                     { label: "State", value: form.state },
-                    { label: "Category", value: form.memberType === "iia-telangana" ? "IIA Telangana Chapter Member" : form.memberType === "other-chapter" ? "IIA Member / Architect" : "Others" },
+                    { label: "Category", value: form.memberType === "iia-telangana" ? "IIA Active Telangana Members" : form.memberType === "other-chapter" ? "IIA Inactive Telangana Members" : "Open to All" },
                     ...(form.memberType === "iia-telangana" ? [{ label: "Membership No.", value: form.membershipNumber }, { label: "Verified Name", value: verification.memberName || "—" }] : []),
                     ...(form.memberType === "other-chapter" && isIiaMember && form.membershipNumber ? [{ label: "Membership No.", value: form.membershipNumber }] : []),
                   ].map((item) => (

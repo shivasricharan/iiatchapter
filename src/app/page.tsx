@@ -27,10 +27,10 @@ const highlights = [
 const schedule = [
   { time: "05:00 PM", event: "Registration & Welcome Drinks" },
   { time: "06:00 PM", event: "Inauguration Ceremony" },
-  { time: "06:30 PM", event: "Awards & Felicitations" },
-  { time: "08:00 PM", event: "Cultural Performances" },
+  { time: "06:30 PM", event: "Cultural Performances" },
+  { time: "08:00 PM", event: "Awards & Felicitations" },
   { time: "09:00 PM", event: "Cocktail and Dinner" },
-  { time: "10:30 PM", event: "Networking & Valediction" },
+  { time: "10:30 PM", event: "Networking" },
 ];
 
 const guests = [
@@ -43,29 +43,29 @@ const guests = [
   },
   {
     name: "Shri. Vem. Narender Reddy Garu",
-    role: "Chief Guest",
+    role: "Special Guest",
     designation: "Hon'ble Member of Parliament",
     photo: "/venkataramana.png",
     highlight: true,
   },
   {
-    name: "Ar. Vilas Anavithai Garu",
+    name: "Ar. Vilas Avachat Garu",
     role: "Guest of Honour",
-    designation: "Chairman, FPA · Former President, IIA",
+    designation: "President, IIA National, Mumbai",
     photo: "/vilas.png",
     highlight: false,
   },
   {
     name: "Ar. N. Padmavathi Reddy Garu",
     role: "Special Guest",
-    designation: "Hon'ble Member of Legislative Assembly",
+    designation: "Hon'ble Member of Legislative Assembly, Govt. of Telangana",
     photo: "/padmavathi.png",
     highlight: false,
   },
   {
     name: "Ar. Naveen Yadav Garu",
     role: "Special Guest",
-    designation: "Hon'ble Member of Legislative Assembly",
+    designation: "Hon'ble Member of Legislative Assembly, Govt. of Telangana",
     photo: "/naveen.png",
     highlight: false,
   },
@@ -309,9 +309,6 @@ export default function Home() {
             ))}
           </div>
 
-          <motion.div {...iv(0.5)} style={{ textAlign: "center", marginTop: "2.5rem" }}>
-            <p style={{ fontFamily: "var(--font-playfair,Georgia,serif)", fontStyle: "italic", color: "rgba(240,204,90,0.7)", fontSize: "1.05rem" }}>Dinner Follows…</p>
-          </motion.div>
         </div>
       </section>
 
@@ -376,7 +373,7 @@ export default function Home() {
                 <span style={{ fontSize: "0.8rem", color: "rgba(240,237,230,0.4)", marginLeft: "0.4rem" }}>per person</span>
               </div>
               <ul style={{ listStyle: "none", padding: 0, margin: "0 0 1.5rem", display: "flex", flexDirection: "column", gap: "0.55rem", textAlign: "left" }}>
-                {["Valid IIA Telangana membership required","Membership number verified instantly","Full event & awards access","Cocktail and Dinner included"].map(f => (
+                {["IIA Telangana Chapter Active Members Only","Full Events & Awards access","Cocktail and Dinner included"].map(f => (
                   <li key={f} style={{ display: "flex", alignItems: "center", gap: "0.5rem", fontSize: "0.82rem", color: "rgba(240,237,230,0.7)" }}>
                     <CheckCircle size={13} color="#c9a227" style={{ flexShrink: 0 }} />{f}
                   </li>
@@ -397,7 +394,7 @@ export default function Home() {
                 <span style={{ fontSize: "0.8rem", color: "rgba(240,237,230,0.4)", marginLeft: "0.4rem" }}>per person</span>
               </div>
               <ul style={{ listStyle: "none", padding: 0, margin: "0 0 1.5rem", display: "flex", flexDirection: "column", gap: "0.55rem", textAlign: "left" }}>
-                {["IIA members from any chapter","Architects & design professionals","Full event & awards access","Cocktail and Dinner included"].map(f => (
+                {["IIA Inactive Members of Telangana Chapter","Full Events & Awards access","Cocktail and Dinner included"].map(f => (
                   <li key={f} style={{ display: "flex", alignItems: "center", gap: "0.5rem", fontSize: "0.82rem", color: "rgba(240,237,230,0.7)" }}>
                     <CheckCircle size={13} color="#c9a227" style={{ flexShrink: 0 }} />{f}
                   </li>
@@ -418,7 +415,7 @@ export default function Home() {
                 <span style={{ fontSize: "0.8rem", color: "rgba(240,237,230,0.4)", marginLeft: "0.4rem" }}>per person</span>
               </div>
               <ul style={{ listStyle: "none", padding: 0, margin: "0 0 1.5rem", display: "flex", flexDirection: "column", gap: "0.55rem", textAlign: "left" }}>
-                {["Open to all guests & professionals","Full event & awards access","Cocktail and Dinner included","Open to all design professionals"].map(f => (
+                {["Open to all","Full Events & Awards access","Cocktail and Dinner included"].map(f => (
                   <li key={f} style={{ display: "flex", alignItems: "center", gap: "0.5rem", fontSize: "0.82rem", color: "rgba(240,237,230,0.7)" }}>
                     <CheckCircle size={13} color="#c9a227" style={{ flexShrink: 0 }} />{f}
                   </li>
@@ -473,7 +470,7 @@ export default function Home() {
               {/* Payee name */}
               <div style={{ ...S.card, padding: "1.4rem 1.6rem" }}>
                 <p style={{ fontSize: "0.65rem", fontWeight: 700, letterSpacing: "0.2em", textTransform: "uppercase", color: "#c9a227", margin: "0 0 0.35rem" }}>Payee</p>
-                <p style={{ fontSize: "1rem", fontWeight: 700, margin: 0 }}>The Indian Institute of, Hyderabad</p>
+                <p style={{ fontSize: "1rem", fontWeight: 700, margin: 0 }}>The Indian Institute of Architects, Telangana Chapter</p>
                 <p style={{ fontSize: "0.8rem", color: "rgba(240,237,230,0.45)", margin: "0.25rem 0 0" }}>MID: 037349031750025 &nbsp;·&nbsp; TID: 96978080</p>
               </div>
 

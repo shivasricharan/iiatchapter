@@ -28,8 +28,7 @@ export default function Footer() {
                 style={{ width: 36, height: 36, objectFit: "contain", filter: "drop-shadow(0 0 5px rgba(201,162,39,0.25))" }}
               />
               <div>
-                <p style={{ fontSize: "0.83rem", fontWeight: 700, color: "#c9a227", margin: 0, lineHeight: 1.35 }}>IIA Telangana Chapter</p>
-                <p style={{ fontSize: "0.72rem", color: "rgba(240,237,230,0.38)", margin: 0 }}>Indian Institute of Architects</p>
+                <p style={{ fontSize: "0.72rem", fontWeight: 700, color: "#c9a227", margin: 0, lineHeight: 1.4, letterSpacing: "0.02em" }}>THE INDIAN INSTITUTE OF ARCHITECTS,<br />TELANGANA CHAPTER</p>
               </div>
             </div>
             <p style={{ fontSize: "0.83rem", lineHeight: 1.8, color: "rgba(240,237,230,0.45)", margin: 0 }}>
