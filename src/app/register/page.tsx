@@ -35,7 +35,7 @@ interface FormData {
 }
 
 interface MemberVerification {
-  status: "idle" | "verifying" | "valid" | "invalid" | "defaulter" | "inactive";
+  status: "idle" | "verifying" | "valid" | "invalid";
   memberName?: string;
   message?: string;
 }
@@ -76,9 +76,7 @@ function RegisterContent() {
   // Multi-step question flow for other-chapter (IIA Inactive Telangana Members)
   const [isTelanganaQ, setIsTelanganaQ] = useState<boolean | null>(null);
   const [isNationalMemberQ, setIsNationalMemberQ] = useState<boolean | null>(null);
-  const [hasCOAQ, setHasCOAQ] = useState<boolean | null>(null);
 
-  const [autoSwitchMessage, setAutoSwitchMessage] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const memberPrice = 500;
@@ -91,10 +89,8 @@ function RegisterContent() {
     return nonMemberPrice;
   };
 
-  const verifyMember = useCallback(async (
-    memberNumber: string,
-    context: "iia-telangana" | "other-chapter-telangana" = "iia-telangana"
-  ) => {
+  // Verification only applies to the ₹500 IIA Active Telangana tab
+  const verifyMember = useCallback(async (memberNumber: string) => {
     if (!memberNumber.trim()) { setVerification({ status: "idle" }); return; }
     setVerification({ status: "verifying" });
     try {
@@ -105,31 +101,9 @@ function RegisterContent() {
       });
       const data = await res.json();
       if (data.valid) {
-        if (context === "other-chapter-telangana") {
-          // Active Telangana member selected ₹1,500 → auto-switch to ₹500
-          setAutoSwitchMessage(`Membership ${memberNumber.toUpperCase()} is active — you have been moved to IIA Active Telangana Chapter Member (₹500).`);
-          setForm(prev => ({ ...prev, memberType: "iia-telangana", membershipNumber: memberNumber.trim().toUpperCase() }));
-          setIsTelanganaQ(null);
-          setVerification({ status: "valid", memberName: data.memberName, message: data.message });
-        } else {
-          setVerification({ status: "valid", memberName: data.memberName, message: data.message });
-          setAutoSwitchMessage(null);
-        }
-      } else if (data.memberStatus === "inactive") {
-        if (context === "iia-telangana") {
-          // Active tab but membership inactive → auto-switch to ₹1,500
-          setAutoSwitchMessage(`Membership ${memberNumber.toUpperCase()} is inactive — you have been moved to IIA Inactive Telangana Chapter Member / Architect (₹1,500).`);
-          setForm(prev => ({ ...prev, memberType: "other-chapter", membershipNumber: memberNumber.trim().toUpperCase() }));
-          setIsTelanganaQ(true);
-          setVerification({ status: "inactive", memberName: data.memberName });
-        } else {
-          // other-chapter-telangana: confirmed inactive → stay at ₹1,500
-          setVerification({ status: "inactive", memberName: data.memberName });
-        }
-      } else if (data.memberStatus === "defaulter") {
-        setVerification({ status: "defaulter" });
+        setVerification({ status: "valid", memberName: data.memberName, message: data.message });
       } else {
-        setVerification({ status: "invalid", message: data.message });
+        setVerification({ status: "invalid", message: data.message || "Membership number not found" });
       }
     } catch {
       setVerification({ status: "invalid", message: "Verification failed. Please try again." });
@@ -137,28 +111,18 @@ function RegisterContent() {
   }, []);
 
   useEffect(() => {
-    const forTelangana = form.memberType === "iia-telangana";
-    const forOtherChapterTelangana = form.memberType === "other-chapter" && isTelanganaQ === true;
-
-    if (!forTelangana && !forOtherChapterTelangana) {
-      setVerification({ status: "idle" });
-      return;
-    }
+    if (form.memberType !== "iia-telangana") { setVerification({ status: "idle" }); return; }
     if (form.membershipNumber.length < 5) return;
-
-    const context = forTelangana ? "iia-telangana" : "other-chapter-telangana";
     const timeout = setTimeout(() => {
-      verifyMember(form.membershipNumber, context);
+      verifyMember(form.membershipNumber);
     }, 600);
     return () => clearTimeout(timeout);
-  }, [form.membershipNumber, form.memberType, isTelanganaQ, verifyMember]);
+  }, [form.membershipNumber, form.memberType, verifyMember]);
 
   const handleChange = (field: keyof FormData, value: string) => {
     if (field === "memberType") {
       setIsTelanganaQ(null);
       setIsNationalMemberQ(null);
-      setHasCOAQ(null);
-      setAutoSwitchMessage(null);
       setVerification({ status: "idle" });
       setForm((prev) => ({ ...prev, memberType: value as MemberType, membershipNumber: "" }));
       return;
@@ -171,14 +135,12 @@ function RegisterContent() {
     if (form.memberType === "iia-telangana") return verification.status === "valid";
     if (form.memberType === "other-chapter") {
       if (isTelanganaQ === null) return false;
-      if (isTelanganaQ === true) return verification.status === "inactive";
+      if (isTelanganaQ === true) return form.membershipNumber.trim().length > 0;
       // isTelanganaQ === false → check IIA national
       if (isNationalMemberQ === null) return false;
       if (isNationalMemberQ === true) return form.membershipNumber.trim().length > 0;
-      // isNationalMemberQ === false → check COA
-      if (hasCOAQ === null) return false;
-      if (hasCOAQ === true) return form.membershipNumber.trim().length > 0;
-      return false; // hasCOAQ === false → auto-switched to non-member
+      // isNationalMemberQ === false → COA input shown, always can proceed
+      return true;
     }
     return true;
   };
@@ -254,12 +216,10 @@ function RegisterContent() {
   const inputStyle = { background: "rgba(255,255,255,0.05)", border: "1px solid rgba(201,162,39,0.2)", color: "#f5f5f0" };
   const inputFocusStyle = { boxShadow: "0 0 0 1px rgba(201,162,39,0.5)" };
 
-  // Label for membership number in review
   const membershipLabel = () => {
     if (form.memberType === "other-chapter") {
-      if (isTelanganaQ === true) return "IIA Membership No.";
-      if (isNationalMemberQ === true) return "IIA Membership No.";
-      if (hasCOAQ === true) return "COA Registration No.";
+      if (isNationalMemberQ === false) return "COA Registration No.";
+      return "IIA Membership No.";
     }
     return "Membership No.";
   };
@@ -304,17 +264,6 @@ function RegisterContent() {
             {step === "form" && (
               <motion.div key="form" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} transition={{ duration: 0.3 }}>
                 <form onSubmit={handleSubmit} className="space-y-6">
-                  {/* Auto-switch notice */}
-                  <AnimatePresence>
-                    {autoSwitchMessage && (
-                      <motion.div initial={{ opacity: 0, y: -8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }}
-                        className="rounded-2xl p-4"
-                        style={{ background: "rgba(201,162,39,0.1)", border: "1px solid rgba(201,162,39,0.45)" }}>
-                        <p className="text-sm font-semibold mb-1" style={{ color: "#c9a227" }}>Category Updated</p>
-                        <p className="text-sm" style={{ color: "rgba(245,245,240,0.75)" }}>{autoSwitchMessage}</p>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
 
                   {/* Membership Category */}
                   <div className="glass gold-border rounded-2xl p-6">
@@ -334,7 +283,7 @@ function RegisterContent() {
                     </div>
                   </div>
 
-                  {/* IIA Telangana: Membership Number */}
+                  {/* IIA Active Telangana: verified membership number */}
                   <AnimatePresence>
                     {form.memberType === "iia-telangana" && (
                       <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: "auto" }} exit={{ opacity: 0, height: 0 }} className="glass gold-border rounded-2xl p-6 overflow-hidden">
@@ -348,7 +297,7 @@ function RegisterContent() {
                           <div className="absolute right-4 top-1/2 -translate-y-1/2">
                             {verification.status === "verifying" && <Loader2 className="w-4 h-4 animate-spin" style={{ color: "#c9a227" }} />}
                             {verification.status === "valid" && <CheckCircle className="w-4 h-4" style={{ color: "#22c55e" }} />}
-                            {(verification.status === "invalid" || verification.status === "defaulter") && <AlertCircle className="w-4 h-4" style={{ color: "#ef4444" }} />}
+                            {verification.status === "invalid" && <AlertCircle className="w-4 h-4" style={{ color: "#ef4444" }} />}
                           </div>
                         </div>
                         <AnimatePresence>
@@ -364,27 +313,12 @@ function RegisterContent() {
                               ✗ {verification.message || "Membership number not found"}
                             </motion.div>
                           )}
-                          {verification.status === "defaulter" && (
-                            <motion.div initial={{ opacity: 0, y: -5 }} animate={{ opacity: 1, y: 0 }} className="mt-3 p-4 rounded-xl text-sm space-y-2"
-                              style={{ background: "rgba(239,68,68,0.08)", border: "1px solid rgba(239,68,68,0.4)" }}>
-                              <p className="font-semibold" style={{ color: "#ef4444" }}>✗ Membership has outstanding dues</p>
-                              <p style={{ color: "rgba(245,245,240,0.7)" }}>Please clear your dues before registering. Contact us to resolve:</p>
-                              <p style={{ color: "rgba(245,245,240,0.8)" }}>
-                                <a href="mailto:iiatchapter@gmail.com" style={{ color: "#c9a227", textDecoration: "none", fontWeight: 600 }}>iiatchapter@gmail.com</a>
-                              </p>
-                              <p style={{ color: "rgba(245,245,240,0.8)" }}>
-                                <a href="tel:+919550345867" style={{ color: "#c9a227", textDecoration: "none", fontWeight: 600 }}>+91 9550345867</a>
-                                {" / "}
-                                <a href="tel:+919849015811" style={{ color: "#c9a227", textDecoration: "none", fontWeight: 600 }}>+91 9849015811</a>
-                              </p>
-                            </motion.div>
-                          )}
                         </AnimatePresence>
                       </motion.div>
                     )}
                   </AnimatePresence>
 
-                  {/* IIA Inactive Telangana Members: multi-step question flow */}
+                  {/* IIA Inactive Telangana Members: multi-step question flow (no verification) */}
                   <AnimatePresence>
                     {form.memberType === "other-chapter" && (
                       <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: "auto" }} exit={{ opacity: 0, height: 0 }}
@@ -401,8 +335,6 @@ function RegisterContent() {
                                 onClick={() => {
                                   setIsTelanganaQ(val);
                                   setIsNationalMemberQ(null);
-                                  setHasCOAQ(null);
-                                  setVerification({ status: "idle" });
                                   setForm(p => ({ ...p, membershipNumber: "" }));
                                 }}
                                 className="flex-1 py-3 rounded-xl font-semibold text-sm transition-all"
@@ -413,54 +345,18 @@ function RegisterContent() {
                           </div>
                         </div>
 
-                        {/* If Yes → IIA Telangana membership number + verification */}
+                        {/* If Yes → IIA Telangana membership number (no verification) */}
                         <AnimatePresence>
                           {isTelanganaQ === true && (
-                            <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: "auto" }} exit={{ opacity: 0, height: 0 }} className="overflow-hidden space-y-3">
-                              <div className="relative">
-                                <label className="text-xs uppercase tracking-widest mb-2 block" style={{ color: "rgba(245,245,240,0.5)" }}>
-                                  IIA Membership Number
-                                </label>
-                                <div className="relative">
-                                  <input type="text" placeholder="e.g. A30656 or F30492" value={form.membershipNumber}
-                                    onChange={(e) => handleChange("membershipNumber", e.target.value.toUpperCase())}
-                                    className={inputClass} style={{ ...inputStyle, paddingRight: "3rem" }}
-                                    onFocus={(e) => Object.assign(e.target.style, { ...inputStyle, paddingRight: "3rem", ...inputFocusStyle })}
-                                    onBlur={(e) => Object.assign(e.target.style, { ...inputStyle, paddingRight: "3rem", boxShadow: "none" })} />
-                                  <div className="absolute right-4 top-1/2 -translate-y-1/2">
-                                    {verification.status === "verifying" && <Loader2 className="w-4 h-4 animate-spin" style={{ color: "#c9a227" }} />}
-                                    {verification.status === "inactive" && <CheckCircle className="w-4 h-4" style={{ color: "#c9a227" }} />}
-                                    {(verification.status === "invalid" || verification.status === "defaulter") && <AlertCircle className="w-4 h-4" style={{ color: "#ef4444" }} />}
-                                  </div>
-                                </div>
-                              </div>
-                              <AnimatePresence>
-                                {verification.status === "inactive" && (
-                                  <motion.div initial={{ opacity: 0, y: -5 }} animate={{ opacity: 1, y: 0 }} className="p-3 rounded-xl text-sm"
-                                    style={{ background: "rgba(201,162,39,0.1)", border: "1px solid rgba(201,162,39,0.4)", color: "#c9a227" }}>
-                                    ✓ Verified: <strong>{verification.memberName}</strong> — Inactive member, proceeding at ₹1,500
-                                  </motion.div>
-                                )}
-                                {verification.status === "invalid" && (
-                                  <motion.div initial={{ opacity: 0, y: -5 }} animate={{ opacity: 1, y: 0 }} className="p-3 rounded-xl text-sm"
-                                    style={{ background: "rgba(239,68,68,0.1)", border: "1px solid rgba(239,68,68,0.3)", color: "#ef4444" }}>
-                                    ✗ {verification.message || "Membership number not found in IIA Telangana Chapter records"}
-                                  </motion.div>
-                                )}
-                                {verification.status === "defaulter" && (
-                                  <motion.div initial={{ opacity: 0, y: -5 }} animate={{ opacity: 1, y: 0 }} className="p-4 rounded-xl text-sm space-y-2"
-                                    style={{ background: "rgba(239,68,68,0.08)", border: "1px solid rgba(239,68,68,0.4)" }}>
-                                    <p className="font-semibold" style={{ color: "#ef4444" }}>✗ Membership has outstanding dues</p>
-                                    <p style={{ color: "rgba(245,245,240,0.7)" }}>Please clear your dues before registering. Contact us to resolve:</p>
-                                    <p><a href="mailto:iiatchapter@gmail.com" style={{ color: "#c9a227", textDecoration: "none", fontWeight: 600 }}>iiatchapter@gmail.com</a></p>
-                                    <p>
-                                      <a href="tel:+919550345867" style={{ color: "#c9a227", textDecoration: "none", fontWeight: 600 }}>+91 9550345867</a>
-                                      {" / "}
-                                      <a href="tel:+919849015811" style={{ color: "#c9a227", textDecoration: "none", fontWeight: 600 }}>+91 9849015811</a>
-                                    </p>
-                                  </motion.div>
-                                )}
-                              </AnimatePresence>
+                            <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: "auto" }} exit={{ opacity: 0, height: 0 }} className="overflow-hidden">
+                              <label className="text-xs uppercase tracking-widest mb-2 block" style={{ color: "rgba(245,245,240,0.5)" }}>
+                                IIA Membership Number
+                              </label>
+                              <input type="text" placeholder="e.g. A30656 or F30492" value={form.membershipNumber}
+                                onChange={(e) => handleChange("membershipNumber", e.target.value.toUpperCase())}
+                                className={inputClass} style={inputStyle}
+                                onFocus={(e) => Object.assign(e.target.style, { ...inputStyle, ...inputFocusStyle })}
+                                onBlur={(e) => Object.assign(e.target.style, { ...inputStyle, boxShadow: "none" })} />
                             </motion.div>
                           )}
                         </AnimatePresence>
@@ -479,7 +375,6 @@ function RegisterContent() {
                                     <button key={label} type="button"
                                       onClick={() => {
                                         setIsNationalMemberQ(val);
-                                        setHasCOAQ(null);
                                         setForm(p => ({ ...p, membershipNumber: "" }));
                                       }}
                                       className="flex-1 py-3 rounded-xl font-semibold text-sm transition-all"
@@ -504,50 +399,17 @@ function RegisterContent() {
                                 )}
                               </AnimatePresence>
 
-                              {/* If No to IIA → Step C: Do you have COA membership? */}
+                              {/* If No to IIA → COA input (no Yes/No, just enter and proceed) */}
                               <AnimatePresence>
                                 {isNationalMemberQ === false && (
-                                  <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: "auto" }} exit={{ opacity: 0, height: 0 }} className="overflow-hidden space-y-4">
+                                  <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: "auto" }} exit={{ opacity: 0, height: 0 }} className="overflow-hidden space-y-2">
                                     <div style={{ height: 1, background: "rgba(201,162,39,0.15)" }} />
-                                    <div>
-                                      <label className="text-xs uppercase tracking-widest block mb-3" style={{ color: "#c9a227" }}>
-                                        Do you have COA Membership?
-                                      </label>
-                                      <div className="flex gap-3">
-                                        {[{ label: "Yes", val: true }, { label: "No", val: false }].map(({ label, val }) => (
-                                          <button key={label} type="button"
-                                            onClick={() => {
-                                              if (!val) {
-                                                // Auto-switch to Open to All
-                                                setHasCOAQ(false);
-                                                setAutoSwitchMessage("No COA membership — you have been moved to Open to All (₹3,000).");
-                                                setForm(p => ({ ...p, memberType: "non-member", membershipNumber: "" }));
-                                              } else {
-                                                setHasCOAQ(true);
-                                                setForm(p => ({ ...p, membershipNumber: "" }));
-                                              }
-                                            }}
-                                            className="flex-1 py-3 rounded-xl font-semibold text-sm transition-all"
-                                            style={{ background: hasCOAQ === val ? "rgba(201,162,39,0.2)" : "rgba(255,255,255,0.04)", border: hasCOAQ === val ? "1px solid rgba(201,162,39,0.7)" : "1px solid rgba(255,255,255,0.1)", color: hasCOAQ === val ? "#c9a227" : "rgba(245,245,240,0.6)" }}>
-                                            {label}
-                                          </button>
-                                        ))}
-                                      </div>
-                                    </div>
-
-                                    {/* If Yes → COA number */}
-                                    <AnimatePresence>
-                                      {hasCOAQ === true && (
-                                        <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: "auto" }} exit={{ opacity: 0, height: 0 }} className="overflow-hidden">
-                                          <label className="text-xs uppercase tracking-widest mb-2 block" style={{ color: "rgba(245,245,240,0.5)" }}>COA Registration Number</label>
-                                          <input type="text" placeholder="e.g. CA/2018/100680" value={form.membershipNumber}
-                                            onChange={(e) => handleChange("membershipNumber", e.target.value.toUpperCase())}
-                                            className={inputClass} style={inputStyle}
-                                            onFocus={(e) => Object.assign(e.target.style, { ...inputStyle, ...inputFocusStyle })}
-                                            onBlur={(e) => Object.assign(e.target.style, { ...inputStyle, boxShadow: "none" })} />
-                                        </motion.div>
-                                      )}
-                                    </AnimatePresence>
+                                    <label className="text-xs uppercase tracking-widest block" style={{ color: "#c9a227" }}>COA Membership</label>
+                                    <input type="text" placeholder="e.g. CA/2018/100680" value={form.membershipNumber}
+                                      onChange={(e) => handleChange("membershipNumber", e.target.value.toUpperCase())}
+                                      className={inputClass} style={inputStyle}
+                                      onFocus={(e) => Object.assign(e.target.style, { ...inputStyle, ...inputFocusStyle })}
+                                      onBlur={(e) => Object.assign(e.target.style, { ...inputStyle, boxShadow: "none" })} />
                                   </motion.div>
                                 )}
                               </AnimatePresence>
@@ -638,7 +500,6 @@ function RegisterContent() {
                     { label: "Category", value: form.memberType === "iia-telangana" ? "IIA Active Telangana Members" : form.memberType === "other-chapter" ? "IIA Inactive Telangana Members" : "Open to All" },
                     ...(form.memberType === "iia-telangana" ? [{ label: "Membership No.", value: form.membershipNumber }, { label: "Verified Name", value: verification.memberName || "—" }] : []),
                     ...(form.memberType === "other-chapter" && form.membershipNumber ? [{ label: membershipLabel(), value: form.membershipNumber }] : []),
-                    ...(form.memberType === "other-chapter" && isTelanganaQ === true && verification.memberName ? [{ label: "Verified Name", value: verification.memberName }] : []),
                   ].map((item) => (
                     <div key={item.label} className="flex justify-between py-2" style={{ borderBottom: "1px solid rgba(255,255,255,0.06)" }}>
                       <span className="text-sm" style={{ color: "rgba(245,245,240,0.5)" }}>{item.label}</span>
