@@ -289,7 +289,7 @@ function RegisterContent() {
                       <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: "auto" }} exit={{ opacity: 0, height: 0 }} className="glass gold-border rounded-2xl p-6 overflow-hidden">
                         <label className="text-xs uppercase tracking-widest mb-3 block" style={{ color: "#c9a227" }}>IIA Membership Number</label>
                         <div className="relative">
-                          <input type="text" placeholder="e.g. A30656 or F30492" value={form.membershipNumber}
+                          <input type="text" placeholder="e.g. A00000 or F00000" value={form.membershipNumber}
                             onChange={(e) => handleChange("membershipNumber", e.target.value.toUpperCase())}
                             className={inputClass} style={{ ...inputStyle, paddingRight: "3rem" }}
                             onFocus={(e) => Object.assign(e.target.style, inputFocusStyle)}
@@ -352,7 +352,7 @@ function RegisterContent() {
                               <label className="text-xs uppercase tracking-widest mb-2 block" style={{ color: "rgba(245,245,240,0.5)" }}>
                                 IIA Membership Number
                               </label>
-                              <input type="text" placeholder="e.g. A30656 or F30492" value={form.membershipNumber}
+                              <input type="text" placeholder="e.g. A00000 or F00000" value={form.membershipNumber}
                                 onChange={(e) => handleChange("membershipNumber", e.target.value.toUpperCase())}
                                 className={inputClass} style={inputStyle}
                                 onFocus={(e) => Object.assign(e.target.style, { ...inputStyle, ...inputFocusStyle })}
@@ -390,7 +390,7 @@ function RegisterContent() {
                                 {isNationalMemberQ === true && (
                                   <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: "auto" }} exit={{ opacity: 0, height: 0 }} className="overflow-hidden">
                                     <label className="text-xs uppercase tracking-widest mb-2 block" style={{ color: "rgba(245,245,240,0.5)" }}>IIA Membership Number</label>
-                                    <input type="text" placeholder="e.g. A30656 or F30492" value={form.membershipNumber}
+                                    <input type="text" placeholder="e.g. A00000 or F00000" value={form.membershipNumber}
                                       onChange={(e) => handleChange("membershipNumber", e.target.value.toUpperCase())}
                                       className={inputClass} style={inputStyle}
                                       onFocus={(e) => Object.assign(e.target.style, { ...inputStyle, ...inputFocusStyle })}
@@ -405,7 +405,7 @@ function RegisterContent() {
                                   <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: "auto" }} exit={{ opacity: 0, height: 0 }} className="overflow-hidden space-y-2">
                                     <div style={{ height: 1, background: "rgba(201,162,39,0.15)" }} />
                                     <label className="text-xs uppercase tracking-widest block" style={{ color: "#c9a227" }}>COA Membership</label>
-                                    <input type="text" placeholder="e.g. CA/2018/100680" value={form.membershipNumber}
+                                    <input type="text" placeholder="e.g. CA/" value={form.membershipNumber}
                                       onChange={(e) => handleChange("membershipNumber", e.target.value.toUpperCase())}
                                       className={inputClass} style={inputStyle}
                                       onFocus={(e) => Object.assign(e.target.style, { ...inputStyle, ...inputFocusStyle })}
