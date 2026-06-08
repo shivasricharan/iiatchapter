@@ -35,7 +35,7 @@ interface FormData {
 }
 
 interface MemberVerification {
-  status: "idle" | "verifying" | "valid" | "invalid";
+  status: "idle" | "verifying" | "valid" | "invalid" | "defaulter";
   memberName?: string;
   message?: string;
 }
@@ -73,6 +73,7 @@ function RegisterContent() {
   const [step, setStep] = useState<"form" | "review" | "payment">("form");
   const [screenshot, setScreenshot] = useState<ScreenshotState>({ file: null, url: "", uploading: false, error: "" });
   const [isIiaMember, setIsIiaMember] = useState<boolean | null>(null);
+  const [autoSwitchMessage, setAutoSwitchMessage] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const memberPrice = 500;
@@ -97,6 +98,14 @@ function RegisterContent() {
       const data = await res.json();
       if (data.valid) {
         setVerification({ status: "valid", memberName: data.memberName, message: data.message });
+        setAutoSwitchMessage(null);
+      } else if (data.memberStatus === "inactive") {
+        setVerification({ status: "idle" });
+        setAutoSwitchMessage(`Membership ${memberNumber.toUpperCase()} is inactive — you have been moved to IIA Inactive Telangana Chapter Member / Architect (₹1,500).`);
+        setForm(prev => ({ ...prev, memberType: "other-chapter", membershipNumber: memberNumber.trim().toUpperCase() }));
+        setIsIiaMember(true);
+      } else if (data.memberStatus === "defaulter") {
+        setVerification({ status: "defaulter" });
       } else {
         setVerification({ status: "invalid", message: data.message });
       }
@@ -116,6 +125,8 @@ function RegisterContent() {
   const handleChange = (field: keyof FormData, value: string) => {
     if (field === "memberType") {
       setIsIiaMember(null);
+      setAutoSwitchMessage(null);
+      setVerification({ status: "idle" });
       setForm((prev) => ({ ...prev, memberType: value as MemberType, membershipNumber: "" }));
       return;
     }
@@ -240,6 +251,18 @@ function RegisterContent() {
             {step === "form" && (
               <motion.div key="form" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} transition={{ duration: 0.3 }}>
                 <form onSubmit={handleSubmit} className="space-y-6">
+                  {/* Auto-switch notice */}
+                  <AnimatePresence>
+                    {autoSwitchMessage && (
+                      <motion.div initial={{ opacity: 0, y: -8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }}
+                        className="rounded-2xl p-4"
+                        style={{ background: "rgba(201,162,39,0.1)", border: "1px solid rgba(201,162,39,0.45)" }}>
+                        <p className="text-sm font-semibold mb-1" style={{ color: "#c9a227" }}>Category Updated</p>
+                        <p className="text-sm" style={{ color: "rgba(245,245,240,0.75)" }}>{autoSwitchMessage}</p>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+
                   {/* Membership Category */}
                   <div className="glass gold-border rounded-2xl p-6">
                     <label className="text-xs uppercase tracking-widest mb-4 block" style={{ color: "#c9a227" }}>Membership Category</label>
@@ -272,7 +295,7 @@ function RegisterContent() {
                           <div className="absolute right-4 top-1/2 -translate-y-1/2">
                             {verification.status === "verifying" && <Loader2 className="w-4 h-4 animate-spin" style={{ color: "#c9a227" }} />}
                             {verification.status === "valid" && <CheckCircle className="w-4 h-4" style={{ color: "#22c55e" }} />}
-                            {verification.status === "invalid" && <AlertCircle className="w-4 h-4" style={{ color: "#ef4444" }} />}
+                            {(verification.status === "invalid" || verification.status === "defaulter") && <AlertCircle className="w-4 h-4" style={{ color: "#ef4444" }} />}
                           </div>
                         </div>
                         <AnimatePresence>
@@ -286,6 +309,21 @@ function RegisterContent() {
                             <motion.div initial={{ opacity: 0, y: -5 }} animate={{ opacity: 1, y: 0 }} className="mt-3 p-3 rounded-xl text-sm"
                               style={{ background: "rgba(239,68,68,0.1)", border: "1px solid rgba(239,68,68,0.3)", color: "#ef4444" }}>
                               ✗ {verification.message || "Membership number not found"}
+                            </motion.div>
+                          )}
+                          {verification.status === "defaulter" && (
+                            <motion.div initial={{ opacity: 0, y: -5 }} animate={{ opacity: 1, y: 0 }} className="mt-3 p-4 rounded-xl text-sm space-y-2"
+                              style={{ background: "rgba(239,68,68,0.08)", border: "1px solid rgba(239,68,68,0.4)" }}>
+                              <p className="font-semibold" style={{ color: "#ef4444" }}>✗ Membership has outstanding dues</p>
+                              <p style={{ color: "rgba(245,245,240,0.7)" }}>Please clear your dues before registering. Contact us to resolve:</p>
+                              <p style={{ color: "rgba(245,245,240,0.8)" }}>
+                                <a href="mailto:iiatchapter@gmail.com" style={{ color: "#c9a227", textDecoration: "none", fontWeight: 600 }}>iiatchapter@gmail.com</a>
+                              </p>
+                              <p style={{ color: "rgba(245,245,240,0.8)" }}>
+                                <a href="tel:+919550345867" style={{ color: "#c9a227", textDecoration: "none", fontWeight: 600 }}>+91 9550345867</a>
+                                {" / "}
+                                <a href="tel:+919849015811" style={{ color: "#c9a227", textDecoration: "none", fontWeight: 600 }}>+91 9849015811</a>
+                              </p>
                             </motion.div>
                           )}
                         </AnimatePresence>

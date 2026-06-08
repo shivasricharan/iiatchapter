@@ -26,19 +26,33 @@ export async function POST(req: NextRequest) {
     if (!member) {
       return NextResponse.json({
         valid: false,
+        memberStatus: "not_found",
         message: "Membership number not found in IIA Telangana Chapter records",
       });
     }
 
-    if (member.status !== "Active") {
+    const statusLower = (member.status || "").toLowerCase();
+
+    if (statusLower === "defaulter") {
       return NextResponse.json({
         valid: false,
-        message: `Membership is ${member.status}. Only active members qualify for the ₹500 rate.`,
+        memberStatus: "defaulter",
+        message: "Your membership has outstanding dues.",
+      });
+    }
+
+    if (statusLower !== "active") {
+      return NextResponse.json({
+        valid: false,
+        memberStatus: "inactive",
+        memberName: member.name,
+        message: `Membership is ${member.status}.`,
       });
     }
 
     return NextResponse.json({
       valid: true,
+      memberStatus: "active",
       memberName: member.name,
       memberType: member.type,
       message: `Verified: ${member.name} (${member.type} Member)`,
