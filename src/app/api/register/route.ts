@@ -97,7 +97,7 @@ export async function POST(req: NextRequest) {
                 </table>
               </div>
               <p style="color:#666;font-size:13px;line-height:1.7;">
-                For any queries, reach us at <a href="mailto:iiatchapter@gmail.com" style="color:#0f2060;">iiatchapter@gmail.com</a>
+                For any queries, reach us at <a href="mailto:info@iiatchapter.org" style="color:#0f2060;">info@iiatchapter.org</a>
                 or call <a href="tel:+919848046148" style="color:#0f2060;">+91 9848046148</a>.
               </p>
             </div>
@@ -109,7 +109,7 @@ export async function POST(req: NextRequest) {
         await Promise.all([
           transporter.sendMail({
             from: `"IIA Telangana Chapter" <${process.env.SMTP_FROM || process.env.SMTP_USER}>`,
-            to: process.env.ADMIN_EMAIL || "iiatchapter@gmail.com",
+            to: process.env.ADMIN_EMAIL || "info@iiatchapter.org",
             subject: `New Registration: ${name} — TAF 2026`,
             html: adminHtml,
           }),

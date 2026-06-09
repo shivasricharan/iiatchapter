@@ -500,7 +500,7 @@ export default function Home() {
                     "Tap Scan QR or BharatQR option",
                     "Scan the code and enter amount (₹500 / ₹1,500 / ₹3,000)",
                     "Add your name in remarks and confirm payment",
-                    "Screenshot and share to iiatchapter@gmail.com",
+                    "Screenshot and share to info@iiatchapter.org",
                   ].map((s, i) => (
                     <li key={i} style={{ fontSize: "0.83rem", color: "rgba(240,237,230,0.6)", lineHeight: 1.55 }}>{s}</li>
                   ))}
