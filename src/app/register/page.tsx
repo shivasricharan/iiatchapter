@@ -47,7 +47,7 @@ interface ScreenshotState {
   error: string;
 }
 
-const CLOUDINARY_CLOUD = "drzt7irdt";
+const CLOUDINARY_CLOUD = "dpvofy1at";
 const CLOUDINARY_PRESET = "iiatchapter";
 
 function RegisterContent() {
