@@ -103,11 +103,6 @@ export default function Navbar() {
               {l.label}
             </a>
           ))}
-          <Link href="/register" onClick={() => setMenuOpen(false)} style={{ marginTop: "1rem" }}>
-            <button className="btn-primary" style={{ width: "100%", justifyContent: "center", fontSize: "0.95rem" }}>
-              Register Now
-            </button>
-          </Link>
           <div style={{ marginTop: "0.75rem", paddingTop: "0.75rem", borderTop: "1px solid rgba(201,162,39,0.15)" }}>
             <p style={{ fontSize: "0.65rem", color: "rgba(240,237,230,0.4)", letterSpacing: "0.08em", textTransform: "uppercase", marginBottom: "0.4rem" }}>Contact</p>
             <a href="tel:+919550345867" style={{ display: "block", fontSize: "0.9rem", color: "#c9a227", textDecoration: "none", fontWeight: 600, marginBottom: "0.2rem" }}>+91 95503 45867</a>
