@@ -3,7 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { motion, type Transition } from "framer-motion";
-import { Calendar, MapPin, Clock, ArrowRight, Award, Users, Music, Star, CheckCircle, Phone, Mail } from "lucide-react";
+import { Calendar, MapPin, Clock, ArrowRight, Award, Users, Music, Star, CheckCircle, Phone, Mail, Lock } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import CountdownTimer from "@/components/CountdownTimer";
@@ -107,9 +107,23 @@ const S = {
   goldCard:{ background: "linear-gradient(135deg,rgba(201,162,39,0.13),rgba(201,162,39,0.04))", border: "1px solid rgba(201,162,39,0.38)", borderRadius: "1.125rem" } as React.CSSProperties,
 };
 
-import React from "react";
+import React, { useState, useEffect } from "react";
+
+const REGISTRATION_DEADLINE = new Date('2026-06-12T11:30:00Z').getTime();
 
 export default function Home() {
+  const [isClosed, setIsClosed] = useState<boolean>(
+    () => typeof window !== 'undefined' ? Date.now() >= REGISTRATION_DEADLINE : false
+  );
+
+  useEffect(() => {
+    if (isClosed) return;
+    const remaining = REGISTRATION_DEADLINE - Date.now();
+    if (remaining <= 0) { setIsClosed(true); return; }
+    const timer = setTimeout(() => setIsClosed(true), remaining);
+    return () => clearTimeout(timer);
+  }, [isClosed]);
+
   return (
     <div style={S.wrap}>
       <Navbar />
@@ -196,18 +210,34 @@ export default function Home() {
             ))}
           </motion.div>
 
-          {/* CTAs */}
-          <motion.div initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.78, duration: 0.55 }}
-            style={{ display: "flex", flexWrap: "wrap", gap: "0.875rem", justifyContent: "center", marginBottom: "4.5rem" }}
-          >
-            <Link href="/register"><button className="btn-primary">Register Now <ArrowRight size={16} /></button></Link>
-            <a href="#about"><button className="btn-outline">Learn More</button></a>
-          </motion.div>
-
-          {/* Countdown */}
-          <motion.div initial={{ opacity: 0, y: 22 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.92, duration: 0.65 }}>
-            <CountdownTimer targetDate="2026-06-12T17:00:00" />
-          </motion.div>
+          {/* CTAs + Countdown — switches to closed state at 5 PM IST */}
+          {isClosed ? (
+            <motion.div initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.78, duration: 0.55 }}
+              style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "1.25rem" }}
+            >
+              <div style={{ display: "inline-flex", alignItems: "center", gap: "0.65rem", padding: "0.7rem 1.6rem", borderRadius: 9999, background: "rgba(201,162,39,0.1)", border: "1px solid rgba(201,162,39,0.45)" }}>
+                <Lock size={15} color="#c9a227" />
+                <span style={{ fontSize: "0.85rem", fontWeight: 700, letterSpacing: "0.16em", textTransform: "uppercase", color: "#c9a227" }}>Registration Closed</span>
+              </div>
+              <p style={{ fontSize: "0.95rem", color: "rgba(240,237,230,0.55)", textAlign: "center", lineHeight: 1.7, margin: 0 }}>
+                The event is underway today at <span style={{ color: "#c9a227", fontWeight: 600 }}>5:00 PM</span><br />
+                Avasa Hotel, Madhapur, Hyderabad
+              </p>
+              <a href="#about"><button className="btn-outline">Learn More</button></a>
+            </motion.div>
+          ) : (
+            <>
+              <motion.div initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.78, duration: 0.55 }}
+                style={{ display: "flex", flexWrap: "wrap", gap: "0.875rem", justifyContent: "center", marginBottom: "4.5rem" }}
+              >
+                <Link href="/register"><button className="btn-primary">Register Now <ArrowRight size={16} /></button></Link>
+                <a href="#about"><button className="btn-outline">Learn More</button></a>
+              </motion.div>
+              <motion.div initial={{ opacity: 0, y: 22 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.92, duration: 0.65 }}>
+                <CountdownTimer targetDate="2026-06-12T17:00:00" />
+              </motion.div>
+            </>
+          )}
         </div>
 
         {/* Scroll cue */}
