@@ -1,7 +1,14 @@
 import { NextRequest, NextResponse } from "next/server";
 import nodemailer from "nodemailer";
 
+// 5:00 PM IST = 11:30 AM UTC on June 12 2026
+const REGISTRATION_DEADLINE = new Date('2026-06-12T11:30:00Z').getTime();
+
 export async function POST(req: NextRequest) {
+  if (Date.now() >= REGISTRATION_DEADLINE) {
+    return NextResponse.json({ error: "Registration is closed" }, { status: 403 });
+  }
+
   try {
     const body = await req.json();
     const { name, email, phone, designation, organization, city, state, memberType, membershipNumber, memberName, amount, screenshotUrl } = body;

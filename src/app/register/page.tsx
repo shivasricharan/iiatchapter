@@ -3,7 +3,7 @@
 import { useState, useEffect, useCallback, Suspense, useRef } from "react";
 import { useSearchParams } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
-import { CheckCircle, AlertCircle, Loader2, ArrowLeft, User, Mail, Phone, Building2, Upload } from "lucide-react";
+import { CheckCircle, AlertCircle, Loader2, ArrowLeft, User, Mail, Phone, Building2, Upload, Lock } from "lucide-react";
 import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -50,10 +50,25 @@ interface ScreenshotState {
 const CLOUDINARY_CLOUD = "dpvofy1at";
 const CLOUDINARY_PRESET = "iiatchapter";
 
+// 5:00 PM IST = 11:30 AM UTC on June 12 2026
+const REGISTRATION_DEADLINE = new Date('2026-06-12T11:30:00Z').getTime();
+
 function RegisterContent() {
   const searchParams = useSearchParams();
   const t = searchParams.get("type");
   const initialType: MemberType = t === "member" ? "iia-telangana" : t === "other-chapter" ? "other-chapter" : "non-member";
+
+  const [isRegistrationClosed, setIsRegistrationClosed] = useState<boolean>(
+    () => typeof window !== 'undefined' ? Date.now() >= REGISTRATION_DEADLINE : false
+  );
+
+  useEffect(() => {
+    if (isRegistrationClosed) return;
+    const remaining = REGISTRATION_DEADLINE - Date.now();
+    if (remaining <= 0) { setIsRegistrationClosed(true); return; }
+    const timer = setTimeout(() => setIsRegistrationClosed(true), remaining);
+    return () => clearTimeout(timer);
+  }, [isRegistrationClosed]);
 
   const [form, setForm] = useState<FormData>({
     name: "",
@@ -211,6 +226,49 @@ function RegisterContent() {
       setSubmitting(false);
     }
   };
+
+  if (isRegistrationClosed) {
+    return (
+      <main className="min-h-screen flex flex-col" style={{ background: "#0f2060", color: "#f5f5f0" }}>
+        <Navbar />
+        <div className="flex-1 flex flex-col items-center justify-center text-center px-6 py-24">
+          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
+            <div className="w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6"
+              style={{ background: "rgba(201,162,39,0.08)", border: "2px solid rgba(201,162,39,0.35)" }}>
+              <Lock style={{ width: 32, height: 32, color: "#c9a227" }} />
+            </div>
+            <p className="uppercase tracking-[0.3em] text-xs mb-3" style={{ color: "#c9a227" }}>
+              Telangana Architecture Festival 2026
+            </p>
+            <h1 className="text-3xl md:text-4xl font-bold mb-4" style={{ fontFamily: "var(--font-playfair)" }}>
+              Registration Closed
+            </h1>
+            <p className="text-sm mb-8 max-w-md mx-auto" style={{ color: "rgba(245,245,240,0.6)", lineHeight: 1.8 }}>
+              Registrations for TAF 2026 are now closed. The event is underway today at{" "}
+              <span style={{ color: "#c9a227", fontWeight: 600 }}>5:00 PM</span> at Avasa Hotel, Madhapur, Hyderabad.
+            </p>
+            <div className="rounded-2xl p-5 mx-auto mb-8 text-left" style={{ background: "rgba(201,162,39,0.07)", border: "1px solid rgba(201,162,39,0.22)", maxWidth: 340 }}>
+              {[
+                ["Date",  "12th June 2026, Friday"],
+                ["Time",  "5:00 PM Onwards"],
+                ["Venue", "Avasa Hotel, Madhapur, Hyderabad"],
+              ].map(([label, value]) => (
+                <div key={label} className="flex justify-between gap-6 py-2" style={{ borderBottom: "1px solid rgba(255,255,255,0.06)", fontSize: "0.875rem" }}>
+                  <span style={{ color: "rgba(245,245,240,0.45)" }}>{label}</span>
+                  <span className="font-medium text-right">{value}</span>
+                </div>
+              ))}
+            </div>
+            <Link href="/" className="inline-flex items-center gap-2 text-sm font-medium py-3 px-6 rounded-xl transition-all"
+              style={{ background: "rgba(201,162,39,0.12)", border: "1px solid rgba(201,162,39,0.3)", color: "#c9a227" }}>
+              <ArrowLeft className="w-4 h-4" /> Back to Home
+            </Link>
+          </motion.div>
+        </div>
+        <Footer />
+      </main>
+    );
+  }
 
   const inputClass = "w-full px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200 outline-none";
   const inputStyle = { background: "rgba(255,255,255,0.05)", border: "1px solid rgba(201,162,39,0.2)", color: "#f5f5f0" };
