@@ -9,8 +9,6 @@ const links = [
   { href: "#about",    label: "About" },
   { href: "#guests",   label: "Guests" },
   { href: "#schedule", label: "Schedule" },
-  { href: "#pricing",  label: "Pricing" },
-  { href: "#pay-qr",   label: "Pay via QR" },
 ];
 
 export default function Navbar() {
