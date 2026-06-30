@@ -54,7 +54,6 @@ export default function PrivacyPage() {
           <p style={{ ...p, margin: "0 0 0.4rem", color: "#f0ede6", fontWeight: 600 }}>Ar. Narasimham V V L</p>
           <p style={{ ...p, margin: "0 0 0.4rem" }}>Chairman, IIA Telangana Chapter</p>
           <p style={{ ...p, margin: "0 0 0.4rem" }}>802C Al Karim Trade Centre, MG Road, Ranigunj, Secunderabad, Telangana 500003</p>
-          <p style={{ ...p, margin: "0 0 0.4rem" }}>Email: <a href="mailto:info@iiatchapter.org" style={{ color: "#c9a227" }}>info@iiatchapter.org</a></p>
           <p style={{ ...p, margin: 0 }}>Phone: <a href="tel:+919848046148" style={{ color: "#c9a227" }}>+91 9848046148</a> &nbsp;·&nbsp; Monday – Friday, 9:00 AM – 6:00 PM</p>
         </div>
 

@@ -40,7 +40,6 @@ export default function RefundPage() {
 
         <div style={{ background: "rgba(201,162,39,0.08)", border: "1px solid rgba(201,162,39,0.2)", borderRadius: "0.875rem", padding: "1.5rem 1.75rem", marginBottom: "2.5rem" }}>
           <p style={{ ...p, fontWeight: 700, color: "#c9a227", margin: "0 0 0.5rem", fontSize: "0.85rem", letterSpacing: "0.05em", textTransform: "uppercase" }}>Contact for Refund Requests</p>
-          <p style={{ ...p, margin: "0 0 0.3rem" }}>Email: <a href="mailto:info@iiatchapter.org" style={{ color: "#c9a227" }}>info@iiatchapter.org</a></p>
           <p style={{ ...p, margin: "0 0 0.3rem" }}>Phone: <a href="tel:+919848046148" style={{ color: "#c9a227" }}>+91 9848046148</a></p>
           <p style={{ ...p, margin: 0 }}>Hours: Monday – Friday, 9:00 AM – 6:00 PM</p>
         </div>

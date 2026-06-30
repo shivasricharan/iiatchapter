@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
-import { Mail, MapPin, Calendar, Phone } from "lucide-react";
+import { MapPin, Calendar, Phone } from "lucide-react";
 
 export default function Footer() {
   return (
@@ -62,13 +62,6 @@ export default function Footer() {
           <div>
             <h4 style={{ fontSize: "0.7rem", fontWeight: 700, letterSpacing: "0.2em", textTransform: "uppercase", color: "#c9a227", margin: "0 0 1.1rem" }}>Contact</h4>
             <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
-              <a href="mailto:info@iiatchapter.org"
-                style={{ display: "flex", alignItems: "center", gap: "0.55rem", fontSize: "0.84rem", color: "rgba(240,237,230,0.58)", textDecoration: "none" }}
-                onMouseEnter={e => ((e.currentTarget as HTMLElement).style.color = "#c9a227")}
-                onMouseLeave={e => ((e.currentTarget as HTMLElement).style.color = "rgba(240,237,230,0.58)")}
-              >
-                <Mail size={13} color="#c9a227" />info@iiatchapter.org
-              </a>
               <a href="tel:+919550345867"
                 style={{ display: "flex", alignItems: "center", gap: "0.55rem", fontSize: "0.84rem", color: "rgba(240,237,230,0.58)", textDecoration: "none" }}
               >

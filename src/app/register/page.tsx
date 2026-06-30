@@ -685,8 +685,6 @@ function RegisterContent() {
                 <p className="text-xs text-center" style={{ color: "rgba(245,245,240,0.4)" }}>
                   In case of any queries, please reach us at{" "}
                   <a href="tel:+919849015811" style={{ color: "#c9a227", textDecoration: "none" }}>+91 98490 15811</a>
-                  {" "}or{" "}
-                  <a href="mailto:info@iiatchapter.org" style={{ color: "#c9a227", textDecoration: "none" }}>info@iiatchapter.org</a>
                 </p>
               </motion.div>
             )}
