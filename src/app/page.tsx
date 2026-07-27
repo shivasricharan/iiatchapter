@@ -134,13 +134,6 @@ export default function Home() {
             Festival
           </motion.h1>
 
-          {/* Theme line */}
-          <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.55, duration: 0.6 }}
-            style={{ fontFamily: "var(--font-playfair,Georgia,serif)", fontStyle: "italic", fontSize: "clamp(1rem,2.5vw,1.35rem)", color: "rgba(240,204,90,0.75)", margin: "0 0 2rem", letterSpacing: "0.04em" }}
-          >
-            &ldquo;From Stone to Storeys&rdquo;
-          </motion.p>
-
           {/* Year rule */}
           <motion.div initial={{ opacity: 0, scaleX: 0 }} animate={{ opacity: 1, scaleX: 1 }} transition={{ delay: 0.5, duration: 0.6 }}
             style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "1rem", marginBottom: "2.25rem" }}
