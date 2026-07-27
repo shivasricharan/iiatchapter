@@ -6,9 +6,10 @@ import Image from "next/image";
 import { Menu, X } from "lucide-react";
 
 const links = [
-  { href: "#about",    label: "About" },
-  { href: "#guests",   label: "Guests" },
-  { href: "#schedule", label: "Schedule" },
+  { href: "#about",      label: "About" },
+  { href: "#highlights", label: "Highlights" },
+  { href: "#moments",    label: "Gallery" },
+  { href: "#awards",     label: "Awards" },
 ];
 
 export default function Navbar() {

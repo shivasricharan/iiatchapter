@@ -1,12 +1,11 @@
 "use client";
 
-import Link from "next/link";
+import React from "react";
 import Image from "next/image";
 import { motion, type Transition } from "framer-motion";
-import { Calendar, MapPin, Clock, ArrowRight, Award, Users, Music, Star, Phone, Mail, Lock } from "lucide-react";
+import { Calendar, MapPin, Award, Users, Music, Star, Phone } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import CountdownTimer from "@/components/CountdownTimer";
 
 const ease = "easeOut" as Transition["ease"];
 const iv = (delay = 0) => ({
@@ -18,10 +17,50 @@ const iv = (delay = 0) => ({
 
 /* ── Data ──────────────────────────────────────────── */
 const highlights = [
-  { icon: Award, title: "Awards Night",     desc: "Celebrating excellence in architecture and design across Telangana" },
+  { icon: Award, title: "Awards Night",     desc: "Excellence in architecture and design across Telangana celebrated with pride" },
   { icon: Music, title: "Cultural Evening", desc: "Vibrant performances honouring art, culture and architectural heritage" },
-  { icon: Users, title: "Networking",       desc: "Connect with 1,000+ architects, designers, and industry leaders" },
-  { icon: Star,  title: "Felicitations",    desc: "Honouring distinguished members and lifetime achievers" },
+  { icon: Users, title: "Networking",       desc: "Architects, designers, and industry leaders connected across the city" },
+  { icon: Star,  title: "Felicitations",    desc: "Distinguished members and lifetime achievers honoured on a grand stage" },
+];
+
+const stats = [
+  { value: "300+", label: "Registrations" },
+  { value: "500+", label: "Attendees" },
+  { value: "10+",  label: "Distinguished Guests" },
+  { value: "1",    label: "Day of Knowledge, Networking & Celebration" },
+];
+
+const guests = [
+  {
+    name: "A. Revanth Reddy Garu",
+    role: "Chief Guest",
+    designation: "Hon'ble Chief Minister of Telangana",
+    photo: "/revanth.png",
+  },
+  {
+    name: "Shri. Vem. Narender Reddy Garu",
+    role: "Special Guest",
+    designation: "Hon'ble Member of Parliament, Rajya Sabha",
+    photo: "/venkataramana.png",
+  },
+  {
+    name: "Ar. Vilas Avachat Garu",
+    role: "Guest of Honour",
+    designation: "President, IIA National, Mumbai",
+    photo: "/vilas.png",
+  },
+  {
+    name: "Ar. N. Padmavathi Reddy Garu",
+    role: "Special Guest",
+    designation: "Hon'ble Member of Legislative Assembly, Govt. of Telangana",
+    photo: "/padmavathi.png",
+  },
+  {
+    name: "Ar. Naveen Yadav Garu",
+    role: "Special Guest",
+    designation: "Hon'ble Member of Legislative Assembly, Govt. of Telangana",
+    photo: "/naveen.png",
+  },
 ];
 
 const schedule = [
@@ -31,44 +70,6 @@ const schedule = [
   { time: "08:00 PM", event: "Awards & Felicitations" },
   { time: "09:00 PM", event: "Cocktail and Dinner" },
   { time: "10:30 PM", event: "Networking" },
-];
-
-const guests = [
-  {
-    name: "A. Revanth Reddy Garu",
-    role: "Chief Guest",
-    designation: "Hon'ble Chief Minister of Telangana",
-    photo: "/revanth.png",
-    highlight: true,
-  },
-  {
-    name: "Shri. Vem. Narender Reddy Garu",
-    role: "Special Guest",
-    designation: "Hon'ble Member of Parliament, Rajya Sabha",
-    photo: "/venkataramana.png",
-    highlight: true,
-  },
-  {
-    name: "Ar. Vilas Avachat Garu",
-    role: "Guest of Honour",
-    designation: "President, IIA National, Mumbai",
-    photo: "/vilas.png",
-    highlight: false,
-  },
-  {
-    name: "Ar. N. Padmavathi Reddy Garu",
-    role: "Special Guest",
-    designation: "Hon'ble Member of Legislative Assembly, Govt. of Telangana",
-    photo: "/padmavathi.png",
-    highlight: false,
-  },
-  {
-    name: "Ar. Naveen Yadav Garu",
-    role: "Special Guest",
-    designation: "Hon'ble Member of Legislative Assembly, Govt. of Telangana",
-    photo: "/naveen.png",
-    highlight: false,
-  },
 ];
 
 const officeBearers = [
@@ -107,37 +108,24 @@ const S = {
   goldCard:{ background: "linear-gradient(135deg,rgba(201,162,39,0.13),rgba(201,162,39,0.04))", border: "1px solid rgba(201,162,39,0.38)", borderRadius: "1.125rem" } as React.CSSProperties,
 };
 
-import React, { useState, useEffect } from "react";
-
-const REGISTRATION_DEADLINE = new Date('2026-06-12T11:30:00Z').getTime();
-
 export default function Home() {
-  const [isClosed, setIsClosed] = useState<boolean>(
-    () => typeof window !== 'undefined' ? Date.now() >= REGISTRATION_DEADLINE : false
-  );
-
-  useEffect(() => {
-    if (isClosed) return;
-    const remaining = REGISTRATION_DEADLINE - Date.now();
-    if (remaining <= 0) { setIsClosed(true); return; }
-    const timer = setTimeout(() => setIsClosed(true), remaining);
-    return () => clearTimeout(timer);
-  }, [isClosed]);
-
   return (
     <div style={S.wrap}>
       <Navbar />
 
       {/* ═══════════════ HERO ═══════════════ */}
       <section style={{ minHeight: "100vh", position: "relative", display: "flex", alignItems: "center", justifyContent: "center", overflow: "hidden" }}>
-        {/* Bg atmosphere */}
-        <div style={{ position: "absolute", inset: 0, pointerEvents: "none" }}>
-          <div style={{ position: "absolute", top: "12%", left: "8%", width: 560, height: 560, borderRadius: "50%", background: "radial-gradient(circle,rgba(201,162,39,0.07) 0%,transparent 70%)", filter: "blur(70px)" }} />
-          <div style={{ position: "absolute", bottom: "12%", right: "8%", width: 440, height: 440, borderRadius: "50%", background: "radial-gradient(circle,rgba(201,162,39,0.05) 0%,transparent 70%)", filter: "blur(70px)" }} />
-          <svg style={{ position: "absolute", inset: 0, width: "100%", height: "100%", opacity: 0.04 }} xmlns="http://www.w3.org/2000/svg">
-            <defs><pattern id="g" width="72" height="72" patternUnits="userSpaceOnUse"><path d="M 72 0 L 0 0 0 72" fill="none" stroke="#c9a227" strokeWidth="0.6"/></pattern></defs>
-            <rect width="100%" height="100%" fill="url(#g)"/>
-          </svg>
+
+        {/* Full-bleed stage photograph */}
+        <div style={{ position: "absolute", inset: 0, zIndex: 0 }}>
+          <Image
+            src="/images/taf2026/taf-hero-stage.webp"
+            alt="TAF 2026 Grand Ballroom — Avasa Hotel, Hyderabad"
+            fill
+            priority
+            style={{ objectFit: "cover", objectPosition: "center 40%" }}
+          />
+          <div style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg,rgba(10,24,76,0.93) 0%,rgba(10,24,76,0.6) 48%,rgba(10,24,76,0.9) 100%)" }} />
         </div>
 
         <div style={{ ...S.inner(860), position: "relative", zIndex: 10, padding: "8rem 1.75rem 4rem", textAlign: "center" }}>
@@ -195,13 +183,12 @@ export default function Home() {
             <span style={{ flex: 1, maxWidth: 72, height: 1, background: "rgba(201,162,39,0.4)" }} />
           </motion.div>
 
-          {/* Meta pills */}
+          {/* Date & venue pills — historical record */}
           <motion.div initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.62, duration: 0.55 }}
             style={{ display: "flex", flexWrap: "wrap", justifyContent: "center", gap: "0.6rem", marginBottom: "2.75rem" }}
           >
             {[
               { icon: Calendar, text: "12th June 2026 · Friday" },
-              { icon: Clock,    text: "5:00 PM Onwards" },
               { icon: MapPin,   text: "Avasa Hotel, Madhapur, Hyderabad" },
             ].map(({ icon: Icon, text }) => (
               <span key={text} style={{ display: "inline-flex", alignItems: "center", gap: "0.45rem", padding: "0.5rem 1rem", borderRadius: 9999, background: "rgba(255,255,255,0.05)", border: "1px solid rgba(201,162,39,0.2)", fontSize: "0.83rem", color: "rgba(240,237,230,0.8)" }}>
@@ -210,34 +197,20 @@ export default function Home() {
             ))}
           </motion.div>
 
-          {/* CTAs + Countdown — switches to closed state at 5 PM IST */}
-          {isClosed ? (
-            <motion.div initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.78, duration: 0.55 }}
-              style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "1.25rem" }}
-            >
-              <div style={{ display: "inline-flex", alignItems: "center", gap: "0.65rem", padding: "0.7rem 1.6rem", borderRadius: 9999, background: "rgba(201,162,39,0.1)", border: "1px solid rgba(201,162,39,0.45)" }}>
-                <Lock size={15} color="#c9a227" />
-                <span style={{ fontSize: "0.85rem", fontWeight: 700, letterSpacing: "0.16em", textTransform: "uppercase", color: "#c9a227" }}>Registration Closed</span>
-              </div>
-              <p style={{ fontSize: "0.95rem", color: "rgba(240,237,230,0.55)", textAlign: "center", lineHeight: 1.7, margin: 0 }}>
-                The event is underway today at <span style={{ color: "#c9a227", fontWeight: 600 }}>5:00 PM</span><br />
-                Avasa Hotel, Madhapur, Hyderabad
-              </p>
-              <a href="#about"><button className="btn-outline">Learn More</button></a>
-            </motion.div>
-          ) : (
-            <>
-              <motion.div initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.78, duration: 0.55 }}
-                style={{ display: "flex", flexWrap: "wrap", gap: "0.875rem", justifyContent: "center", marginBottom: "4.5rem" }}
-              >
-                <Link href="/register"><button className="btn-primary">Register Now <ArrowRight size={16} /></button></Link>
-                <a href="#about"><button className="btn-outline">Learn More</button></a>
-              </motion.div>
-              <motion.div initial={{ opacity: 0, y: 22 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.92, duration: 0.65 }}>
-                <CountdownTimer targetDate="2026-06-12T17:00:00" />
-              </motion.div>
-            </>
-          )}
+          {/* Post-event celebration message */}
+          <motion.div initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.78, duration: 0.55 }}
+            style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "1.25rem" }}
+          >
+            <div style={{ display: "inline-flex", alignItems: "center", gap: "0.65rem", padding: "0.7rem 1.6rem", borderRadius: 9999, background: "rgba(201,162,39,0.1)", border: "1px solid rgba(201,162,39,0.45)" }}>
+              <span style={{ fontSize: "1rem" }}>✦</span>
+              <span style={{ fontSize: "0.85rem", fontWeight: 700, letterSpacing: "0.16em", textTransform: "uppercase", color: "#c9a227" }}>A Celebration to Remember</span>
+            </div>
+            <p style={{ fontSize: "0.95rem", color: "rgba(240,237,230,0.65)", textAlign: "center", lineHeight: 1.75, margin: 0, maxWidth: 520 }}>
+              On 12th June 2026, the architectural fraternity of Telangana gathered<br />
+              for an unforgettable evening of excellence, culture, and community.
+            </p>
+            <a href="#about"><button className="btn-outline">Explore the Highlights</button></a>
+          </motion.div>
         </div>
 
         {/* Scroll cue */}
@@ -252,25 +225,89 @@ export default function Home() {
       {/* ═══════════════ ABOUT ═══════════════ */}
       <section id="about" style={S.section()}>
         <div style={S.inner()}>
+          <div className="about-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "5rem", alignItems: "center" }}>
+
+            {/* Text column */}
+            <motion.div {...iv()}>
+              <span style={S.label}>About The Festival</span>
+              <h2 style={S.h2}>A Grand Celebration of <span className="gold-text">Architecture</span></h2>
+              <p style={{ ...S.p, marginBottom: "1.25rem" }}>
+                The Telangana Architecture Festival (TAF) 2026 brought together the architectural fraternity for an unforgettable evening of awards, cultural performances, felicitations, and meaningful connections — marking a decade of design excellence with our <strong style={{ color: "#c9a227" }}>Decennial Celebrations</strong>.
+              </p>
+              <p style={S.p}>
+                Hosted at Avasa Hotel, Madhapur, Hyderabad on 12th June 2026, the event united architects, urban planners, designers, and industry leaders under the theme <em style={{ color: "rgba(201,162,39,0.9)" }}>&ldquo;From Stone to Storeys&rdquo;</em> — celebrating ten years of the IIA Telangana Chapter.
+              </p>
+
+              {/* Highlight cards */}
+              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "0.875rem", marginTop: "2.5rem" }}>
+                {highlights.map(({ icon: Icon, title, desc }, i) => (
+                  <motion.div key={title} {...iv(i * 0.09)}
+                    style={{ ...S.card, padding: "1.25rem", transition: "transform 0.25s,border-color 0.25s" }}
+                    onMouseEnter={e => { (e.currentTarget as HTMLElement).style.transform = "translateY(-4px)"; (e.currentTarget as HTMLElement).style.borderColor = "rgba(201,162,39,0.42)"; }}
+                    onMouseLeave={e => { (e.currentTarget as HTMLElement).style.transform = ""; (e.currentTarget as HTMLElement).style.borderColor = ""; }}
+                  >
+                    <div style={{ width: 40, height: 40, borderRadius: "0.625rem", background: "rgba(201,162,39,0.1)", display: "flex", alignItems: "center", justifyContent: "center", marginBottom: "0.75rem", color: "#c9a227" }}>
+                      <Icon size={20} />
+                    </div>
+                    <h3 style={{ fontFamily: "var(--font-playfair,Georgia,serif)", fontSize: "0.92rem", fontWeight: 700, marginBottom: "0.35rem" }}>{title}</h3>
+                    <p style={{ fontSize: "0.78rem", lineHeight: 1.6, color: "rgba(240,237,230,0.5)" }}>{desc}</p>
+                  </motion.div>
+                ))}
+              </div>
+            </motion.div>
+
+            {/* Inauguration photo */}
+            <motion.div {...iv(0.15)} style={{ position: "relative" }}>
+              <div style={{ borderRadius: "1.5rem", overflow: "hidden", border: "1px solid rgba(201,162,39,0.22)", boxShadow: "0 32px 80px rgba(0,0,0,0.45)" }}>
+                <Image
+                  src="/images/taf2026/taf-lamp-lighting.webp"
+                  alt="TAF 2026 Inauguration — Traditional lamp lighting ceremony"
+                  width={900}
+                  height={600}
+                  style={{ width: "100%", height: "auto", display: "block" }}
+                />
+              </div>
+              <div style={{ position: "absolute", bottom: "1.25rem", left: "1.25rem", right: "1.25rem", background: "rgba(10,24,76,0.88)", backdropFilter: "blur(12px)", borderRadius: "0.75rem", padding: "0.75rem 1rem", border: "1px solid rgba(201,162,39,0.15)" }}>
+                <p style={{ fontSize: "0.75rem", color: "rgba(240,237,230,0.7)", margin: 0, lineHeight: 1.5 }}>
+                  <span style={{ color: "#c9a227", fontWeight: 600 }}>Inauguration Ceremony</span>&nbsp;·&nbsp;Traditional lamp lighting marking the commencement of TAF 2026
+                </p>
+              </div>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      <div className="divider" />
+
+      {/* ═══════════════ EVENT AT A GLANCE ═══════════════ */}
+      <section id="glance" style={{ position: "relative", overflow: "hidden" }}>
+        <div style={{ position: "absolute", inset: 0, zIndex: 0 }}>
+          <Image
+            src="/images/taf2026/taf-audience-side-wide.webp"
+            alt="TAF 2026 — Hundreds of architects gathered at Avasa Hotel"
+            fill
+            style={{ objectFit: "cover", objectPosition: "center 25%" }}
+          />
+          <div style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg,rgba(10,24,76,0.92) 0%,rgba(10,24,76,0.78) 50%,rgba(10,24,76,0.92) 100%)" }} />
+        </div>
+
+        <div style={{ ...S.inner(), position: "relative", zIndex: 1, padding: "8rem 1.75rem" }}>
           <motion.div {...iv()} style={{ textAlign: "center", marginBottom: "4rem" }}>
-            <span style={S.label}>About The Festival</span>
-            <h2 style={S.h2}>A Grand Celebration of <span className="gold-text">Architecture</span></h2>
-            <p style={{ ...S.p, maxWidth: 700, margin: "0 auto" }}>
-              The Telangana Architecture Festival (TAF) is the flagship annual event by the Indian Institute of Architects, Telangana Chapter — bringing together the architectural fraternity for an unforgettable evening of awards, cultural performances, felicitations, and meaningful connections. This year marks a milestone — our <strong style={{ color: "#c9a227" }}>Decennial Celebrations</strong>, a decade of design excellence.
-            </p>
+            <span style={S.label}>Event at a Glance</span>
+            <h2 style={S.h2}>By the <span className="gold-text">Numbers</span></h2>
           </motion.div>
 
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(230px,1fr))", gap: "1.25rem" }}>
-            {highlights.map(({ icon: Icon, title, desc }, i) => (
-              <motion.div key={title} {...iv(i * 0.09)} style={{ ...S.card, padding: "1.75rem", textAlign: "center", transition: "transform 0.25s,border-color 0.25s" }}
-                onMouseEnter={e => { (e.currentTarget as HTMLElement).style.transform = "translateY(-4px)"; (e.currentTarget as HTMLElement).style.borderColor = "rgba(201,162,39,0.42)"; }}
-                onMouseLeave={e => { (e.currentTarget as HTMLElement).style.transform = ""; (e.currentTarget as HTMLElement).style.borderColor = ""; }}
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(200px,1fr))", gap: "1.5rem" }}>
+            {stats.map((stat, i) => (
+              <motion.div key={stat.label} {...iv(i * 0.1)}
+                style={{ ...S.goldCard, padding: "2.25rem 1.5rem", textAlign: "center" }}
               >
-                <div style={{ width: 52, height: 52, borderRadius: "0.75rem", background: "rgba(201,162,39,0.1)", display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 1.1rem", color: "#c9a227" }}>
-                  <Icon size={24} />
+                <div style={{ fontFamily: "var(--font-playfair,Georgia,serif)", fontSize: "clamp(2.8rem,5vw,4rem)", fontWeight: 700, color: "#c9a227", lineHeight: 1, marginBottom: "0.5rem" }}>
+                  {stat.value}
                 </div>
-                <h3 style={{ fontFamily: "var(--font-playfair,Georgia,serif)", fontSize: "1.05rem", fontWeight: 700, marginBottom: "0.5rem" }}>{title}</h3>
-                <p style={{ fontSize: "0.85rem", lineHeight: 1.65, color: "rgba(240,237,230,0.55)" }}>{desc}</p>
+                <div style={{ fontSize: "0.82rem", color: "rgba(240,237,230,0.65)", letterSpacing: "0.03em", lineHeight: 1.5 }}>
+                  {stat.label}
+                </div>
               </motion.div>
             ))}
           </div>
@@ -283,11 +320,11 @@ export default function Home() {
       <section id="guests" style={S.section()}>
         <div style={S.inner()}>
           <motion.div {...iv()} style={{ textAlign: "center", marginBottom: "4rem" }}>
-            <span style={S.label}>In the Presence of Our Esteemed Guests</span>
+            <span style={S.label}>Graced by Esteemed Guests</span>
             <h2 style={S.h2}>Distinguished <span className="gold-text">Guests</span></h2>
           </motion.div>
 
-          {/* Chief Guest — A. Revanth Reddy, full-width solo spotlight */}
+          {/* Chief Guest — full-width spotlight */}
           <motion.div {...iv(0.1)} style={{ ...S.goldCard, padding: "2.5rem 2rem", textAlign: "center", position: "relative", overflow: "hidden", marginBottom: "1.5rem" }}>
             <div style={{ position: "absolute", top: -50, right: -50, width: 220, height: 220, borderRadius: "50%", background: "radial-gradient(circle,rgba(201,162,39,0.1) 0%,transparent 70%)" }} />
             <div style={{ position: "relative", zIndex: 1 }}>
@@ -300,18 +337,211 @@ export default function Home() {
             </div>
           </motion.div>
 
-          {/* All other guests including Narender Reddy — grid */}
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(260px,1fr))", gap: "1.25rem" }}>
+          {/* All other guests — grid */}
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(260px,1fr))", gap: "1.25rem", marginBottom: "3rem" }}>
             {guests.slice(1).map((g, i) => (
               <motion.div key={g.name} {...iv(0.2 + i * 0.1)} style={{ ...S.card, padding: "1.75rem", textAlign: "center" }}>
                 <div style={{ width: 100, height: 100, borderRadius: "50%", overflow: "hidden", margin: "0 auto 1.1rem", border: "2px solid rgba(201,162,39,0.4)", boxShadow: "0 0 20px rgba(201,162,39,0.12)" }}>
                   <Image src={g.photo} alt={g.name} width={100} height={100} style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "top" }} />
                 </div>
                 <div style={{ display: "inline-block", background: "rgba(201,162,39,0.12)", color: "#c9a227", fontSize: "0.62rem", fontWeight: 700, letterSpacing: "0.18em", textTransform: "uppercase", padding: "0.3rem 0.9rem", borderRadius: 9999, marginBottom: "0.9rem", border: "1px solid rgba(201,162,39,0.3)" }}>{g.role}</div>
-                <h3 style={{ fontFamily: "var(--font-playfair,Georgia,serif)", fontSize: "0.92rem", fontWeight: 700, margin: "0 0 0.4rem", whiteSpace: "nowrap" }}>{g.name}</h3>
+                <h3 style={{ fontFamily: "var(--font-playfair,Georgia,serif)", fontSize: "0.92rem", fontWeight: 700, margin: "0 0 0.4rem" }}>{g.name}</h3>
                 <p style={{ fontSize: "0.82rem", color: "rgba(240,237,230,0.55)", margin: 0 }}>{g.designation}</p>
               </motion.div>
             ))}
+          </div>
+
+          {/* Dignitaries group photo */}
+          <motion.div {...iv(0.3)} style={{ borderRadius: "1.25rem", overflow: "hidden", border: "1px solid rgba(201,162,39,0.18)", boxShadow: "0 24px 64px rgba(0,0,0,0.4)" }}>
+            <Image
+              src="/images/taf2026/taf-dignitaries-group.webp"
+              alt="TAF 2026 — Distinguished dignitaries at the event"
+              width={1120}
+              height={560}
+              style={{ width: "100%", height: "auto", display: "block" }}
+            />
+          </motion.div>
+        </div>
+      </section>
+
+      <div className="divider" />
+
+      {/* ═══════════════ EVENT HIGHLIGHTS ═══════════════ */}
+      <section id="highlights" style={S.section()}>
+        <div style={S.inner()}>
+          <motion.div {...iv()} style={{ textAlign: "center", marginBottom: "4rem" }}>
+            <span style={S.label}>From the Stage</span>
+            <h2 style={S.h2}>Event <span className="gold-text">Highlights</span></h2>
+          </motion.div>
+
+          {/* Panel discussion — photo left, text right */}
+          <motion.div {...iv(0.1)} className="highlight-panel" style={{ display: "grid", gridTemplateColumns: "1.2fr 1fr", gap: "3rem", alignItems: "center", marginBottom: "4rem" }}>
+            <div style={{ borderRadius: "1.25rem", overflow: "hidden", border: "1px solid rgba(201,162,39,0.18)", boxShadow: "0 24px 64px rgba(0,0,0,0.4)" }}>
+              <Image
+                src="/images/taf2026/taf-panel-discussion.webp"
+                alt="TAF 2026 — Panel Discussion on Stage"
+                width={900}
+                height={600}
+                style={{ width: "100%", height: "auto", display: "block" }}
+              />
+            </div>
+            <div>
+              <span style={{ ...S.label, marginBottom: "1rem" }}>Knowledge Session</span>
+              <h3 style={{ fontFamily: "var(--font-playfair,Georgia,serif)", fontSize: "clamp(1.3rem,2.5vw,2rem)", fontWeight: 700, lineHeight: 1.25, margin: "0 0 1.25rem" }}>
+                Conversations That <span className="gold-text">Shape</span> the Future
+              </h3>
+              <p style={{ ...S.p, marginBottom: "1rem" }}>
+                A distinguished panel of architects and thought leaders took to the stage for an engaging dialogue on the evolving landscape of architecture in Telangana — from heritage preservation to sustainable urban design.
+              </p>
+              <p style={S.p}>
+                The session drew from four decades of collective experience, offering insights that resonated with the assembled fraternity of 500+ attendees.
+              </p>
+            </div>
+          </motion.div>
+
+          {/* Registration welcome — text left, photo right */}
+          <motion.div {...iv(0.15)} className="highlight-panel highlight-panel-reverse" style={{ display: "grid", gridTemplateColumns: "1fr 1.2fr", gap: "3rem", alignItems: "center" }}>
+            <div>
+              <span style={{ ...S.label, marginBottom: "1rem" }}>Arrival Experience</span>
+              <h3 style={{ fontFamily: "var(--font-playfair,Georgia,serif)", fontSize: "clamp(1.3rem,2.5vw,2rem)", fontWeight: 700, lineHeight: 1.25, margin: "0 0 1.25rem" }}>
+                A Warm <span className="gold-text">Welcome</span> for Every Architect
+              </h3>
+              <p style={S.p}>
+                The registration desk buzzed with excitement as architects from across Telangana arrived at Avasa Hotel. Welcome drinks, handcrafted programmes, and a warm team reception set the tone for a memorable evening.
+              </p>
+            </div>
+            <div style={{ borderRadius: "1.25rem", overflow: "hidden", border: "1px solid rgba(201,162,39,0.18)", boxShadow: "0 24px 64px rgba(0,0,0,0.4)" }}>
+              <Image
+                src="/images/taf2026/taf-registration-welcome.webp"
+                alt="TAF 2026 — Registration & Welcome"
+                width={900}
+                height={600}
+                style={{ width: "100%", height: "auto", display: "block" }}
+              />
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      <div className="divider" />
+
+      {/* ═══════════════ MOMENTS FROM TAF 2026 ═══════════════ */}
+      <section id="moments" style={S.section()}>
+        <div style={S.inner()}>
+          <motion.div {...iv()} style={{ textAlign: "center", marginBottom: "4rem" }}>
+            <span style={S.label}>Photo Gallery</span>
+            <h2 style={S.h2}>Moments from <span className="gold-text">TAF 2026</span></h2>
+            <p style={{ ...S.p, maxWidth: 560, margin: "0 auto" }}>
+              A visual journey through an evening the architectural community of Telangana will long remember.
+            </p>
+          </motion.div>
+
+          {/* Gallery grid */}
+          <div className="gallery-grid" style={{ display: "grid", gridTemplateColumns: "repeat(12,1fr)", gap: "1rem" }}>
+
+            {/* Row 1: wide audience (8 cols) + chief guest close-up (4 cols) */}
+            <motion.div {...iv(0.05)} className="gallery-wide" style={{ gridColumn: "1 / 9", borderRadius: "1rem", overflow: "hidden", border: "1px solid rgba(201,162,39,0.14)" }}>
+              <Image
+                src="/images/taf2026/taf-audience-wide.webp"
+                alt="TAF 2026 — Packed audience, Avasa Hotel ballroom"
+                width={900}
+                height={500}
+                style={{ width: "100%", height: "100%", objectFit: "cover", display: "block", minHeight: 260 }}
+              />
+            </motion.div>
+            <motion.div {...iv(0.1)} className="gallery-narrow" style={{ gridColumn: "9 / 13", borderRadius: "1rem", overflow: "hidden", border: "1px solid rgba(201,162,39,0.14)" }}>
+              <Image
+                src="/images/taf2026/taf-chief-guest.webp"
+                alt="TAF 2026 — Chief Guest"
+                width={500}
+                height={500}
+                style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "top", display: "block", minHeight: 260 }}
+              />
+            </motion.div>
+
+            {/* Row 2: networking (4 cols) + audience side wide (8 cols) */}
+            <motion.div {...iv(0.12)} className="gallery-narrow" style={{ gridColumn: "1 / 5", borderRadius: "1rem", overflow: "hidden", border: "1px solid rgba(201,162,39,0.14)" }}>
+              <Image
+                src="/images/taf2026/taf-networking-01.webp"
+                alt="TAF 2026 — Networking at Avasa Hotel"
+                width={500}
+                height={400}
+                style={{ width: "100%", height: "100%", objectFit: "cover", display: "block", minHeight: 220 }}
+              />
+            </motion.div>
+            <motion.div {...iv(0.15)} className="gallery-wide" style={{ gridColumn: "5 / 13", borderRadius: "1rem", overflow: "hidden", border: "1px solid rgba(201,162,39,0.14)" }}>
+              <Image
+                src="/images/taf2026/taf-closing-group-photo.webp"
+                alt="TAF 2026 — IIA Telangana Chapter team in traditional ikat vests"
+                width={900}
+                height={400}
+                style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center 20%", display: "block", minHeight: 220 }}
+              />
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      <div className="divider" />
+
+      {/* ═══════════════ AWARDS & RECOGNITION ═══════════════ */}
+      <section id="awards" style={S.section()}>
+        <div style={S.inner()}>
+          <motion.div {...iv()} style={{ textAlign: "center", marginBottom: "4rem" }}>
+            <span style={S.label}>Celebrating Excellence</span>
+            <h2 style={S.h2}>Awards &amp; <span className="gold-text">Recognition</span></h2>
+            <p style={{ ...S.p, maxWidth: 600, margin: "0 auto" }}>
+              TAF 2026 honoured architects and organisations whose work exemplifies design excellence, innovation, and social impact across Telangana.
+            </p>
+          </motion.div>
+
+          {/* Feature: felicitation — full width */}
+          <motion.div {...iv(0.1)} style={{ borderRadius: "1.25rem", overflow: "hidden", border: "1px solid rgba(201,162,39,0.22)", boxShadow: "0 32px 80px rgba(0,0,0,0.45)", marginBottom: "1.5rem", position: "relative" }}>
+            <Image
+              src="/images/taf2026/taf-felicitation-moment.webp"
+              alt="TAF 2026 — Felicitation Ceremony"
+              width={1120}
+              height={560}
+              style={{ width: "100%", height: "auto", display: "block" }}
+            />
+            <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, padding: "2.5rem 2rem 1.5rem", background: "linear-gradient(to top,rgba(10,24,76,0.95),transparent)" }}>
+              <p style={{ margin: 0, fontSize: "0.82rem", color: "rgba(240,237,230,0.75)" }}>
+                <span style={{ color: "#c9a227", fontWeight: 700 }}>Felicitation Ceremony</span>&nbsp;·&nbsp;Distinguished architects honoured with Pochampally ikat shawls — a tribute to Telangana&apos;s cultural excellence
+              </p>
+            </div>
+          </motion.div>
+
+          {/* Two smaller: sponsor trophies + group photo */}
+          <div className="awards-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1.25rem" }}>
+            <motion.div {...iv(0.15)} style={{ borderRadius: "1.25rem", overflow: "hidden", border: "1px solid rgba(201,162,39,0.18)", boxShadow: "0 16px 48px rgba(0,0,0,0.3)", position: "relative" }}>
+              <Image
+                src="/images/taf2026/taf-sponsor-recognition.webp"
+                alt="TAF 2026 — Sponsor & Award Recognition"
+                width={700}
+                height={500}
+                style={{ width: "100%", height: "auto", display: "block" }}
+              />
+              <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, padding: "1.5rem 1.25rem 1rem", background: "linear-gradient(to top,rgba(10,24,76,0.95),transparent)" }}>
+                <p style={{ margin: 0, fontSize: "0.78rem", color: "rgba(240,237,230,0.75)" }}>
+                  <span style={{ color: "#c9a227", fontWeight: 600 }}>Sponsor Recognition</span>&nbsp;·&nbsp;Gold &amp; bronze trophies presented to valued contributors
+                </p>
+              </div>
+            </motion.div>
+
+            <motion.div {...iv(0.2)} style={{ borderRadius: "1.25rem", overflow: "hidden", border: "1px solid rgba(201,162,39,0.18)", boxShadow: "0 16px 48px rgba(0,0,0,0.3)", position: "relative" }}>
+              <Image
+                src="/images/taf2026/taf-award-group-photo.webp"
+                alt="TAF 2026 — Award Recipients Group Photo"
+                width={700}
+                height={500}
+                style={{ width: "100%", height: "auto", display: "block" }}
+              />
+              <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, padding: "1.5rem 1.25rem 1rem", background: "linear-gradient(to top,rgba(10,24,76,0.95),transparent)" }}>
+                <p style={{ margin: 0, fontSize: "0.78rem", color: "rgba(240,237,230,0.75)" }}>
+                  <span style={{ color: "#c9a227", fontWeight: 600 }}>Award Recipients</span>&nbsp;·&nbsp;Group photograph with winners and organisers on stage
+                </p>
+              </div>
+            </motion.div>
           </div>
         </div>
       </section>
@@ -323,7 +553,7 @@ export default function Home() {
         <div style={S.inner(720)}>
           <motion.div {...iv()} style={{ textAlign: "center", marginBottom: "4rem" }}>
             <span style={S.label}>Programme</span>
-            <h2 style={S.h2}>Evening Schedule</h2>
+            <h2 style={S.h2}>How the Evening <span className="gold-text">Unfolded</span></h2>
           </motion.div>
 
           <div style={{ position: "relative", display: "flex", flexDirection: "column", gap: "0.875rem" }}>
@@ -338,7 +568,62 @@ export default function Home() {
               </motion.div>
             ))}
           </div>
+        </div>
+      </section>
 
+      <div className="divider" />
+
+      {/* ═══════════════ THANK YOU ═══════════════ */}
+      <section id="thankyou" style={{ position: "relative", overflow: "hidden" }}>
+        <div style={{ position: "absolute", inset: 0, zIndex: 0 }}>
+          <Image
+            src="/images/taf2026/taf-closing-group-photo.webp"
+            alt="TAF 2026 — IIA Telangana Chapter team"
+            fill
+            style={{ objectFit: "cover", objectPosition: "center 30%" }}
+          />
+          <div style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg,rgba(10,24,76,0.88) 0%,rgba(10,24,76,0.72) 40%,rgba(10,24,76,0.95) 100%)" }} />
+        </div>
+
+        <div style={{ ...S.inner(760), position: "relative", zIndex: 1, padding: "9rem 1.75rem", textAlign: "center" }}>
+          <motion.div {...iv()}>
+            <span style={S.label}>With Gratitude</span>
+            <h2 style={{ ...S.h2, fontSize: "clamp(2rem,5vw,3.6rem)", marginBottom: "1.5rem" }}>
+              Thank You for <span className="gold-text">Being Part</span><br />of TAF 2026
+            </h2>
+            <p style={{ ...S.p, maxWidth: 600, margin: "0 auto 1.5rem", fontSize: "1.05rem" }}>
+              To every architect, dignitary, speaker, sponsor, volunteer, and guest — TAF 2026 was extraordinary because you were there. The Telangana Chapter of the IIA is deeply grateful for your presence, your passion, and your belief in the power of architecture to transform lives.
+            </p>
+            <p style={{ ...S.p, maxWidth: 520, margin: "0 auto", fontSize: "0.92rem", fontStyle: "italic", color: "rgba(240,204,90,0.65)" }}>
+              &ldquo;Architecture begins where engineering ends.&rdquo;&nbsp;&mdash;&nbsp;Walter Gropius
+            </p>
+          </motion.div>
+        </div>
+      </section>
+
+      <div className="divider" />
+
+      {/* ═══════════════ ABOUT IIA TELANGANA CHAPTER ═══════════════ */}
+      <section id="about-iia" style={S.section()}>
+        <div style={S.inner(860)}>
+          <motion.div {...iv()} style={{ textAlign: "center", marginBottom: "3rem" }}>
+            <span style={S.label}>The Organisation</span>
+            <h2 style={S.h2}>About IIA <span className="gold-text">Telangana Chapter</span></h2>
+          </motion.div>
+
+          <motion.div {...iv(0.1)} style={{ ...S.card, padding: "3rem", textAlign: "center" }}>
+            <div style={{ display: "flex", justifyContent: "center", marginBottom: "2rem" }}>
+              <div style={{ filter: "drop-shadow(0 0 20px rgba(201,162,39,0.4))" }}>
+                <Image src="/iia-tc-seal.png" alt="IIA Telangana Chapter" width={100} height={100} style={{ width: 88, height: 88, objectFit: "contain" }} />
+              </div>
+            </div>
+            <p style={{ ...S.p, maxWidth: 680, margin: "0 auto 1.25rem" }}>
+              The Indian Institute of Architects (IIA), Telangana Chapter, is the foremost professional body representing architects across the state of Telangana. Established as a chapter of the national IIA — founded in 1917 — the Telangana Chapter has spent a decade championing architectural excellence, professional development, and the cultural legacy of built environments in the region.
+            </p>
+            <p style={{ ...S.p, maxWidth: 680, margin: "0 auto" }}>
+              Through annual events like the Telangana Architecture Festival, continuing education programmes, and policy advocacy, the Chapter advances the architectural profession and serves the public interest by promoting design of the highest quality.
+            </p>
+          </motion.div>
         </div>
       </section>
 
@@ -357,7 +642,7 @@ export default function Home() {
               <motion.div key={ob.name} {...iv(i * 0.08)} style={{ ...S.goldCard, padding: "1.6rem 1.75rem", display: "flex", flexDirection: "column", gap: "0.35rem" }}>
                 <span style={{ fontSize: "0.65rem", fontWeight: 700, letterSpacing: "0.18em", textTransform: "uppercase", color: "#c9a227" }}>{ob.role}</span>
                 <h3 style={{ fontFamily: "var(--font-playfair,Georgia,serif)", fontSize: "1.1rem", fontWeight: 700, margin: "0.1rem 0 0.5rem" }}>{ob.name}</h3>
-                <a href={`tel:${ob.phone.replace(/\s/g,"")}`} style={{ display: "flex", alignItems: "center", gap: "0.45rem", fontSize: "0.82rem", color: "rgba(240,237,230,0.55)", textDecoration: "none" }}>
+                <a href={`tel:${ob.phone.replace(/\s/g, "")}`} style={{ display: "flex", alignItems: "center", gap: "0.45rem", fontSize: "0.82rem", color: "rgba(240,237,230,0.55)", textDecoration: "none" }}>
                   <Phone size={12} color="#c9a227" />{ob.phone}
                 </a>
               </motion.div>
@@ -382,6 +667,28 @@ export default function Home() {
       </section>
 
       <Footer />
+
+      {/* ── Responsive styles ── */}
+      <style>{`
+        .about-grid { grid-template-columns: 1fr 1fr; gap: 5rem; }
+        .highlight-panel { grid-template-columns: 1.2fr 1fr; }
+        .highlight-panel-reverse { grid-template-columns: 1fr 1.2fr; }
+        .gallery-grid { grid-template-columns: repeat(12,1fr); }
+        .gallery-wide { }
+        .gallery-narrow { }
+        .awards-grid { grid-template-columns: 1fr 1fr; }
+
+        @media (max-width: 767px) {
+          .about-grid { grid-template-columns: 1fr !important; gap: 2.5rem !important; }
+          .highlight-panel { grid-template-columns: 1fr !important; gap: 2rem !important; }
+          .highlight-panel-reverse { grid-template-columns: 1fr !important; gap: 2rem !important; }
+          .highlight-panel-reverse > div:first-child { order: 2; }
+          .highlight-panel-reverse > div:last-child { order: 1; }
+          .gallery-wide { grid-column: 1 / -1 !important; }
+          .gallery-narrow { grid-column: 1 / -1 !important; }
+          .awards-grid { grid-template-columns: 1fr !important; }
+        }
+      `}</style>
     </div>
   );
 }
