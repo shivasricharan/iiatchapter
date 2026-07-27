@@ -66,11 +66,6 @@ export default function Navbar() {
               {l.label}
             </a>
           ))}
-          <Link href="/register">
-            <button className="btn-primary" style={{ padding: "0.6rem 1.4rem", fontSize: "0.83rem" }}>
-              Register
-            </button>
-          </Link>
           <div style={{ display: "flex", flexDirection: "column", lineHeight: 1.45, paddingLeft: "0.75rem", borderLeft: "1px solid rgba(201,162,39,0.25)" }}>
             <span style={{ fontSize: "0.65rem", color: "rgba(240,237,230,0.4)", letterSpacing: "0.08em", textTransform: "uppercase", marginBottom: "0.1rem" }}>Contact</span>
             <a href="tel:+919550345867" style={{ fontSize: "0.75rem", color: "#c9a227", textDecoration: "none", fontWeight: 600, lineHeight: 1.4 }}>95503 45867</a>

@@ -30,39 +30,6 @@ const stats = [
   { value: "1",    label: "Day of Knowledge, Networking & Celebration" },
 ];
 
-const guests = [
-  {
-    name: "A. Revanth Reddy Garu",
-    role: "Chief Guest",
-    designation: "Hon'ble Chief Minister of Telangana",
-    photo: "/revanth.png",
-  },
-  {
-    name: "Shri. Vem. Narender Reddy Garu",
-    role: "Special Guest",
-    designation: "Hon'ble Member of Parliament, Rajya Sabha",
-    photo: "/venkataramana.png",
-  },
-  {
-    name: "Ar. Vilas Avachat Garu",
-    role: "Guest of Honour",
-    designation: "President, IIA National, Mumbai",
-    photo: "/vilas.png",
-  },
-  {
-    name: "Ar. N. Padmavathi Reddy Garu",
-    role: "Special Guest",
-    designation: "Hon'ble Member of Legislative Assembly, Govt. of Telangana",
-    photo: "/padmavathi.png",
-  },
-  {
-    name: "Ar. Naveen Yadav Garu",
-    role: "Special Guest",
-    designation: "Hon'ble Member of Legislative Assembly, Govt. of Telangana",
-    photo: "/naveen.png",
-  },
-];
-
 const schedule = [
   { time: "05:00 PM", event: "Registration & Welcome Drinks" },
   { time: "06:00 PM", event: "Inauguration Ceremony" },
@@ -311,56 +278,6 @@ export default function Home() {
               </motion.div>
             ))}
           </div>
-        </div>
-      </section>
-
-      <div className="divider" />
-
-      {/* ═══════════════ DISTINGUISHED GUESTS ═══════════════ */}
-      <section id="guests" style={S.section()}>
-        <div style={S.inner()}>
-          <motion.div {...iv()} style={{ textAlign: "center", marginBottom: "4rem" }}>
-            <span style={S.label}>Graced by Esteemed Guests</span>
-            <h2 style={S.h2}>Distinguished <span className="gold-text">Guests</span></h2>
-          </motion.div>
-
-          {/* Chief Guest — full-width spotlight */}
-          <motion.div {...iv(0.1)} style={{ ...S.goldCard, padding: "2.5rem 2rem", textAlign: "center", position: "relative", overflow: "hidden", marginBottom: "1.5rem" }}>
-            <div style={{ position: "absolute", top: -50, right: -50, width: 220, height: 220, borderRadius: "50%", background: "radial-gradient(circle,rgba(201,162,39,0.1) 0%,transparent 70%)" }} />
-            <div style={{ position: "relative", zIndex: 1 }}>
-              <div style={{ width: 140, height: 140, borderRadius: "50%", overflow: "hidden", margin: "0 auto 1.5rem", border: "3px solid rgba(201,162,39,0.55)", boxShadow: "0 0 36px rgba(201,162,39,0.25)" }}>
-                <Image src={guests[0].photo} alt={guests[0].name} width={140} height={140} style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "top" }} />
-              </div>
-              <div style={{ display: "inline-block", background: "#c9a227", color: "#080808", fontSize: "0.65rem", fontWeight: 800, letterSpacing: "0.2em", textTransform: "uppercase", padding: "0.35rem 1.1rem", borderRadius: 9999, marginBottom: "1rem" }}>Chief Guest</div>
-              <h3 style={{ fontFamily: "var(--font-playfair,Georgia,serif)", fontSize: "clamp(1.4rem,3vw,2rem)", fontWeight: 700, margin: "0 0 0.5rem" }}>{guests[0].name}</h3>
-              <p style={{ color: "#c9a227", fontSize: "0.95rem", fontWeight: 600, margin: 0 }}>{guests[0].designation}</p>
-            </div>
-          </motion.div>
-
-          {/* All other guests — grid */}
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(260px,1fr))", gap: "1.25rem", marginBottom: "3rem" }}>
-            {guests.slice(1).map((g, i) => (
-              <motion.div key={g.name} {...iv(0.2 + i * 0.1)} style={{ ...S.card, padding: "1.75rem", textAlign: "center" }}>
-                <div style={{ width: 100, height: 100, borderRadius: "50%", overflow: "hidden", margin: "0 auto 1.1rem", border: "2px solid rgba(201,162,39,0.4)", boxShadow: "0 0 20px rgba(201,162,39,0.12)" }}>
-                  <Image src={g.photo} alt={g.name} width={100} height={100} style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "top" }} />
-                </div>
-                <div style={{ display: "inline-block", background: "rgba(201,162,39,0.12)", color: "#c9a227", fontSize: "0.62rem", fontWeight: 700, letterSpacing: "0.18em", textTransform: "uppercase", padding: "0.3rem 0.9rem", borderRadius: 9999, marginBottom: "0.9rem", border: "1px solid rgba(201,162,39,0.3)" }}>{g.role}</div>
-                <h3 style={{ fontFamily: "var(--font-playfair,Georgia,serif)", fontSize: "0.92rem", fontWeight: 700, margin: "0 0 0.4rem" }}>{g.name}</h3>
-                <p style={{ fontSize: "0.82rem", color: "rgba(240,237,230,0.55)", margin: 0 }}>{g.designation}</p>
-              </motion.div>
-            ))}
-          </div>
-
-          {/* Dignitaries group photo */}
-          <motion.div {...iv(0.3)} style={{ borderRadius: "1.25rem", overflow: "hidden", border: "1px solid rgba(201,162,39,0.18)", boxShadow: "0 24px 64px rgba(0,0,0,0.4)" }}>
-            <Image
-              src="/images/taf2026/taf-dignitaries-group.webp"
-              alt="TAF 2026 — Distinguished dignitaries at the event"
-              width={1120}
-              height={560}
-              style={{ width: "100%", height: "auto", display: "block" }}
-            />
-          </motion.div>
         </div>
       </section>
 
