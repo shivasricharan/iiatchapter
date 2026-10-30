@@ -15,17 +15,9 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "The Indian Institute of Architects, Telangana Chapter & TAF",
+  title: "The Indian Institute of Architects, Telangana Chapter",
   description:
-    "Join us for the Telangana Architecture Festival — a grand celebration of architecture, design, and professional excellence by the Indian Institute of Architects, Telangana Chapter. June 12, 2026.",
-  keywords:
-    "Telangana Architecture Festival, IIA, Indian Institute of Architects, TAF 2026, Architecture, Hyderabad",
-  openGraph: {
-    title: "Telangana Architecture Festival 2026",
-    description:
-      "A grand celebration of architecture and design. June 12, 2026 | IIA Telangana Chapter",
-    type: "website",
-  },
+    "The Indian Institute of Architects, Telangana Chapter is creating a renewed digital experience for the architectural community of Telangana.",
 };
 
 export default function RootLayout({
@@ -35,7 +27,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${playfair.variable} ${inter.variable} h-full`}>
-      <body className="antialiased min-h-full">{children}</body>
+      <body>{children}</body>
     </html>
   );
 }
